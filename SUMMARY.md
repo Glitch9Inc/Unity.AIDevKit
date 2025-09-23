@@ -88,7 +88,8 @@
     * [List Custom Models](fluent-api-tasks/provider-api-tasks/model-tasks/list-custom-models.md)
     * [Delete Model](fluent-api-tasks/provider-api-tasks/model-tasks/delete-model.md)
   * [Voice Tasks](fluent-api-tasks/provider-api-tasks/voice-tasks/README.md)
-    * [Voice Tasks](fluent-api-tasks/provider-api-tasks/voice-tasks/voice.md)
+    * [List Voices](fluent-api-tasks/provider-api-tasks/voice-tasks/list-voices.md)
+    * [List Custom Voices](fluent-api-tasks/provider-api-tasks/voice-tasks/list-custom-voices.md)
 
 ## Unity Components
 

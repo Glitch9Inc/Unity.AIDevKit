@@ -7,7 +7,9 @@ icon: badge-check
 
 returns [`IModelData`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.IModelData.html)
 
-Fetch a **custom** (org/project-scoped) model by ID.
+Fetch a **custom** (org/project-scoped) model by ID
+
+---
 
 ## Basic Usage
 
@@ -19,6 +21,8 @@ IModelData custom = await Api.OpenAI
     .GetCustomModel("ft:gpt-4o:org:2025-09-01")
     .ExecuteAsync();
 ```
+
+---
 
 ## Notes
 

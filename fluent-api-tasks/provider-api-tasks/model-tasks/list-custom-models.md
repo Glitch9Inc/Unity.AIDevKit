@@ -9,6 +9,8 @@ returns [`IModelData[]`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDev
 
 Enumerate **custom** (org/project) models with cursor pagination.
 
+---
+
 ## Basic Usage
 
 ```csharp
@@ -18,6 +20,8 @@ IModelData[] customModels = await Api.OpenAI
     .ListCustomModels()
     .ExecuteAsync();
 ```
+
+---
 
 ## With `CursorQuery`
 
@@ -30,6 +34,8 @@ IModelData[] page1 = await Api.OpenAI.ListCustomModels(q).ExecuteAsync;
 q.After = page1.Length > 0 ? page1[^1].Id : null;
 IModelData[] page2 = await Api.OpenAI.ListCustomModels(q).ExecuteAsync();
 ```
+
+---
 
 ## Notes
 

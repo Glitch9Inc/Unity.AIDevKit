@@ -7,7 +7,9 @@ icon: list
 
 returns [`IModelData[]`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.IModelData.html)
 
-Enumerate **base** (provider) models. Supports cursor pagination via `CursorQuery`.
+Enumerate **base** (provider) models. Supports cursor pagination via `CursorQuery`
+
+---
 
 ## Basic Usage
 
@@ -18,6 +20,8 @@ IModelData[] models = await Api.OpenAI
     .ListModels()
     .ExecuteAsync();
 ```
+
+---
 
 ## With `CursorQuery` (pagination & sort)
 
@@ -40,6 +44,8 @@ IModelData[] second = await Api.OpenAI.ListModels(q).ExecuteAsync();
 q.Before = first.Length > 0 ? first[0].Id : null;
 IModelData[] prev = await Api.OpenAI.ListModels(q).ExecuteAsync();
 ```
+
+---
 
 ## Tips
 

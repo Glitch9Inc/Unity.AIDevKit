@@ -9,6 +9,8 @@ returns `bool`
 
 Delete a **custom** model by ID. Not all providers support model deletion.
 
+---
+
 ## Basic Usage
 
 ```csharp
@@ -20,6 +22,8 @@ bool ok = await Api.OpenAI
 
 if (!ok) DevLog.Warning("Delete rejected or not supported.");
 ```
+
+---
 
 ## Notes
 
