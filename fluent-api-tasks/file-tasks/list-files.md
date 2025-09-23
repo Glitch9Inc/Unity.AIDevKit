@@ -1,7 +1,7 @@
 ---
 description: List uploaded files from AI providers with provider-specific query filters
 icon: list-tree
----------------
+---
  
 # ListFiles
 

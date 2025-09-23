@@ -9,59 +9,96 @@ returns [`IUploadedFile`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDe
 
 Upload text files, images (`Texture2D`), or audio clips (`AudioClip`) via **multipart form-data** to AI providers.
 
-> Internally, all uploads are sent as `MimeType.MultipartFormData`. The result is normalized into `IUploadedFile`.
+> All uploads are sent as `MimeType.MultipartFormData`. The result is normalized into `IUploadedFile`.
 
 ---
 
-## Basic Usage (Local File)
+## Basic Usage (local path/file)
 
 ```csharp
-using UnityEngine;
 using Glitch9.AIDevKit;
+using Glitch9.IO.Files;
 
-// Any IFile implementation is supported (disk, memory, stream)
-IFile file = new LocalDiskFile("C:/datasets/train.jsonl", MimeType.ApplicationJson);
+// Use any IFile implementation. LocalFile covers raw bytes on disk.
+IFile file = new LocalFile("C:/datasets/train.jsonl", mimeType: MimeType.ApplicationJson);
 
-IUploadedFile uploaded = await new UploadFileTask(Api.OpenAI, file)
+IUploadedFile uploaded = await Api.OpenAI
+    .UploadFile(file)                                   // <- convenience form
     .SetOpenAIUploadPurpose(OpenAITypes.UploadPurpose.Assistants) // default is Assistants
     .ExecuteAsync();
 
-Debug.Log($"Uploaded: {uploaded.Id} ({uploaded.FileName}, {uploaded.SizeBytes} bytes)");
+DevLog.Info($"Uploaded: {uploaded.Id} ({uploaded.FileName}, {uploaded.ByteSize} bytes)");
 ```
 
 ---
 
-## Upload an Image (Texture2D)
+## Upload a Unity `Texture2D`
 
 ```csharp
-Texture2D tex = ...; // Load or generate at runtime
+using Glitch9.AIDevKit;
+using Glitch9.IO.Files;
+using UnityEngine;
 
-IUploadedFile uploadedImage = await new UploadFileTask(Api.OpenAI, tex)
+Texture2D tex = /* load or generate at runtime */;
+
+// File<T> automatically infers MIME via MIMETypeUtil and encodes Texture2D -> PNG on upload.
+IFile imageFile = new File<Texture2D>(tex, "C:/tmp/snapshot.png");
+
+IUploadedFile img = await Api.OpenAI
+    .UploadFile(imageFile)
     .SetOpenAIUploadPurpose(OpenAITypes.UploadPurpose.Assistants)
     .ExecuteAsync();
 
-Debug.Log($"Image uploaded: {uploadedImage.Id}");
+DevLog.Info($"Image uploaded: {img.Id}");
 ```
 
 ---
 
-## Upload an AudioClip
+## Upload an `AudioClip`
 
 ```csharp
-AudioClip clip = ...; // Load from mic or asset
+using Glitch9.AIDevKit;
+using Glitch9.IO.Files;
+using UnityEngine;
 
-IUploadedFile uploadedAudio = await new UploadFileTask(Api.OpenAI, clip)
+AudioClip clip = /* from mic or asset */;
+
+// File<T> encodes AudioClip -> WAV on upload.
+IFile audioFile = new File<AudioClip>(clip, "C:/tmp/recording.wav");
+
+IUploadedFile aud = await Api.OpenAI
+    .UploadFile(audioFile)
     .SetOpenAIUploadPurpose(OpenAITypes.UploadPurpose.Assistants)
     .ExecuteAsync();
 
-Debug.Log($"Audio uploaded: {uploadedAudio.Id}");
+DevLog.Info($"Audio uploaded: {aud.Id}");
 ```
 
 ---
 
-## Google Upload (with Metadata)
+## Upload from in-memory bytes (no asset)
 
 ```csharp
+using Glitch9.AIDevKit;
+using Glitch9.IO.Files;
+
+byte[] payload = System.Text.Encoding.UTF8.GetBytes("{\"hello\":\"world\"}");
+IFile mem = new LocalFile(payload, "C:/virtual/data.json", mimeType: MimeType.ApplicationJson);
+
+var up = await Api.OpenAI
+    .UploadFile(mem)
+    .SetOpenAIUploadPurpose(OpenAITypes.UploadPurpose.Batch)
+    .ExecuteAsync();
+```
+
+---
+
+## Google upload (with metadata)
+
+```csharp
+using Glitch9.AIDevKit;
+using Glitch9.IO.Files;
+
 var metadata = new GoogleTypes.UploadMetadata
 {
     Name = "my-dataset.jsonl",
@@ -69,57 +106,69 @@ var metadata = new GoogleTypes.UploadMetadata
     MimeType = MimeType.ApplicationJson
 };
 
-IFile file = new LocalDiskFile("C:/datasets/train.jsonl", MimeType.ApplicationJson);
+IFile file = new LocalFile("C:/datasets/train.jsonl", mimeType: MimeType.ApplicationJson);
 
-IUploadedFile gcsFile = await new UploadFileTask(Api.Google, file)
+IUploadedFile gcs = await Api.Google
+    .UploadFile(file)               // provider is fixed by the Api facade
     .SetGoogleUploadMetadata(metadata)
     .ExecuteAsync();
 
-Debug.Log($"GCS uploaded: {gcsFile.Uri}");
+DevLog.Info($"GCS uploaded: {gcs.Uri}");
 ```
 
 ---
 
-## Provider Options
+## Provider options
 
 * **OpenAI**
 
   * `SetOpenAIUploadPurpose(OpenAITypes.UploadPurpose purpose)`
-  * Common purposes: `Assistants` (default), `FineTuning`, `Batch`, `Vision`
-  * Automatically sets `Api = Api.OpenAI`
+  * Common: `Assistants` (default), `FineTuning`, `Batch`, `Vision`
+  * Convenience call: `Api.OpenAI.UploadFile(IFile)`
 
 * **Google**
 
   * `SetGoogleUploadMetadata(GoogleTypes.UploadMetadata metadata)`
-  * Metadata includes name, description, MIME type, and visibility
-  * Automatically sets `Api = Api.Google`
+  * Convenience call: `Api.Google.UploadFile(IFile)`
 
 ---
 
-## Notes & Best Practices
+## Notes & best practices
 
-* **Required parameter**: You must use one of the constructors:
+* **Constructor inputs** (internals): You can create uploads from
 
-  * `UploadFileTask(Api api, IFile file)`
-  * `UploadFileTask(Api api, Texture2D image)`
-  * `UploadFileTask(Api api, AudioClip clip)`
+  * `IFile` (e.g., `LocalFile`, `File<Texture2D>`, `File<AudioClip>`)
+  * `Texture2D` / `AudioClip` via `File<T>` which handles encoding (PNG/WAV)
+  * In-memory bytes via `new LocalFile(byte[], path, mimeType: …)`
+* **MIME**:
 
-* **MIME type**: Always provide the correct MIME type for `IFile`.
+  * `File<T>` auto-infers MIME via `MIMETypeUtil`.
+  * `LocalFile` should be given an explicit `MimeType` when possible.
+* **Asset loading**:
 
-* **Size limits**: Each provider has maximum file size and format restrictions. Use chunking or compression if needed.
+  * `File<T>` lazily loads/encodes assets; `EnsureAssetLoadedAsync()` if you need it preloaded.
+* **Size limits**:
 
-* **Async**: `ExecuteAsync()` returns `UniTask<IUploadedFile>`. For progress, subscribe to higher-level `TaskManager` events.
+  * Providers enforce max size/format. Chunk or compress large payloads.
+* **Async**:
 
-* **Error handling**: Handle exceptions for network errors, invalid formats, or auth failures.
+  * `ExecuteAsync()` returns `UniTask<IUploadedFile>`. For progress, use your `TaskManager` hooks.
+* **Error handling**:
+
+  * Check `IFile.LastError` after reads and wrap uploads with `try/catch`.
 
 ---
 
-## Example: Upload and Use in Fine-Tuning
+## Example: upload → fine-tune
 
 ```csharp
-IFile prompts = new LocalDiskFile("C:/work/prompts.jsonl", MimeType.ApplicationJson);
+using Glitch9.AIDevKit;
+using Glitch9.IO.Files;
 
-var uploaded = await new UploadFileTask(Api.OpenAI, prompts)
+IFile training = new LocalFile("C:/work/prompts.jsonl", mimeType: MimeType.ApplicationJson);
+
+var uploaded = await Api.OpenAI
+    .UploadFile(training)
     .SetOpenAIUploadPurpose(OpenAITypes.UploadPurpose.FineTuning)
     .ExecuteAsync();
 
