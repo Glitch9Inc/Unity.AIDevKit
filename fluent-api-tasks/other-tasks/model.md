@@ -81,7 +81,7 @@ IModelData[] baseModels   = await Api.OpenAI.ListModels().ExecuteAsync();
 IModelData[] customModels = await Api.OpenAI.ListCustomModels().ExecuteAsync();
 ```
 
-### With `CursorQuery` (pagination & sort)
+### With `CursorQuery (OpenAI)` (pagination & sort)
 
 ```csharp
 using Glitch9.IO.Networking.RESTApi;
@@ -136,18 +136,3 @@ if (!ok) DevLog.Warning("Delete rejected or not supported.");
 * **Pagination**: Cache cursors (`After`/`Before`) if you need stable navigation.
 * **Resilience**: Wrap calls in `try/catch`. Surface partial lists gracefully.
 * **Parity**: Not all providers expose the exact same fields; `IModelData` normalizes common ones.
-
----
-
-## API Surface (tasks behind the facade)
-
-* `GetModelTask(Api api, string modelId)` → `IModelData`
-* `ListModelsTask(Api api)` + `.SetQuery(CursorQuery)` → `IModelData[]`
-* `GetCustomModelTask(Api api, string modelId)` → `IModelData`
-* `ListCustomModelsTask(Api api)` + `.SetQuery(CursorQuery)` → `IModelData[]`
-* `DeleteModelTask(Api api, string modelId)` → `bool`
-
-> Prefer the **convenience form**:
-> `Api.OpenAI.GetModel(id)`, `Api.OpenAI.ListModels(query)`,
-> `Api.OpenAI.GetCustomModel(id)`, `Api.OpenAI.ListCustomModels(query)`,
-> `Api.OpenAI.DeleteModel(id)` — all followed by `.ExecuteAsync()`.
