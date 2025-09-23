@@ -82,7 +82,11 @@
     * [Delete File](fluent-api-tasks/provider-api-tasks/file-tasks/delete-file.md)
     * [List Files](fluent-api-tasks/provider-api-tasks/file-tasks/list-files.md)
   * [Model Tasks](fluent-api-tasks/provider-api-tasks/model-tasks/README.md)
-    * [Model Tasks](fluent-api-tasks/provider-api-tasks/model-tasks/model.md)
+    * [Get Model](fluent-api-tasks/provider-api-tasks/model-tasks/get-model.md)
+    * [List Models](fluent-api-tasks/provider-api-tasks/model-tasks/list-models.md)
+    * [Get Custom Model](fluent-api-tasks/provider-api-tasks/model-tasks/get-custom-model.md)
+    * [List Custom Models](fluent-api-tasks/provider-api-tasks/model-tasks/list-custom-models.md)
+    * [Delete Model](fluent-api-tasks/provider-api-tasks/model-tasks/delete-model.md)
   * [Voice Tasks](fluent-api-tasks/provider-api-tasks/voice-tasks/README.md)
     * [Voice Tasks](fluent-api-tasks/provider-api-tasks/voice-tasks/voice.md)
 
