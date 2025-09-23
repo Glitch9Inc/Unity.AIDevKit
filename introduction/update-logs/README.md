@@ -4,6 +4,152 @@ icon: calendar-lines-pen
 
 # Update Logs
 
+#### v.4.6.5 (Sep 21, 2025) – *Preview*
+
+* Implemented **Responses API**
+* Implemented **MCP Tools**
+* Implemented **Local Shell Tools**
+
+#### v.4.6.2 (Sep 2025)
+
+* Internal unitypackage build (`40602`) / packaging updates
+
+#### v.4.5.32 (Sep 03, 2025) – *Pre-Release*
+
+* Added **Voice Changer Window** (new Generator Window)
+* Upgraded **Generator Window UIs**
+* Fixed **Assistant Profile inspector** issues
+
+#### v.4.5.27 (Aug 30, 2025)
+
+* Fixed missing marker issues
+* Fixed initial setup issues
+* Cleaned up initial setup process
+
+#### v.4.5.13 (Aug 22, 2025) – *Pre-Release*
+
+* Fixed **assistant chatbot** demo scene
+* Fixed **realtime chatbot** demo scene
+* Upgraded **MonoBehaviour** and **ScriptableObject** custom editors
+
+#### v.4.5.11 (Aug 22, 2025)
+
+* Fixed broken sample scenes
+* Upgraded model asset inspector
+
+#### v.4.5.09 (Aug 22, 2025) – *Hotfix*
+
+* Generator Window hotfixes
+
+#### v.4.5.06 (Aug 22, 2025) – *Pre-Release*
+
+* Merged **Pro assembly** into **Core** (simpler setup)
+* Added **Audio Clip–based Prompt Generator** window
+* Fixed streaming chat not pushing response messages
+* Added Editor session info formatter to Anthropic chat requests
+* Polished & stabilized GenAI Windows
+* Verified Unity 2022 compatibility
+
+#### v.4.2.22 (Aug 10, 2025) – *Preview*
+
+* Voice Library GUI updates
+* Voice Metadata system upgrades
+* New **Locale** management system (replaces `SystemLanguage`, stays compatible)
+
+#### v.4.2.21 (Aug 10, 2025) – *Preview*
+
+* Test implementation of **Microsoft Azure TTS/STT** (experimental)
+
+#### v.4.2.20 (Aug 08, 2025) – *Preview*
+
+* Applied Chatbot/Assistant naming rules
+
+  * Components: `Chatbot` (e.g., Realtime Assistant → Realtime Chatbot)
+  * Profiles: Assistant Profiles
+* Removed icons from foldout headers
+* Various editor GUI refinements
+
+#### v.4.2.19 (Aug 07, 2025) – *Hotfix*
+
+* Cleaned up inspectors
+* Fixed model ID issue in usage tracking (ChatSession)
+
+#### v.4.2.18 (Aug 07, 2025) – *Preview*
+
+* Introduced **Generative Profile System**
+* Added ScriptableObject assets:
+
+  * Local Chatbot Profile
+  * Assistants API Chatbot Profile
+  * Realtime Assistant Profile
+* Implemented custom inspectors for new profiles
+* Renamed: `VoiceGender` → `Gender`, `Chatbot` → `LocalChatbot`, `ChatbotBase` → `Chatbot`, `Moderator` → `ContentModerator`
+* Enhanced ScriptableObject debugging tools; removed redundant editor code
+
+#### v.4.2.17 (Aug 06, 2025) – *Hotfix*
+
+* Added fallback codes for **ProjectContext** (ScriptableObject)
+
+#### v.4.2.16 (Aug 05, 2025) – *Preview*
+
+* Added **Artificial Analysis API** (internal)
+* Refactored model metadata resolvers
+
+#### v.4.2.15 (Aug 06, 2025) – *Hotfix*
+
+* Fixed chat profile not applying to Chatbot
+
+#### v.4.2.14 (Aug 05, 2025) – *Hotfix*
+
+* Added fallback codes to Chatbot, ChatSession, ChatSessionController
+
+#### v.4.2.13 (Aug 05, 2025) – *Hotfix*
+
+* Fixed prompt checks
+
+#### v.4.2.12 (Aug 04, 2025) – *Preview*
+
+* Added **Realtime Assistant Profile**
+* Refactored Realtime Assistant
+* Refactored Chatbot (Assistants API)
+* Removed legacy Assistant lifecycle events
+* Added new Assistant status event
+* Added Conversation Management support
+* Redesigned FileManager editor UI
+* Added Assistant Thread TreeView editor window
+
+#### v.4.2.11 (Aug 01, 2025) – *Preview*
+
+* Refactored **UnityEvents** & custom inspector handling
+* Improved UnityEvent serialization & GUI rendering
+* Added editor icons
+* Renamed collections: `ReferencedDictionary` → `SerializableDictionary`, `Metadata` → `SerializableMetadata`, `Database` → `SerializableDatabase`
+
+#### v.4.2.10 (Jul 29, 2025) – *Preview*
+
+* Continuing Pro sample fixes
+* Removed unused editor icons
+* Organized editor icons & GUI labels
+
+#### v.4.2.9 (Jul 29, 2025) – *Preview*
+
+* Finished new inspector designs
+* Fixed WebGL build issues (not fully tested)
+* Added/replaced editor icons
+
+#### v.4.2.8 (Jul 28, 2025) – *Hotfix*
+
+* Minor fixes (“dumb mistakes”)
+
+#### v.4.2.7 (Jul 28, 2025) – *Preview*
+
+* New inspector designs (almost done)
+
+#### v.4.2.6 (Jul 28, 2025) – *Preview*
+
+* Working on new inspector designs (not finished)
+* Separated **Speech Recorder** from AI components that use recording
+
 #### v.4.2.5 (Jul 28, 2025) – *Preview*
 
 * WIP: new **Inspector designs** (not finished)
