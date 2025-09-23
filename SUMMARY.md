@@ -29,6 +29,7 @@
 * [Add-ons](introduction/add-ons/README.md)
   * [Spreadsheet (Localization)](introduction/add-ons/spreadsheet-localization.md)
 * [Update Logs](introduction/update-logs/README.md)
+  * [AI Dev Kit v3](introduction/update-logs/ai-dev-kit-v3.md)
   * [AI Dev Kit v2](introduction/update-logs/ai-dev-kit-v2.md)
   * [AI Dev Kit v1](introduction/update-logs/ai-dev-kit-v1.md)
 
