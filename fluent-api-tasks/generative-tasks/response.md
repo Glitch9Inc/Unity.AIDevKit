@@ -5,7 +5,7 @@ icon: message-pen
 
 # Response
 
-returns[`ChatCompletione`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.ChatCompletion.html)
+returns[`ChatCompletion`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.ChatCompletion.html)
 
 Response generation is one of the core uses of generative AI. In the GENTask system, the [**`GENResponse`**](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.GENResponseTask.html)   is used to generate text (for example, completing a prompt or answering a question). This task sends a prompt to a Large Language Model (LLM) and returns a response.
 
@@ -78,7 +78,7 @@ It's perfect for generating game data like:
 
 ***
 
-#### Required Annotations:
+#### Required Annotations
 
 These attributes are mandatory. Without them, the task will fail to register the schema.
 
