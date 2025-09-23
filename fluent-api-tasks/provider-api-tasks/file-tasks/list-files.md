@@ -101,14 +101,3 @@ IUploadedFile[] voices = await Api.ElevenLabs.ListFiles(q).ExecuteAsync();
   * OpenAI → cursor-based
   * Google Gemini → token-based
   * ElevenLabs → voice-specific filters
-
----
-
-## Provider → Query Matrix
-
-| Provider            | Query type        | Supported |
-| ------------------- | ----------------- | --------- |
-| OpenAI              | `CursorQuery`     | \[x]      |
-| ElevenLabs          | `ElevenLabsQuery` | \[x]      |
-| Google Gemini       | `TokenQuery`      | \[x]      |
-| Others (not listed) | — (no query)      | \[ ]      |
