@@ -1,11 +1,11 @@
 ---
 description: List your custom voices (org/workspace) with optional pagination and sorting
-icon: microphone-plus
+icon: list
 ---
 
 # ListCustomVoices
 
-returns [`IVoiceData[]`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.IVoiceData.html)
+returns [`IVoiceData[]`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.IVoiceData.html)
 
 Enumerate **custom voices** created in your org/workspace.
 Supports unified `CursorQuery` for pagination and ordering.

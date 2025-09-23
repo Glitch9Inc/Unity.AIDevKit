@@ -5,7 +5,7 @@ icon: list-tree
  
 # ListFiles
 
-returns [`IUploadedFile[]`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.IUploadedFile.html)
+returns [`IUploadedFile[]`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.IUploadedFile.html)
 
 Fetch a collection of files stored at the provider (OpenAI / Google / ElevenLabs).
 Optionally pass a provider-specific `IQuery` to filter, sort, and paginate.

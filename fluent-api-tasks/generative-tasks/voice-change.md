@@ -5,7 +5,7 @@ icon: microphone
 
 # Voice Change
 
-returns [`GeneratedAudio`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.GeneratedAudio.html)
+returns [`GeneratedAudio`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.GeneratedAudio.html)
 
 Transform recorded voices using AI-powered voice conversion.
 

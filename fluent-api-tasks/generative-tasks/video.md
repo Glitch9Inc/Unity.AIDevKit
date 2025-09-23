@@ -5,13 +5,14 @@ icon: play
 
 # Video
 
-returns [`GeneratedVideo`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.GeneratedVideo.html)
+returns [`GeneratedVideo`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.GeneratedVideo.html)
 
 This task generates a short video clip from a **text prompt or image**, using models such as **Veo** (currently the only supported model).
 
 The result is returned as a `RawFile`, pointing to the generated video file.
 
 {% hint style="info" %}
+
 #### Unity Limitation: `VideoClip` Cannot Be Created at Runtime
 
 > **Unity does not support creation of a `VideoClip` at runtime.**

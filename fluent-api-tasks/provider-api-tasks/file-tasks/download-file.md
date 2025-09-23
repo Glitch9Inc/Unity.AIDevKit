@@ -5,7 +5,7 @@ icon: arrow-down-to-bracket
 
 # Download File
 
-returns [`IUploadedFile`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.IUploadedFile.html)
+returns [`IUploadedFile`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.IUploadedFile.html)
 
 Retrieve a file that was previously uploaded to an AI provider.
 Supports **OpenAI** and **Google**, returning a normalized `IUploadedFile` object with metadata and access details.

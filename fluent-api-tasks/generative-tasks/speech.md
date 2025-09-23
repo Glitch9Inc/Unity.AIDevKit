@@ -5,7 +5,7 @@ icon: message-music
 
 # Speech
 
-returns [`GeneratedAudio`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.GeneratedAudio.html)
+returns [`GeneratedAudio`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.GeneratedAudio.html)
 
 Convert written text into natural-sounding speech using AI voices.
 
@@ -34,4 +34,3 @@ await "Loading complete."
 
 // StreamAudioPlayer is a component that plays incoming audio chunks as they arrive.
 ```
-

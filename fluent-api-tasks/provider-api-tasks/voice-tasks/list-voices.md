@@ -1,11 +1,11 @@
 ---
 description: List provider (catalog) voices with optional pagination and sorting
-icon: microphone-lines
+icon: list
 ---
 
 # ListVoices
 
-returns [`IVoiceData[]`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.IVoiceData.html)
+returns [`IVoiceData[]`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.IVoiceData.html)
 
 Enumerate **built-in voices** from a provider’s catalog (e.g., ElevenLabs, OpenAI).
 Supports unified `CursorQuery` for pagination and ordering.

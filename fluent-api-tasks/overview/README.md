@@ -60,7 +60,7 @@ task
 
 #### `Append` — Prefix for Task Sequences
 
-Used with [`GENSequence`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.GENSequence.html) to compose a sequence of tasks or insert delays between steps.
+Used with [`GENSequence`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.GENSequence.html) to compose a sequence of tasks or insert delays between steps.
 
 ```csharp
 new GENSequence()

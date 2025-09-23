@@ -5,7 +5,7 @@ icon: up-from-bracket
 
 # UploadFile
 
-returns [`IUploadedFile`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.IUploadedFile.html)
+returns [`IUploadedFile`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.IUploadedFile.html)
 
 Upload text files, images (`Texture2D`), or audio clips (`AudioClip`) via **multipart form-data** to AI providers.
 

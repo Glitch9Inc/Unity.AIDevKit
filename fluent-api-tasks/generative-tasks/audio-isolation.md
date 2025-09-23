@@ -5,7 +5,7 @@ icon: magnifying-glass-waveform
 
 # Audio Isolation
 
-returns [`GeneratedAudio`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.GeneratedAudio.html)
+returns [`GeneratedAudio`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.GeneratedAudio.html)
 
 Use AI to extract clean vocals or speech from noisy audio.
 

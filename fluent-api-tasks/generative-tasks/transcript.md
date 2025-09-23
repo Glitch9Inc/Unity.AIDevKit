@@ -5,7 +5,7 @@ icon: microphone-stand
 
 # Transcript
 
-returns [`Transcript`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.Transcript.html)
+returns [`Transcript`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.Transcript.html)
 
 Convert spoken words from an `AudioClip` into text using powerful AI transcription models. Ideal for voice commands, user feedback, subtitles, or audio-driven gameplay systems.
 
@@ -27,7 +27,7 @@ Debug.Log("Transcript: " + result);
 
 ## GENTranslation
 
-returns [`Transcript`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.Transcript.html)
+returns [`Transcript`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.Transcript.html)
 
 You can also translate speech into English using `GENTranslation.`
 

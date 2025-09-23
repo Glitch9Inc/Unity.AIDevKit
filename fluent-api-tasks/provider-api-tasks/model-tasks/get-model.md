@@ -5,7 +5,7 @@ icon: search
 
 # GetModel
 
-returns [`IModelData`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.IModelData.html)
+returns [`IModelData`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.IModelData.html)
 
 Fetch a **base** (provider) model (e.g., OpenAI catalog) by its identifier
 

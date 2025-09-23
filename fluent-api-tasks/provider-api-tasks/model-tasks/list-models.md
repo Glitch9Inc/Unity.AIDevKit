@@ -5,7 +5,7 @@ icon: list
 
 # ListModels
 
-returns [`IModelData[]`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.IModelData.html)
+returns [`IModelData[]`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.IModelData.html)
 
 Enumerate **base** (provider) models. Supports cursor pagination via `CursorQuery`
 

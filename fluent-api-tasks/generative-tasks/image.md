@@ -5,7 +5,7 @@ icon: message-image
 
 # Image
 
-returns [`GeneratedImage`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.GeneratedImage.html)
+returns [`GeneratedImage`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.GeneratedImage.html)
 
 Generates an entirely new image from a text prompt using models like **DALL·E**, **Gemini** or **Imagen**.\
 This is the primary entry point for creative image generation.
@@ -50,7 +50,7 @@ Results are saved to a temporary location unless you call `.SetOutputPath()`.
 
 ## GENInpaint
 
-returns [`GeneratedImage`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.GeneratedImage.html)
+returns [`GeneratedImage`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.GeneratedImage.html)
 
 Edits an existing image using a prompt. Ideal for adding, removing, or changing parts of an image.
 
@@ -75,7 +75,7 @@ DALL·E 3 **does not** supports inpaint.
 
 ## GENVariation
 
-returns [`GeneratedImage`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.GeneratedImage.html)
+returns [`GeneratedImage`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.GeneratedImage.html)
 
 Creates new stylistic variants of an existing image. This is useful for generating concept variations or alternatives.
 
