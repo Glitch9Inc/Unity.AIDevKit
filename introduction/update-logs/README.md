@@ -4,115 +4,189 @@ icon: calendar-lines-pen
 
 # Update Logs
 
-#### v.3.4.19 (Apr 21, 2025)
+#### v.4.2.5 (Jul 28, 2025) – *Preview*
 
-* Added ElevenLabs prompt history builder
-* Fixed `CustomEditor` not saving values
-* Integrated `FunctionManager` into `ChatCompletionTool` and `ChatSessionTool`
+* WIP: new **Inspector designs** (not finished)
+* **Speech Recorder** separated from AI components using recording feature
+
+#### v.4.2.4 (Jul 27, 2025) – *Preview*
+
+* Refactored **Chatbot & ChatSession** architecture
+
+  * `ChatSession` now holds **mutable data only**
+  * Introduced **ChatbotProfile** (ScriptableObject) for immutable data (`Create > AIDevKit > Chatbot`)
+  * Chatbot requires both `ChatbotProfile` + `ChatSession`
+* Added **Custom Inspectors** for Voice & Model assets
+* Added fallback logic if Default Resources aren’t generated
+
+#### v.4.2.3 (Jul 25, 2025) – *Preview*
+
+* Fixed new chat issue in EditorChat
+* Moved Styles into **Gizmos** folder
+* Improved **Generator Window UI**
+* Improved **Hub Window UI**
+* Tested & debugged **GroqCloud TTS**
+
+#### v.4.2.2 (Jul 24, 2025) – *Preview*
+
+* Added **GroqCloud integration** (Chat tested; STT/TTS untested)
+* Improved model & voice metadata management
+* Redesigned **GENTask option system** → `.SetOptions(TOption options)`
+
+  * Example: `.SetOptions(new OpenAICompletionOptions())`
+* Added `temperature`, `seed`, `stopSequences` to **GENResponse** & ChatSession
+* Removed `ReasoningOptions`, `WebSearchOptions`, `AdvancedModelSettings`, `SpeechOutputOptions` → migrated into provider-specific option classes
+
+#### v.4.2.1 (Jul 23, 2025) – *Preview*
+
+* `ApiSettings` are no longer singletons → access via clients
+
+  * Example: `OpenAI.DefaultInstance.Settings` (instead of `OpenAISettings.Instance`)
+* New **IApiUser** interface for in-game users
+
+  * Provides `Id` + `GetApiKey(Api api)` override
+* Improved UI for **AI Dev Kit Hub (Explorer)**
+* Refactored **ApiSettings architecture**
+* Added dedicated custom editor for `.asset` files
+
+#### v.4.2.0 (Jul 22, 2025) – *Preview*
+
+⚠️ *Super Warning*: Remove previous version completely (many GUID breaks).
+
+* Complete cleanup of project + strict assembly management
+* Added **GENPixelArt** to fluent API
+* API-specific enums renamed (e.g., `OpenAI.ImageDetail`, `GoogleTypes.PersonGeneration`)
+* Added `CancelLastRequest()`, `CancelAllRequests()` to `AIComponent`
+* **Project Context settings** separated from `AIDevKitSettings` → standalone Editor Window
+
+#### v.4.1.3 (Jul 18, 2025) – *Preview*
+
+* New **UnityEvent Wrappers & Improvements**
+
+  * `StreamingUnityEvent<>` wraps 3 UnityEvents: `OnStartStreaming`, `OnReceiveData`, `OnFinishStreaming`
+* Improved **CustomPropertyDrawer** (new collapsed texture)
+* Renamed Components:
+
+  * `AIComponentBase` → `AIComponent`
+  * `GeneratorComponentBase` → `AIContentGenerator`
+  * `AudioRecordingComponentBase` → `SpeechToContentGenerator`
+
+#### v.4.1.2 (Jul 17, 2025) – *Preview*
+
+* Added `Api` parameter to **GENTasks**
+* Added stricter **Api checks**
+* Added new **UnityEvent system** (replace chat event receivers)
+* Restored demo scenes (not tested)
+* Added storage location selection to **Chat Session**
+* Added automatic Chat Session creation on Chatbot start
+
+#### v.4.1.1 (Jul 16, 2025) – *Preview*
+
+* Component reworks completed
+* ExTreeView reworks completed
+* Added attachment transfer in **GENStructTask**
 * Fixed broken demo scenes
-* Fixed OpenAI prompt history builder
-* Fixed Google prompt history builder
-* Refactored `PromptHistoryViewer`
 
-#### v.3.4.18 (Apr 20, 2025)
+#### v.4.1.0 (Jul 15, 2025) – *Preview*
 
-* Changed edit icon for clarity
-* Added argument support to `FunctionManager`
-* Added save button to `CodeGen`
-* Fixed multi-image rendering in `IconGen`
-* Improved `ModelSelector` by hiding providers with no models
+* Complete rework of **component architectures** & custom editors
+* Model/Voice Library abstractions (unstable)
+* Removed UniTask async methods with return values from components
+* Renamed Components:
 
-#### v.3.4.17 (Apr 20, 2025)
+  * `TextToSpeech` → `SpeechGenerator`
+  * `SpeechToText` → `SpeechTranscriber`
+* Renamed Classes:
 
-* Fixed index out of range issue in `VoiceSelectorGUI`
+  * `Content` → `ChatContent`
+  * `ContentPart` → `ChatContentPart`
+  * `RequestType` → `RequestTypes`
+* Removed `IChatbot`
 
-#### v.3.4.16 (Apr 18, 2025)
+#### v.4.0.9 (Jul 14, 2025) – *Preview*
 
-* Added `FunctionManager`
-* \[Demo] Realtime API + Function integration
+* Chatbot inspector rework (in progress)
+* Added **task queue handler** to all components (not tested)
+* Added **Shader Generator** windows
 
-#### v.3.4.15 (Apr 18, 2025)
+#### v.4.0.8 (Jul 13, 2025) – *Preview*
 
-* Fixed model categorizing regex
-* Added cancel request feature to `GENTask`
-* Implemented `IconGenWindow`
-* Cleaned up codegen files
-* Added output path tracking for `GeneratedImage` and `GeneratedAudio`
-* Fixed realtime API sample voice paths
-* Fixed Addressables `amsdef`
+* Prompt history saved as **JSON** (instead of ScriptableObject)
 
-#### v.3.4.14 (Apr 18, 2025)
+  * Now trackable on devices and at runtime
+  * More stable than ScriptableObject (slightly slower)
+* Minor Generator Windows fixes
 
-* Removed implicit operator from `EPrefs` to prevent Mono JIT crash
+#### v.4.0.7 (Jul 13, 2025) – *Preview*
 
-#### v.3.4.13 (Apr 17, 2025)
+* Fixed File management system
+* Added Demo: **Chatbot + Speech-to-Text**
 
-* Added missing constraints to:
-  * `Samples.Editor`
-  * `MaterialDesign`
-  * `MaterialDesign.Editor`
-* Moved `Setup` folder outside of assembly
+#### v.4.0.6 (Jul 11, 2025) – *Preview*
 
-#### v.3.4.12 (Apr 17, 2025)
+* Refactored **ChatSession** for performance
+* Added `autoStopRecordingOnSilence` option to **AudioRecordingAIComponent**
+* Updated **RealtimeAudioRecorder**
+* Fixed modality flag dropdown in Model Library
+* Renamed Classes:
 
-* Fixed ElevenLabs voice library errors
+  * `ChatCompletionStreamHandler` → `StreamingChatHandler`
+  * `ChatCompletionChunk` → `StreamingChatChunk`
+  * `AIServerSentEventHandler` → `ServerSentEventHandler`
+  * `AIServerSentEvent<T>` → `ServerSentEvent<T>`
+  * `AIServerSentEventBuffer<T>` → `ServerSentEventBuffer<T>`
 
-#### v.3.4.08 (Apr 17, 2025)
+#### v.4.0.6 (Sep 21, 2025) – *Preview*
 
-* Refactored `EditorChatToolbar` as separate component
-* Implemented export chat as `.txt`
-* Displayed chat list names as date instead of thread ID
-* Added more options to `GENText` and ElevenLabs `GENTasks`
-* Added Texture generator
-* Added default model settings to each API
-* Added fallback model support using default models
-* Renamed `ImageModel` → `DallEModel`, `TTSModel` → `OpenAITTS`
-* Fixed issue fetching Google models
-* Improved model family categorization
+* Implemented **Responses API**
+* Implemented **MCP Tools**
+* Implemented **Local Shell Tools**
 
-#### v.3.4.07 (Apr 16, 2025)
+#### v.4.0.5 (Sep 2025) – *Preview*
 
-* Fixed TTS file path issues
-* Fixed build errors related to `StartOnInit`
-* Fixed Unity hang on startup
-* Fixed model update triggering every time
-* Added ElevenLabs subscription feature
-* Added `VoiceChanger` and `AudioIsolation` to `GENTask`
-* Added more options to `GENText`
-* Improved `EditorChat` GUI and stream handling
-* Added drag & drop support in `EditorChat`
-* Added AI-powered script menu options:
-  * "Improve Readability"
-  * "Refactor"
+* Added **Voice Changer Window** (new Generator Window)
+* Upgraded **Generator Window UIs**
+* Fixed **Assistant Profile inspector** issues
 
-#### v.3.4.16 (Apr 18, 2025)
+#### v.4.0.4 (Aug 30, 2025) – *Preview*
 
-* Added model categorizing regex
-* Added cancel request feature to `GENTask`
-* New feature: `IconGenWindow`
-* Added output path tracking to `GeneratedImage` and `GeneratedAudio`
-* Fixed Addressables `amsdef`
+* Fixed missing marker issues
+* Fixed initial setup issues
+* Cleaned up initial setup process
 
-#### v.3.4.2 (Apr 13, 2025)
+#### v.4.0.3 (Aug 22, 2025) – *Pre-Release*
 
-* Broken GUIDs fixed
+* Fixed **assistant chatbot demo** scene
+* Fixed **realtime chatbot demo** scene
+* Upgraded **MonoBehaviour components custom editors**
+* Upgraded **ScriptableObject assets custom editors**
 
-#### v.3.2.0 (Apr 10, 2025)
+#### v.4.0.2 (Aug 22, 2025) – *Pre-Release*
 
-* Compile errors resolved
-* Refactored tons of codes
+* Merged **Pro assembly** into **Core** to simplify setup
+* Added **Audio Clip–based Prompt Generator** window
+* Fixed **streaming chat not pushing response messages**
+* Added **Editor session info formatter** to Anthropic chat requests
+* Polished & stabilized **GenAI Windows**
+* Verified **Unity 2022 compatibility**
 
-#### v.3.1.4 (Apr 7, 2025)
+#### v.4.0.1 (Aug 10, 2025) – *Preview*
 
-* Build errors resolved
+* Test implementation of **Microsoft Azure TTS, STT**
+* Voice Library GUI updates
+* Voice Metadata system upgrades
+* New **Locale management system** (replaces SystemLanguage, backward compatible)
 
-#### v.3.1.2 (Mar 31, 2025)
+#### v.4.0.0 (Aug 7, 2025) – *Preview*
 
-* Added Google image models (Gemini, Imagen) to Editor Tool
-* Added new Google model families
-* Refactored the project
+* Introduced **Generative Profile System**
+* Added **Local Chatbot Profile**, **Assistants API Chatbot Profile**, **Realtime Assistant Profile**
+* Implemented custom inspectors for new generative/chatbot profiles
+* Renamed:
 
-#### v.3.0.0 (Mar 17, 2025)
-
-* Added automatic model updates on Editor startup
-* Added automatic model enum code generation
+  * `VoiceGender` → `Gender`
+  * `Chatbot` → `LocalChatbot`
+  * `ChatbotBase` → `Chatbot`
+  * `Moderator` → `ContentModerator`
+* Enhanced **ScriptableObject debugging tools**
+* Removed redundant editor code
