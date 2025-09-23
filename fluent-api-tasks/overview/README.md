@@ -4,8 +4,76 @@ icon: store
 
 # Overview
 
-**AI Dev Kit** provides a collection of modular, fluent tasks to perform powerful AI actions directly within Unity. Each `GENTask` type is designed for a specific modality, with unified syntax and advanced customization support.
+To get the most out of IntelliSense when using the AI Dev Kit, the following prefixes are designed to make autocomplete clean, fast, and intuitive.&#x20;
+
+Try to remember and follow these naming conventions:
 
 ***
 
-<table><thead><tr><th width="160.333251953125">Task</th><th width="200">Modality</th><th>In-Game Use Case</th></tr></thead><tbody><tr><td><strong><code>GENResponse</code></strong></td><td>Text → Text</td><td><p>• Generate NPC responses based on player input</p><p>• Provide dynamic explanations, tips, or hints</p><p>• Fill in quest or item descriptions procedurally</p><p>• Create tutorial content on demand</p></td></tr><tr><td><strong><code>GENObject&#x3C;T></code></strong></td><td>Text → Struct</td><td><p>• Generate structured RPG content (items, quests, skills)</p><p>• Create abilities, traits, or status effects from prompts</p><p>• Dynamically configure missions or challenges</p><p>• Personalize background stories for characters</p></td></tr><tr><td><strong><code>GENChat</code></strong></td><td>Text → Chat Session</td><td><p>• Build persistent dialogue with an AI companion</p><p>• Implement an in-game AI assistant or narrator</p><p>• Maintain relationship-based memory in conversations</p></td></tr><tr><td><strong><code>GENImage</code></strong></td><td>Text → Image</td><td><p>• Generate dynamic concept art or loading screens</p><p>• Create emblems, icons, or signage from user prompts</p><p>• Style in-game UI elements with AI-generated images</p><p>• Offer an AI photo booth or custom illustration system</p></td></tr><tr><td><strong><code>GENInpaint</code></strong></td><td>Image + Text → Image</td><td><p>• Allow players to customize equipment or costumes</p><p>• Paint or edit world assets (e.g., walls, banners)</p><p>• Enable AI-assisted retouching in creative tools</p><p>• Fill in templates or incomplete artwork</p></td></tr><tr><td><strong><code>GENVariation</code></strong></td><td>Image → Image</td><td><p>• Create variations of user-uploaded avatars</p><p>• Generate multiple weapon/armor skins from one base</p><p>• Produce diverse appearances for procedural NPCs</p><p>• Implement a remix feature for visual assets</p></td></tr><tr><td><strong><code>GENSpeech</code></strong></td><td>Text → Audio</td><td><p>• Narrate events or dialogues using AI voices</p><p>• Play spoken instructions or tutorials</p><p>• Generate unique character voices at runtime</p><p>• Build interactive voiceovers for quests or narration</p></td></tr><tr><td><strong><code>GENTranscript</code></strong></td><td>Audio → Text</td><td><p>• Process player voice commands in-game</p><p>• Transcribe interviews, logs, or voice messages</p><p>• Support voice-based quest progression</p><p>• Store transcribed dialogue history</p></td></tr><tr><td><strong><code>GENAudioIsolation</code></strong></td><td>Audio → Clean audio</td><td><p>• Clean up player microphone input (e.g., multiplayer chat)</p><p>• Extract clean voice from noisy recordings</p><p>• Enhance the clarity of AI-dubbed voice logs</p></td></tr><tr><td><strong><code>GENVideo</code></strong></td><td>Text → Video</td><td><p>• Create AI-generated cutscenes or flashbacks</p><p>• Summarize gameplay moments as video</p><p>• Render stylized memory playback</p><p>• Build cinematic intros or trailers dynamically</p></td></tr></tbody></table>
+#### `GEN` — Prefix for All Generative Task Creators
+
+These are extension methods that can be called directly on known objects to start an AI generation task.
+
+<table><thead><tr><th width="200.00018310546875">Prompt Type</th><th>Usage</th></tr></thead><tbody><tr><td><mark style="color:blue;">string</mark></td><td>Text/Content Generation<br>Image Generation<br>Speech Generation (TTS)<br>Sound FX Generation<br>Video Generation</td></tr><tr><td><mark style="color:green;">AudioClip</mark></td><td>Transcript Generation (STT)<br>Voice Change<br>Audio Isolation</td></tr><tr><td><mark style="color:green;">Texture2D, Sprite</mark></td><td>Text/Content Generation (Vision)<br>Image Edit (Inpaint)<br>Image Variation</td></tr><tr><td><mark style="color:purple;"><strong>ChatSession</strong></mark></td><td>Chat</td></tr></tbody></table>
+
+<pre class="language-csharp"><code class="lang-csharp"><strong>string aiJoke = await "Tell me a joke."
+</strong>    .GENText()
+    .SetModel(OpenAIModel.GPT4o)
+    .ExecuteAsync();
+
+string transcript = await audioClip
+    .GENTranscript()
+    .ExecuteAsync();
+
+Texture2D aiImage = await "A cyberpunk city at night"
+    .GENImage()
+    .ExecuteAsync();
+</code></pre>
+
+***
+
+#### `Set` — Prefix for All Configuration Options
+
+Use this to configure task parameters such as model, output count, output path, and advanced options like reasoning, web search, or voice settings.
+
+```csharp
+task
+    .SetModel(OpenAIModel.GPT4o)
+    .SetCount(3)
+    .SetReasoningEffort(ReasoningEffort.High);
+```
+
+***
+
+#### `On` — Prefix for All Streaming Callbacks
+
+Use these methods to attach real-time callbacks for streamed results, such as receiving text tokens, tool calls, or error handling.
+
+```csharp
+task
+    .OnStreamText(Debug.Log)
+    .OnStreamError(HandleError)
+    .OnStreamDone(OnGenerationComplete);
+```
+
+***
+
+#### `Append` — Prefix for Task Sequences
+
+Used with [`GENSequence`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.GENSequence.html) to compose a sequence of tasks or insert delays between steps.
+
+```csharp
+new GENSequence()
+    .AppendText("Generate story".GENText())
+    .AppendInterval(2.0f)
+    .AppendTextToImage(text => text.GENImage())
+    .ExecuteAsync();
+```
+
+***
+
+These prefixes follow a consistent pattern to maximize IntelliSense usability and make task flows easy to read and construct.
+
+{% hint style="success" %}
+**Tip:** Just type `GEN`, `Set`, or `On` and let IntelliSense show you what’s possible.
+{% endhint %}
