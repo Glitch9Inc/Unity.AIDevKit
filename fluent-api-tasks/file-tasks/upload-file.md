@@ -8,7 +8,6 @@ icon: up-from-bracket
 returns [`IUploadedFile`](https://glitch9inc.github.io/AIDevKit/api/Glitch9.AIDevKit.IUploadedFile.html)
 
 Upload text files, images (`Texture2D`), or audio clips (`AudioClip`) via **multipart form-data** to AI providers.
-Supports **OpenAI** (with `purpose`) and **Google** (with upload metadata).
 
 > Internally, all uploads are sent as `MimeType.MultipartFormData`. The result is normalized into `IUploadedFile`.
 
@@ -129,16 +128,3 @@ await new CreateFineTuneTask()
     .SetModel("gpt-4o-mini")
     .ExecuteAsync();
 ```
-
----
-
-## Return Type
-
-* **`IUploadedFile`**
-
-  * `Id`: Provider-assigned file ID
-  * `FileName`: Original filename
-  * `SizeBytes`: File size
-  * `Uri` / `Url`: Access location (if available)
-  * `CreatedAt`: Upload timestamp
-  * Other metadata fields depending on provider
