@@ -1,5 +1,5 @@
 ---
-icon: mic-vocal
+icon: microphone-lines
 ---
 
 # Voice Tasks

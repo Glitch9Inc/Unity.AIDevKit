@@ -1,5 +1,5 @@
 ---
-icon: code-xml
+icon: globe-pointer
 ---
 
 # Provider Api Tasks
