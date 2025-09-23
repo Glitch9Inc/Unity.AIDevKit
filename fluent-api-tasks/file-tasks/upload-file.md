@@ -158,22 +158,3 @@ DevLog.Info($"GCS uploaded: {gcs.Uri}");
   * Check `IFile.LastError` after reads and wrap uploads with `try/catch`.
 
 ---
-
-## Example: upload → fine-tune
-
-```csharp
-using Glitch9.AIDevKit;
-using Glitch9.IO.Files;
-
-IFile training = new LocalFile("C:/work/prompts.jsonl", mimeType: MimeType.ApplicationJson);
-
-var uploaded = await Api.OpenAI
-    .UploadFile(training)
-    .SetOpenAIUploadPurpose(OpenAITypes.UploadPurpose.FineTuning)
-    .ExecuteAsync();
-
-await new CreateFineTuneTask()
-    .SetTrainingFile(uploaded.Id)
-    .SetModel("gpt-4o-mini")
-    .ExecuteAsync();
-```
