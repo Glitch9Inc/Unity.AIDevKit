@@ -40,7 +40,7 @@
   * [Creating Snippets](quick-start/adding-models-and-voices/creating-snippets.md)
 * [Self-Hosting with Ollama](quick-start/self-hosting-with-ollama.md)
 
-## Editor Tools
+## Unity Editor Tools
 
 * [Dev Assistant (Chat)](editor-tools/dev-assistant-chat.md)
 * [Generative AI](editor-tools/generative-ai.md)
@@ -53,8 +53,8 @@
 ## Fluent API Tasks
 
 * [Overview](fluent-api-tasks/overview/README.md)
-  * [Prefixes](fluent-api-tasks/overview/prefixes.md)
   * [Sequence](fluent-api-tasks/overview/sequence.md)
+  * [Provider Query Types](fluent-api-tasks/overview/provider-query-types.md)
 * [Generative Tasks](fluent-api-tasks/generative-tasks/README.md)
   * [Response](fluent-api-tasks/generative-tasks/response.md)
   * [Image](fluent-api-tasks/generative-tasks/image.md)
@@ -80,14 +80,32 @@
     * [List Voices](fluent-api-tasks/provider-api-tasks/voice-tasks/list-voices.md)
     * [List Custom Voices](fluent-api-tasks/provider-api-tasks/voice-tasks/list-custom-voices.md)
 
-## Unity Components
+## AI Agents
 
-* [AI Agents](unity-components/ai-agents/README.md)
+* [Tools] (ai-agents/tools/README.md)
+  * [Function] (ai-agents/tools/function.md)
+  * [File Search] (ai-agents/tools/file-search.md)
+  * [Web Search] (ai-agents/tools/web-search.md)
+  * [Google Search] (ai-agents/tools/google-search.md)
+  * [URL Context] (ai-agents/tools/url-context.md)
+  * [Code Interpreter] (ai-agents/tools/code-interpreter.md)
+  * [Code Execution] (ai-agents/tools/code-execution.md)
+  * [MCP Tool] (ai-agents/tools/mcp.md)
+  * [Local Shell] (ai-agents/tools/local-shell.md)
+  * [Computer Use] (ai-agents/tools/computer-use.md)
+  * [Image Generation] (ai-agents/tools/image-generation.md)
+  * [Speech Generation] (ai-agents/tools/speech-generation.md)
+  * [Speech Transcription] (ai-agents/tools/speech-transcription.md)
+
+* [Components](unity-components/ai-agents/components/README.md)
   * [Chatbot (Chat Completion API)](unity-components/ai-agents/chatbot-chat-completion-api.md)
   * [Assistant Agent (Assistants API)](unity-components/ai-agents/assistant-agent-assistants-api.md)
   * [Voice Agent (Realtime API)](unity-components/ai-agents/voice-agent-realtime-api.md)
   * [Response Agent (Responses API)](unity-components/ai-agents/response-agent-responses-api.md)
-* [AI Generators](unity-components/ai-generators/README.md)
+
+## AI Generators
+
+* [Components](unity-components/ai-generators/README.md)
   * [Image Generator](unity-components/ai-generators/image-generator.md)
   * [Speech Generator](unity-components/ai-generators/speech-generator.md)
   * [Speech Transcriber](unity-components/ai-generators/speech-transcriber.md)

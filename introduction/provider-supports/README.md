@@ -4,7 +4,7 @@ icon: square-info
 
 # Feature Supports
 
-Below are the features **AIDevKit** currently supports across providers. If it's checked, it indicates availability via AI Dev Kit.
+Below are the features **AI Dev Kit** currently supports across providers. If it's checked, it indicates availability via **AI Dev Kit**.
 
 ## Language Model Features
 

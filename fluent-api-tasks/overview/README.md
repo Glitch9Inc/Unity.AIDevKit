@@ -51,9 +51,9 @@ Use these methods to attach real-time callbacks for streamed results, such as re
 
 ```csharp
 task
-    .OnStreamText(Debug.Log)
-    .OnStreamError(HandleError)
-    .OnStreamDone(OnGenerationComplete);
+    .OnReceiveText(Debug.Log)
+    .OnReceiveError(HandleError)
+    .OnReceiveDone(OnGenerationComplete);
 ```
 
 ***
