@@ -3,7 +3,7 @@
 ## Introduction
 
 * [AI Dev Kit 4.6.0](README.md)
-* [Provider Supports](introduction/provider-supports/README.md)
+* [Feature Supports](introduction/provider-supports/README.md)
   * [OpenAI](introduction/provider-supports/openai.md)
   * [Google Gemini](introduction/provider-supports/google-gemini.md)
   * [ElevenLabs](introduction/provider-supports/elevenlabs.md)
