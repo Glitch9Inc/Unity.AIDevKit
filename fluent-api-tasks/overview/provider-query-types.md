@@ -1,5 +1,6 @@
 --- 
-description: Overview of the different query types used by various providers
+description: >-
+  Overview of the different query types used by various providers
 icon: search-code
 ---
 
