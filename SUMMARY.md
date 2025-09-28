@@ -102,21 +102,20 @@
     * [Google Search](ai-agents/tools/google-tools/google-search.md)
     * [URL Context](ai-agents/tools/google-tools/url-context.md)
     * [Code Execution](ai-agents/tools/google-tools/code-execution.md)
-
-* [Components](unity-components/ai-agents/components/README.md)
-  * [Chatbot (Chat Completion API)](unity-components/ai-agents/chatbot-chat-completion-api.md)
-  * [Assistant Agent (Assistants API)](unity-components/ai-agents/assistant-agent-assistants-api.md)
-  * [Voice Agent (Realtime API)](unity-components/ai-agents/voice-agent-realtime-api.md)
-  * [Response Agent (Responses API)](unity-components/ai-agents/response-agent-responses-api.md)
+* [Components](ai-agents/components/README.md)
+  * [Chatbot (Chat Completion API)](ai-agents/components/chatbot-chat-completion-api.md)
+  * [Assistant Agent (Assistants API)](ai-agents/components/assistant-agent-assistants-api.md)
+  * [Voice Agent (Realtime API)](ai-agents/components/voice-agent-realtime-api.md)
+  * [Response Agent (Responses API)](ai-agents/components/response-agent-responses-api.md)
 
 ## AI Generators
 
-* [Components](unity-components/ai-generators/README.md)
-  * [Image Generator](unity-components/ai-generators/image-generator.md)
-  * [Speech Generator](unity-components/ai-generators/speech-generator.md)
-  * [Speech Transcriber](unity-components/ai-generators/speech-transcriber.md)
-  * [Voice Changer](unity-components/ai-generators/voice-changer.md)
-  * [Content Moderator](unity-components/ai-generators/content-moderator.md)
+* [Components](ai-generators/components/README.md)
+  * [Image Generator](ai-generators/components/image-generator.md)
+  * [Speech Generator](ai-generators/components/speech-generator.md)
+  * [Speech Transcriber](ai-generators/components/speech-transcriber.md)
+  * [Voice Changer](ai-generators/components/voice-changer.md)
+  * [Content Moderator](ai-generators/components/content-moderator.md)
 
 ## Platform API
 
