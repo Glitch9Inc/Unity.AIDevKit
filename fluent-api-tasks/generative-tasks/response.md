@@ -7,7 +7,7 @@ icon: message-pen
 
 returns[`ChatCompletion`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.ChatCompletion.html)
 
-Response generation is one of the core uses of generative AI. In the GENTask system, the [**`GENResponse`**](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.GENResponseTask.html)   is used to generate text (for example, completing a prompt or answering a question). This task sends a prompt to a Large Language Model (LLM) and returns a response.
+Response generation is one of the core uses of generative AI. In the GENTask system, the [**`GENCompletion`**](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.CompletionTask.html)   is used to generate text (for example, completing a prompt or answering a question). This task sends a prompt to a Large Language Model (LLM) and returns a response.
 
 | Input Modalities                        | Output                                                                                     |
 | --------------------------------------- | ------------------------------------------------------------------------------------------ |
@@ -19,7 +19,7 @@ Response generation is one of the core uses of generative AI. In the GENTask sys
 string prompt = "Explain quantum computing in simple terms.";
 
 string result = await prompt
-    .GENResponse()
+    .GENCompletion()
     .SetModel(OpenAIIModel.GPT4o)
     .ExecuteAsync();
 
@@ -33,7 +33,7 @@ Debug.Log(result);
 string prompt = "Explain quantum computing in simple terms.";
 
 await prompt
-    .GENResponse()
+    .GENCompletion()
     .SetModel(OpenAIModel.GPT4o)
     .OnReceiveText(delta => Debug.Log(delta))
     .OnReceiveDone(completion => Debug.Log("Finished."))
@@ -48,8 +48,8 @@ Texture2D myTexture = myImage.sprite.texture;
 string prompt = "Tell me about this image.";
 
 string result = await prompt
-    .GENResponse()
-    .Attach(myTexture)
+    .GENCompletion()
+    .AddAttachment(myTexture)
     .SetModel(OpenAIModel.GPT4o)
     .ExecuteAsync();
 
