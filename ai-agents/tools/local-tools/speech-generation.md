@@ -1,0 +1,6 @@
+---
+icon: waveform
+---
+
+# Speech Generation
+

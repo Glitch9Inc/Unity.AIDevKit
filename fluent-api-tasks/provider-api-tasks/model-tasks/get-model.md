@@ -1,15 +1,15 @@
 ---
 description: Retrieve a base (provider) model by ID
-icon: search
+icon: arrow-down-from-arc
 ---
 
-# GetModel
+# Get Model
 
 returns [`IModelData`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.IModelData.html)
 
 Fetch a **base** (provider) model (e.g., OpenAI catalog) by its identifier
 
----
+***
 
 ## Basic Usage
 
@@ -22,7 +22,7 @@ IModelData model = await Api.OpenAI
     .ExecuteAsync();
 ```
 
----
+***
 
 ## Notes
 

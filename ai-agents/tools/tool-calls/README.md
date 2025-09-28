@@ -1,5 +1,6 @@
 ---
-icon: tools
+icon: satellite-dish
 ---
 
 # Tool Calls
+

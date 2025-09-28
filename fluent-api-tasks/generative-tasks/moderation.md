@@ -2,5 +2,5 @@
 icon: shield
 ---
 
-# Content Moderator
+# Moderation
 

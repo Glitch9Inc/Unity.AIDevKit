@@ -1,15 +1,15 @@
 ---
 description: List available base models with cursor pagination
-icon: list
+icon: list-tree
 ---
 
-# ListModels
+# List Models
 
 returns [`IModelData[]`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.IModelData.html)
 
 Enumerate **base** (provider) models. Supports cursor pagination via `CursorQuery`
 
----
+***
 
 ## Basic Usage
 
@@ -21,7 +21,7 @@ IModelData[] models = await Api.OpenAI
     .ExecuteAsync();
 ```
 
----
+***
 
 ## With `CursorQuery` (pagination & sort)
 
@@ -45,7 +45,7 @@ q.Before = first.Length > 0 ? first[0].Id : null;
 IModelData[] prev = await Api.OpenAI.ListModels(q).ExecuteAsync();
 ```
 
----
+***
 
 ## Tips
 

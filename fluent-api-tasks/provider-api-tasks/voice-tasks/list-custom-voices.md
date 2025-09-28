@@ -1,16 +1,15 @@
 ---
 description: List your custom voices (org/workspace) with optional pagination and sorting
-icon: list
+icon: list-tree
 ---
 
-# ListCustomVoices
+# List Custom Voices
 
 returns [`IVoiceData[]`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.IVoiceData.html)
 
-Enumerate **custom voices** created in your org/workspace.
-Supports unified `CursorQuery` for pagination and ordering.
+Enumerate **custom voices** created in your org/workspace. Supports unified `CursorQuery` for pagination and ordering.
 
----
+***
 
 ## Basic Usage
 
@@ -23,7 +22,7 @@ IVoiceData[] custom = await Api.ElevenLabs
     .ExecuteAsync();
 ```
 
----
+***
 
 ## With Pagination & Sorting (`CursorQuery`)
 
@@ -39,7 +38,7 @@ q.After = page1.Length > 0 ? page1[^1].Id : null;
 IVoiceData[] page2 = await Api.ElevenLabs.ListCustomVoices(q).ExecuteAsync();
 ```
 
----
+***
 
 ## Notes
 

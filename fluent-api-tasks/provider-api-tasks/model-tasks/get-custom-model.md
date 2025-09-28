@@ -1,15 +1,15 @@
 ---
 description: Retrieve a custom / fine-tuned model by ID
-icon: badge-check
+icon: arrow-down-from-arc
 ---
 
-# GetCustomModel
+# Get Custom Model
 
 returns [`IModelData`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.IModelData.html)
 
 Fetch a **custom** (org/project-scoped) model by ID
 
----
+***
 
 ## Basic Usage
 
@@ -22,7 +22,7 @@ IModelData custom = await Api.OpenAI
     .ExecuteAsync();
 ```
 
----
+***
 
 ## Notes
 

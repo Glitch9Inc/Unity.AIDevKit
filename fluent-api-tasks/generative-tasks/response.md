@@ -3,15 +3,15 @@ description: Generate a response using a Large Language Model (LLM)
 icon: message-pen
 ---
 
-# Response
+# Text
 
 returns[`ChatCompletion`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.ChatCompletion.html)
 
-Response generation is one of the core uses of generative AI. In the GENTask system, the [**`GENResponse`**](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.GENResponseTask.html)   is used to generate text (for example, completing a prompt or answering a question). This task sends a prompt to a Large Language Model (LLM) and returns a response.
+Response generation is one of the core uses of generative AI. In the GENTask system, the [**`GENResponse`**](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.GENResponseTask.html) is used to generate text (for example, completing a prompt or answering a question). This task sends a prompt to a Large Language Model (LLM) and returns a response.
 
-| Input Modalities                        | Output                                                                                     |
-| --------------------------------------- | ------------------------------------------------------------------------------------------ |
-| <p>Text<br>Image<br>Audio<br>Video </p> | <p>Text<br>Text (Streaming)<br>Tool Calls<br>Speech<br>Image (Rarely)<br>File (Rarely)</p> |
+| Input Modalities                       | Output                                                                                     |
+| -------------------------------------- | ------------------------------------------------------------------------------------------ |
+| <p>Text<br>Image<br>Audio<br>Video</p> | <p>Text<br>Text (Streaming)<br>Tool Calls<br>Speech<br>Image (Rarely)<br>File (Rarely)</p> |
 
 **Basic Usage**
 
@@ -19,7 +19,7 @@ Response generation is one of the core uses of generative AI. In the GENTask sys
 string prompt = "Explain quantum computing in simple terms.";
 
 string result = await prompt
-    .GENResponse()
+    .GENCompletion()
     .SetModel(OpenAIIModel.GPT4o)
     .ExecuteAsync();
 
@@ -33,7 +33,7 @@ Debug.Log(result);
 string prompt = "Explain quantum computing in simple terms.";
 
 await prompt
-    .GENResponse()
+    .GENCompletion()
     .SetModel(OpenAIModel.GPT4o)
     .OnReceiveText(delta => Debug.Log(delta))
     .OnReceiveDone(completion => Debug.Log("Finished."))
@@ -48,7 +48,7 @@ Texture2D myTexture = myImage.sprite.texture;
 string prompt = "Tell me about this image.";
 
 string result = await prompt
-    .GENResponse()
+    .GENCompletion()
     .Attach(myTexture)
     .SetModel(OpenAIModel.GPT4o)
     .ExecuteAsync();
@@ -60,9 +60,9 @@ Debug.Log(result);
 
 ## Structured Outputs
 
-returns [`StructuredOutput<T>`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.StructuredOutput-1.html)&#x20;
+returns [`StructuredOutput<T>`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.StructuredOutput-1.html)
 
-&#x20;[**`GENStruct<T>`**](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.GENStructTask-1.html) lets you turn natural language prompts into **strongly-typed Unity C# objects** by guiding the AI to return JSON that matches your class definition.
+[**`GENStruct<T>`**](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.GENStructTask-1.html) lets you turn natural language prompts into **strongly-typed Unity C# objects** by guiding the AI to return JSON that matches your class definition.
 
 It's perfect for generating game data like:
 
@@ -72,9 +72,9 @@ It's perfect for generating game data like:
 * 📋 Skill Definitions
 * 🧠 AI Configuration Profiles
 
-| Input Modalities                        | Output                         |
-| --------------------------------------- | ------------------------------ |
-| <p>Text<br>Image<br>Audio<br>Video </p> | Structured Outputs (JSON Mode) |
+| Input Modalities                       | Output                         |
+| -------------------------------------- | ------------------------------ |
+| <p>Text<br>Image<br>Audio<br>Video</p> | Structured Outputs (JSON Mode) |
 
 ***
 
@@ -82,10 +82,10 @@ It's perfect for generating game data like:
 
 These attributes are mandatory. Without them, the task will fail to register the schema.
 
-| Provider                       | Required Attributes                                                                                                                |
-| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| **OpenAI, Ollama, OpenRouter** | <p><code>[StrictJsonSchema(...)]</code>  <em>(on the class)</em><br><code>[JsonSchema(...)]</code> <em>(on each property)</em></p> |
-| **Gemini**                     | <p><code>[JsonSchema(...)]</code>  <em>(on the class)</em><br><code>[JsonSchema(...)]</code> <em>(on each property)</em></p>       |
+| Provider                       | Required Attributes                                                                                                               |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| **OpenAI, Ollama, OpenRouter** | <p><code>[StrictJsonSchema(...)]</code> <em>(on the class)</em><br><code>[JsonSchema(...)]</code> <em>(on each property)</em></p> |
+| **Gemini**                     | <p><code>[JsonSchema(...)]</code> <em>(on the class)</em><br><code>[JsonSchema(...)]</code> <em>(on each property)</em></p>       |
 
 **Generating an RPG Item**
 
@@ -112,7 +112,7 @@ public class GameItem
 
 
 GameItem item = await "Generate a legendary sword with magical effects"
-    .GENObject<GameItem>()
+    .GENStruct<GameItem>()
     .SetModel(OpenAIModel.GPT4o)
     .SetTemperature(0.4f)
     .ExecuteAsync();
@@ -140,7 +140,7 @@ public class Quest
 }
 
 Quest quest = await "Create a side quest for a fantasy game where a farmer asks you to find his lost chicken"
-    .GENObject<Quest>()
+    .GENStruct<Quest>()
     .SetModel(OpenAIModel.GPT4o)
     .ExecuteAsync();
 ```
