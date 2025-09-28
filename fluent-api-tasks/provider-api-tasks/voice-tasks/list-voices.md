@@ -1,16 +1,15 @@
 ---
 description: List provider (catalog) voices with optional pagination and sorting
-icon: list
+icon: list-tree
 ---
 
-# ListVoices
+# List Voices
 
 returns [`IVoiceData[]`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.IVoiceData.html)
 
-Enumerate **built-in voices** from a provider’s catalog (e.g., ElevenLabs, OpenAI).
-Supports unified `CursorQuery` for pagination and ordering.
+Enumerate **built-in voices** from a provider’s catalog (e.g., ElevenLabs, OpenAI). Supports unified `CursorQuery` for pagination and ordering.
 
----
+***
 
 ## Basic Usage
 
@@ -23,7 +22,7 @@ IVoiceData[] voices = await Api.ElevenLabs
     .ExecuteAsync();
 ```
 
----
+***
 
 ## With Pagination & Sorting (`CursorQuery`)
 
@@ -52,7 +51,7 @@ IVoiceData[] prev = await Api.ElevenLabs.ListVoices(q).ExecuteAsync();
 
 > 💡 Persist `After/Before` cursors for stable navigation across sessions.
 
----
+***
 
 ## Notes
 
@@ -65,7 +64,7 @@ var enVoices = voices
     .ToArray();
 ```
 
----
+***
 
 ## Best Practices
 

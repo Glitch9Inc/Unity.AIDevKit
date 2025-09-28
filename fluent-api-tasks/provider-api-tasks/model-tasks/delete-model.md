@@ -1,15 +1,15 @@
 ---
 description: Delete a custom model by ID (where supported)
-icon: trash-2
+icon: delete-left
 ---
 
-# DeleteModel
+# Delete Custom Model
 
 returns `bool`
 
 Delete a **custom** model by ID. Not all providers support model deletion.
 
----
+***
 
 ## Basic Usage
 
@@ -23,7 +23,7 @@ bool ok = await Api.OpenAI
 if (!ok) DevLog.Warning("Delete rejected or not supported.");
 ```
 
----
+***
 
 ## Notes
 

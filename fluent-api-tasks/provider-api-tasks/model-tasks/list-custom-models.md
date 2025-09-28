@@ -1,15 +1,15 @@
 ---
 description: List custom / fine-tuned models with cursor pagination
-icon: list
+icon: list-tree
 ---
 
-# ListCustomModels
+# List Custom Models
 
 returns [`IModelData[]`](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.IModelData.html)
 
 Enumerate **custom** (org/project) models with cursor pagination.
 
----
+***
 
 ## Basic Usage
 
@@ -21,7 +21,7 @@ IModelData[] customModels = await Api.OpenAI
     .ExecuteAsync();
 ```
 
----
+***
 
 ## With `CursorQuery`
 
@@ -35,7 +35,7 @@ q.After = page1.Length > 0 ? page1[^1].Id : null;
 IModelData[] page2 = await Api.OpenAI.ListCustomModels(q).ExecuteAsync();
 ```
 
----
+***
 
 ## Notes
 

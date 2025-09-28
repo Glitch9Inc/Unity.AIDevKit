@@ -1,2 +1,6 @@
+---
+icon: waveform
+---
+
 # Speech Generator
 
