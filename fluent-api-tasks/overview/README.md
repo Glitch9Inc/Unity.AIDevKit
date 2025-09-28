@@ -17,7 +17,7 @@ These are extension methods that can be called directly on known objects to star
 <table><thead><tr><th width="200.00018310546875">Prompt Type</th><th>Usage</th></tr></thead><tbody><tr><td><mark style="color:blue;">string</mark></td><td>Text/Content Generation<br>Image Generation<br>Speech Generation (TTS)<br>Sound FX Generation<br>Video Generation</td></tr><tr><td><mark style="color:green;">AudioClip</mark></td><td>Transcript Generation (STT)<br>Voice Change<br>Audio Isolation</td></tr><tr><td><mark style="color:green;">Texture2D, Sprite</mark></td><td>Text/Content Generation (Vision)<br>Image Edit (Inpaint)<br>Image Variation</td></tr><tr><td><mark style="color:purple;"><strong>ChatSession</strong></mark></td><td>Chat</td></tr></tbody></table>
 
 <pre class="language-csharp"><code class="lang-csharp"><strong>string aiJoke = await "Tell me a joke."
-</strong>    .GENText()
+</strong>    .GENCompletion()
     .SetModel(OpenAIModel.GPT4o)
     .ExecuteAsync();
 
