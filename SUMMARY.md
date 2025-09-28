@@ -56,7 +56,7 @@
   * [Sequence](fluent-api-tasks/overview/sequence.md)
   * [Provider Query Types](fluent-api-tasks/overview/provider-query-types.md)
 * [Generative Tasks](fluent-api-tasks/generative-tasks/README.md)
-  * [Text](fluent-api-tasks/generative-tasks/response.md)
+  * [Text](fluent-api-tasks/generative-tasks/text.md)
   * [Image](fluent-api-tasks/generative-tasks/image.md)
   * [Video](fluent-api-tasks/generative-tasks/video.md)
   * [Speech](fluent-api-tasks/generative-tasks/speech.md)
