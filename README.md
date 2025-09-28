@@ -63,7 +63,7 @@ It also makes **tool calls** trivial: register tools, listen to **Tool Events** 
 
 **AI Generators** are Unity components that make it easy to use Generative AI—such as **image generation**, **voice synthesis (TTS)**, and **speech recognition**—directly in Unity. They’re implemented as drop-in components, so you can add them to a GameObject and use them with simple calls or events.
 
-<table><thead><tr><th width="284.1431884765625">AI Generato</th><th data-type="checkbox">Studio</th><th data-type="checkbox">Pro</th><th data-type="checkbox">Research</th></tr></thead><tbody><tr><td>Image Generator</td><td>false</td><td>true</td><td>true</td></tr><tr><td>Speech Generator (TTS)</td><td>false</td><td>true</td><td>true</td></tr><tr><td>Speech Transcriber (STT)</td><td>false</td><td>true</td><td>true</td></tr><tr><td>Content Moderator</td><td>false</td><td>true</td><td>true</td></tr><tr><td>Voice Changer</td><td>false</td><td>true</td><td>true</td></tr><tr><td>Music Generator (Coming Soon)</td><td>false</td><td>false</td><td>true</td></tr></tbody></table>
+<table><thead><tr><th width="284.1431884765625">AI Generator</th><th data-type="checkbox">Studio</th><th data-type="checkbox">Pro</th><th data-type="checkbox">Research</th></tr></thead><tbody><tr><td>Image Generator</td><td>false</td><td>true</td><td>true</td></tr><tr><td>Speech Generator (TTS)</td><td>false</td><td>true</td><td>true</td></tr><tr><td>Speech Transcriber (STT)</td><td>false</td><td>true</td><td>true</td></tr><tr><td>Content Moderator</td><td>false</td><td>true</td><td>true</td></tr><tr><td>Voice Changer</td><td>false</td><td>true</td><td>true</td></tr><tr><td>Lyria Music Player</td><td>false</td><td>false</td><td>true</td></tr></tbody></table>
 
 ***
 

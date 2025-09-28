@@ -8,7 +8,7 @@ icon: search-code
 
 | Provider            | Query type        |
 | ------------------- | ----------------- |
-| OpenAI              | `CursorQuery`     |
+| OpenAI              | `CursorQuery` or `IncludeQuery`|
 | ElevenLabs          | `ElevenLabsQuery` |
 | Google Gemini       | `TokenQuery`      |
 | Others (not listed) | — (no query)      |
