@@ -1,8 +1,17 @@
+# Summary
+
+* [AI Dev Kit](README.md)
+* [Getting Started](getting-started.md)
+* [API Reference](api-reference.md)
+
 # Table of contents
+
+* [AI Dev Kit 4.7.0](README.md)
+* [API Reference](api-reference.md)
 
 ## Introduction
 
-* [AI Dev Kit 4.6.0](README.md)
+* [AI Dev Kit 4.7.0](README.md)
 * [Feature Supports](introduction/provider-supports/README.md)
 * [FAQ](introduction/faq.md)
 * [Troubleshooting](introduction/troubleshooting/README.md)
@@ -178,3 +187,7 @@
 * [AI Dev Kit 3.0](legacy-documents/ai-dev-kit-3.0/README.md)
   * [Event Receivers](legacy-documents/ai-dev-kit-3.0/event-receivers.md)
   * [Modules](legacy-documents/ai-dev-kit-3.0/modules.md)
+
+## API Reference
+
+* [API Reference](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.html)

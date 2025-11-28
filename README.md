@@ -2,7 +2,7 @@
 icon: cube
 ---
 
-# AI Dev Kit 4.6.0
+# AI Dev Kit 4.7.0
 
 <figure><img src=".gitbook/assets/Cover Image.png" alt=""><figcaption></figcaption></figure>
 
