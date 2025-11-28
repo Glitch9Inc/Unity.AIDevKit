@@ -181,4 +181,4 @@
 
 ## API Reference
 
-* [API Reference](https://glitch9inc.github.io/DocFx.AIDevKit/api/Glitch9.AIDevKit.html)
+* [API Reference](api-reference.md)
