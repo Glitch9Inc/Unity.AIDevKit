@@ -1,14 +1,8 @@
 # Summary
 
-* [AI Dev Kit](README.md)
-* [Getting Started](getting-started.md)
-* [Update Logs](introduction/update-logs/README.md)
-  * [AI Dev Kit v3](introduction/update-logs/ai-dev-kit-v3.md)
-  * [AI Dev Kit v2](introduction/update-logs/ai-dev-kit-v2.md)
-  * [AI Dev Kit v1](introduction/update-logs/ai-dev-kit-v1.md)
-
 ## Introduction
 
+* [AI Dev Kit](README.md)
 * [Feature Supports](introduction/provider-supports/README.md)
 * [FAQ](introduction/faq.md)
 * [Troubleshooting](introduction/troubleshooting/README.md)
@@ -23,8 +17,12 @@
   * [\[IL2CPP\] Cannot Convert 'Nullable\<Enum>' to 'int' During Android Build](introduction/troubleshooting/il2cpp-cannot-convert-nullable-less-than-enum-greater-than-to-int-during-android-build.md)
 * [Add-ons](introduction/add-ons/README.md)
   * [Spreadsheet (Localization)](introduction/add-ons/spreadsheet-localization.md)
+* [Update Logs](introduction/update-logs/README.md)
+  * [AI Dev Kit v3](introduction/update-logs/ai-dev-kit-v3.md)
+  * [AI Dev Kit v2](introduction/update-logs/ai-dev-kit-v2.md)
+  * [AI Dev Kit v1](introduction/update-logs/ai-dev-kit-v1.md)
 
-## Quick Start
+## Getting Started
 
 * [API Key Setup](quick-start/api-key-setup/README.md)
   * [OpenAI](quick-start/api-key-setup/openai.md)
