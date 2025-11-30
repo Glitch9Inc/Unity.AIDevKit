@@ -5,6 +5,7 @@ Play audio responses from AI agents.
 ## Overview
 
 Audio Output Player provides:
+
 - Audio playback control
 - Volume and speed adjustment
 - Playlist management

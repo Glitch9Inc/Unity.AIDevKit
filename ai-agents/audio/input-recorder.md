@@ -5,6 +5,7 @@ Record audio input from microphone for voice interactions.
 ## Overview
 
 Audio Input Recorder enables:
+
 - Microphone recording in Unity
 - Push-to-talk functionality
 - Voice activation detection (VAD)
