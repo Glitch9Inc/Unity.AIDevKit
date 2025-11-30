@@ -3,7 +3,7 @@
 ## Introduction
 
 * [AI Dev Kit](README.md)
-* [Feature Supports](introduction/provider-supports/README.md)
+  * [Endpoint Supports](introduction/provider-supports/README.md)
 * [FAQ](introduction/faq.md)
 * [Troubleshooting](introduction/troubleshooting/README.md)
   * [AI Dev Kit does not appear in Tools menu](introduction/troubleshooting/ai-dev-kit-does-not-appear-in-tools-menu.md)
