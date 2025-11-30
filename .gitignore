@@ -1,0 +1,9 @@
+# Source code (documentation only)
+source/
+
+# Unity meta files
+*.meta
+
+# OS files
+.DS_Store
+Thumbs.db
