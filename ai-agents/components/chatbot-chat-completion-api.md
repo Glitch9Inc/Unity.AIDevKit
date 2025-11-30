@@ -1,2 +1,0 @@
-# Chatbot (Chat Completion API)
-

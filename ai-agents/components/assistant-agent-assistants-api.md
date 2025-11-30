@@ -1,2 +1,0 @@
-# Assistant Agent (Assistants API)
-

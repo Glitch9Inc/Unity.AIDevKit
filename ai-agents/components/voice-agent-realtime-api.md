@@ -1,2 +1,0 @@
-# Voice Agent (Realtime API)
-

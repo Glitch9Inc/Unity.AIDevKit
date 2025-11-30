@@ -1,6 +1,0 @@
----
-icon: unity
----
-
-# Components
-

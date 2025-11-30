@@ -1,2 +1,0 @@
-# Response Agent (Responses API)
-
