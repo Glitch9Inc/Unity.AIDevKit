@@ -1,6 +1,0 @@
----
-icon: browser
----
-
-# URL Context
-

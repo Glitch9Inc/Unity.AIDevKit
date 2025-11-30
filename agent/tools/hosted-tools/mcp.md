@@ -1,6 +1,0 @@
----
-icon: webhook
----
-
-# MCP Tool
-

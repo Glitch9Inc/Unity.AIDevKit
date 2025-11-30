@@ -1,6 +1,0 @@
----
-icon: image
----
-
-# Image Generation
-

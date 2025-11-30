@@ -1,6 +1,0 @@
----
-icon: cloud
----
-
-# Hosted Tools
-
