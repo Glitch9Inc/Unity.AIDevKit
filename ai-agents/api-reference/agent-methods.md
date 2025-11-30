@@ -265,34 +265,8 @@ Internal method to register tool definitions.
 
 - `tools` - List of tools to register
 
-**Example (via ToolExecutor):**
+**Note:** Tools are typically registered via `IFunctionCallExecutor` components attached to GameObjects. See Tool Call Handling example below.
 
-```csharp
-public class WeatherExecutor : IToolExecutor
-{
-    public string ToolName => "get_weather";
-    
-    public void RegisterWith(Agent agent)
-    {
-        var tool = new Tool
-        {
-            Function = new FunctionDefinition
-            {
-                Name = "get_weather",
-                Description = "Get weather for location",
-                Parameters = new { ... }
-            }
-        };
-        
-        agent.RegisterTools(new List<Tool> { tool });
-    }
-    
-    public async UniTask<string> ExecuteAsync(string arguments)
-    {
-        // Implementation
-        return JsonUtility.ToJson(weatherData);
-    }
-}
 ```
 
 ## Error Handling Methods
@@ -419,9 +393,10 @@ public class ToolCallExample : MonoBehaviour
         
         await agent.InitializeAsync();
         
-        // Register tool executor
-        var executor = new WeatherExecutor();
-        executor.RegisterWith(agent);
+        // Executor auto-registered if attached to GameObject
+        // Or manually register:
+        var executor = GetComponent<WeatherExecutor>();
+        agentBehaviour.RegisterToolCallExecutor<FunctionCall, FunctionOutput>(executor);
         
         // Commit tools
         await agent.CommitParametersUpdateAsync();
@@ -435,41 +410,45 @@ public class ToolCallExample : MonoBehaviour
     }
 }
 
-public class WeatherExecutor : IToolExecutor
+public class WeatherExecutor : MonoBehaviour, IFunctionCallExecutor
 {
-    public string ToolName => "get_weather";
+    public bool CanExecute(string toolName) 
+        => toolName == "get_weather";
     
-    public ToolDefinition GetToolDefinition()
+    public async UniTask<FunctionOutput> ExecuteAsync(
+        FunctionCall toolCall, 
+        CancellationToken ct = default)
     {
-        return new ToolDefinition
-        {
-            Name = "get_weather",
-            Description = "Get current weather for a location",
-            Parameters = new
-            {
-                type = "object",
-                properties = new
-                {
-                    location = new
-                    {
-                        type = "string",
-                        description = "City name"
-                    }
-                },
-                required = new[] { "location" }
-            }
-        };
-    }
-    
-    public async UniTask<string> ExecuteAsync(string arguments)
-    {
-        var args = JsonUtility.FromJson<WeatherArgs>(arguments);
+        var args = JsonUtility.FromJson<WeatherArgs>(toolCall.Arguments);
         
         // Fetch weather data
         var weather = await FetchWeatherAsync(args.location);
         
-        return JsonUtility.ToJson(weather);
+        return new FunctionOutput
+        {
+            CallId = toolCall.CallId,
+            Output = JsonUtility.ToJson(weather)
+        };
     }
+    
+    async UniTask<WeatherData> FetchWeatherAsync(string location)
+    {
+        // Implementation
+        return new WeatherData { Temperature = 72, Condition = "Sunny" };
+    }
+}
+
+[System.Serializable]
+public class WeatherArgs
+{
+    public string location;
+}
+
+[System.Serializable]
+public class WeatherData
+{
+    public int Temperature;
+    public string Condition;
 }
 ```
 
@@ -582,8 +561,8 @@ public class ParameterUpdateExample : MonoBehaviour
         agent.Settings.Temperature = 0.8f;
         
         // Register new tools
-        var newExecutor = new CalculatorExecutor();
-        newExecutor.RegisterWith(agent);
+        var newExecutor = GetComponent<CalculatorExecutor>();
+        agentBehaviour.RegisterToolCallExecutor<FunctionCall, FunctionOutput>(newExecutor);
         
         // Commit all changes
         await agent.CommitParametersUpdateAsync();

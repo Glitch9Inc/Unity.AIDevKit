@@ -380,6 +380,88 @@ public void OnRecordButtonReleased()
 }
 ```
 
+## Tool Registration Methods
+
+### RegisterToolCallExecutor
+
+```csharp
+public void RegisterToolCallExecutor<TCall, TOutput>(
+    IToolCallExecutor<TCall, TOutput> executor)
+    where TCall : ToolCall 
+    where TOutput : ToolOutput
+```
+
+Registers a tool call executor for a specific tool type.
+
+**Type Parameters:**
+
+- `TCall` - Tool call type (FunctionCall, LocalShellCall, ComputerUseCall, CustomToolCall)
+- `TOutput` - Tool output type (FunctionOutput, LocalShellOutput, ComputerUseOutput, CustomToolOutput)
+
+**Parameters:**
+
+- `executor` - Executor instance that handles the tool
+
+**Example:**
+
+```csharp
+public class WeatherExecutor : MonoBehaviour, IFunctionCallExecutor
+{
+    public bool CanExecute(string toolName) => toolName == "get_weather";
+    
+    public async UniTask<FunctionOutput> ExecuteAsync(
+        FunctionCall toolCall, 
+        CancellationToken ct = default)
+    {
+        // Implementation
+        return new FunctionOutput
+        {
+            CallId = toolCall.CallId,
+            Output = "{\"temperature\": 72}"
+        };
+    }
+}
+
+// Manual registration
+var executor = GetComponent<WeatherExecutor>();
+agent.RegisterToolCallExecutor<FunctionCall, FunctionOutput>(executor);
+
+// Note: Executors attached as components are auto-registered during initialization
+```
+
+### UnregisterToolCallExecutor
+
+```csharp
+public bool UnregisterToolCallExecutor<TCall, TOutput>(
+    IToolCallExecutor<TCall, TOutput> executor)
+    where TCall : ToolCall 
+    where TOutput : ToolOutput
+```
+
+Unregisters a previously registered tool call executor.
+
+**Type Parameters:**
+
+- `TCall` - Tool call type
+- `TOutput` - Tool output type
+
+**Parameters:**
+
+- `executor` - Executor instance to remove
+
+**Returns:** `true` if successfully removed, `false` otherwise.
+
+**Example:**
+
+```csharp
+var executor = GetComponent<WeatherExecutor>();
+
+if (agent.UnregisterToolCallExecutor<FunctionCall, FunctionOutput>(executor))
+{
+    Debug.Log("Executor unregistered");
+}
+```
+
 ## File Attachment Methods
 
 ### AddAttachments (IFile)
