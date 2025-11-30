@@ -2,7 +2,7 @@
 icon: lemon
 ---
 
-# Generative Tasks
+# Generative Requests
 
 **AI Dev Kit** provides a collection of modular, fluent tasks to perform powerful AI actions directly within Unity. Each `GenerativeTask` type is designed for a specific modality, with unified syntax and advanced customization support.
 
