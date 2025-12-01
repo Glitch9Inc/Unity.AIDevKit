@@ -156,7 +156,7 @@ var customVoices = await Api.ElevenLabs.ListCustomVoices().ExecuteAsync();
 
 ```csharp
 // Limited custom voice support
-var voices = await Api.Gemini.ListCustomVoices().ExecuteAsync();
+var voices = await Api.Google.ListCustomVoices().ExecuteAsync();
 ```
 
 ## Combining Built-in and Custom Voices

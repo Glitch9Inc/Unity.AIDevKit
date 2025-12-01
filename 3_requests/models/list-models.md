@@ -119,7 +119,7 @@ var models = await Api.Anthropic.ListModels().ExecuteAsync();
 ### Google Gemini
 
 ```csharp
-var models = await Api.Gemini.ListModels().ExecuteAsync();
+var models = await Api.Google.ListModels().ExecuteAsync();
 // Returns: Gemini 1.5 Pro, Flash, etc.
 ```
 

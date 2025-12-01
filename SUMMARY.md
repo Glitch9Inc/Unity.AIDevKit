@@ -99,13 +99,8 @@
 
 * [Overview](4_agent/overview/README.md)
   * [How Agents Work](4_agent/overview/how-agents-work.md)
-  * [Agent vs Request](agent/overview/agent-vs-request.md)
   * [Your First Agent](agent/overview/your-first-agent.md)
-* [Getting Started](agent/getting-started/README.md)
-  * [Creating an Agent](agent/getting-started/creating-an-agent.md)
   * [Agent Settings](agent/getting-started/agent-settings.md)
-  * [Sending Messages](agent/getting-started/sending-messages.md)
-  * [Receiving Responses](agent/getting-started/receiving-responses.md)
 * [Conversations](agent/conversations/README.md)
   * [How Conversations Work](agent/conversations/how-conversations-work.md)
   * [Saving & Loading](agent/conversations/saving-and-loading.md)

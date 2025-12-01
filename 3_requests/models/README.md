@@ -99,7 +99,7 @@ await Api.OpenAI.DeleteModel("ft:...").ExecuteAsync();
 
 ```csharp
 // List models only
-await Api.Gemini.ListModels().ExecuteAsync();
+await Api.Google.ListModels().ExecuteAsync();
 ```
 
 ### Anthropic

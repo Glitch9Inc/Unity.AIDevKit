@@ -127,7 +127,7 @@ var model = await Api.Anthropic.GetModel("claude-3-5-sonnet-20241022").ExecuteAs
 ### Google Gemini
 
 ```csharp
-var model = await Api.Gemini.GetModel("gemini-1.5-pro").ExecuteAsync();
+var model = await Api.Google.GetModel("gemini-1.5-pro").ExecuteAsync();
 ```
 
 ## Common Model IDs

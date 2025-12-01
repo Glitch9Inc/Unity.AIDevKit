@@ -81,7 +81,7 @@ await Api.ElevenLabs.ListCustomVoices().ExecuteAsync();
 
 ```csharp
 // List voices only
-await Api.Gemini.ListVoices().ExecuteAsync();
+await Api.Google.ListVoices().ExecuteAsync();
 ```
 
 ## Next Steps

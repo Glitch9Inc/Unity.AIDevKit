@@ -150,7 +150,7 @@ Voice voice = OpenAIVoice.Shimmer;
 ### Google
 
 ```csharp
-var voice = await Api.Gemini.GetVoice("en-US-Standard-A").ExecuteAsync();
+var voice = await Api.Google.GetVoice("en-US-Standard-A").ExecuteAsync();
 ```
 
 ## Best Practices

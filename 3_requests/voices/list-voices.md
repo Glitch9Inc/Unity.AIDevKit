@@ -178,7 +178,7 @@ var voices = new[]
 ### Google
 
 ```csharp
-var voices = await Api.Gemini.ListVoices().ExecuteAsync();
+var voices = await Api.Google.ListVoices().ExecuteAsync();
 // Returns: Google Cloud TTS voices
 ```
 

@@ -105,7 +105,7 @@ await Api.Anthropic.DownloadFile(fileId).ExecuteAsync();
 
 ```csharp
 // Limited file operations
-await Api.Gemini.UploadFile(file).ExecuteAsync();
+await Api.Google.UploadFile(file).ExecuteAsync();
 ```
 
 ## Next Steps
