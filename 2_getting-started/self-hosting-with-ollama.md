@@ -18,7 +18,7 @@ Install at least one Ollama model, either manually from the [Ollama website](htt
 ## Test & Configure in Unity
 
 {% hint style="info" %}
-### Edit ▶ Preferences ▶︎ AI Dev Kit ▶︎ Ollama <a href="#ollama-setup" id="ollama-setup"></a>
+#### Edit ▶ Preferences ▶︎ AI Dev Kit ▶︎ Ollama <a href="#ollama-setup" id="ollama-setup"></a>
 {% endhint %}
 
 <figure><img src="../.gitbook/assets/image (96).png" alt=""><figcaption></figcaption></figure>

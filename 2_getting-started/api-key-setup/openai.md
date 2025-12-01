@@ -13,7 +13,7 @@ If you haven't done so already, sign up for an account on the [OpenAI platform.]
 
 Once logged in, go to the [API section of your account](https://platform.openai.com/account/api-keys) to find the API keys page.
 
-<figure><img src="../../.gitbook/assets/image (45).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (44) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## **Generate a new API key**
 
