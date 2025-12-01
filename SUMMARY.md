@@ -174,11 +174,6 @@
     * [Approval Handlers](4_agent/tools/mcp/approval-handlers.md)
     * [Approval Timeout](4_agent/tools/mcp/approval-timeout.md)
     * [Access Token Service](4_agent/tools/mcp/access-token-service.md)
-* [API Reference](4_agent/api-reference/README.md)
-  * [Agent Properties](4_agent/api-reference/agent-properties.md)
-  * [Agent Methods](4_agent/api-reference/agent-methods.md)
-  * [AgentBehaviour Properties](4_agent/api-reference/agentbehaviour-properties.md)
-  * [AgentBehaviour Methods](4_agent/api-reference/agentbehaviour-methods.md)
 
 ## Components
 
