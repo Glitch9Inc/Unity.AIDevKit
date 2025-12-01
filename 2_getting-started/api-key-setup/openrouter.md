@@ -11,7 +11,7 @@ If you haven't done so already, sign up for an account on the [OpenRouter platfo
 
 ## **Navigate to Keys**
 
-<figure><img src="../../.gitbook/assets/image (100).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (99) (1).png" alt=""><figcaption></figcaption></figure>
 
 Once logged in, go to the [Keys section of your account](https://platform.openai.com/account/api-keys) to find the API keys page.
 

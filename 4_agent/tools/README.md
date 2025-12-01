@@ -1,4 +1,8 @@
-# Tools
+---
+icon: gear-code
+---
+
+# Tools & Abilities
 
 Enable your agent to call functions, execute commands, and integrate with external systems.
 
@@ -6,12 +10,12 @@ Enable your agent to call functions, execute commands, and integrate with extern
 
 Tools allow agents to:
 
-- **Call functions** in your code
-- **Execute shell commands** locally
-- **Use hosted services** (file search, code interpreter, web search)
-- **Generate content** locally (images, speech)
-- **Access Google services** (search, code execution)
-- **Connect via MCP** (Model Context Protocol)
+* **Call functions** in your code
+* **Execute shell commands** locally
+* **Use hosted services** (file search, code interpreter, web search)
+* **Generate content** locally (images, speech)
+* **Access Google services** (search, code execution)
+* **Connect via MCP** (Model Context Protocol)
 
 ## Tool Categories
 
@@ -63,10 +67,10 @@ settings.EnableComputerUse = true;
 
 Server-side tools provided by AI platforms:
 
-- **File Search** - Search through uploaded documents
-- **Code Interpreter** - Execute Python code
-- **Web Search** - Search the internet
-- **MCP Tools** - Model Context Protocol integrations
+* **File Search** - Search through uploaded documents
+* **Code Interpreter** - Execute Python code
+* **Web Search** - Search the internet
+* **MCP Tools** - Model Context Protocol integrations
 
 ```csharp
 settings.EnableFileSearch = true;
@@ -77,9 +81,9 @@ settings.EnableCodeInterpreter = true;
 
 Generate content locally using AI APIs:
 
-- **Image Generation** - Create images with DALL-E, Stable Diffusion
-- **Speech Generation** - Convert text to speech
-- **Speech Transcription** - Convert speech to text
+* **Image Generation** - Create images with DALL-E, Stable Diffusion
+* **Speech Generation** - Convert text to speech
+* **Speech Transcription** - Convert speech to text
 
 ```csharp
 var imageTool = new ImageGenerationToolDefinition
@@ -94,9 +98,9 @@ settings.ToolDefinitions.Add(imageTool);
 
 Google-specific integrations:
 
-- **Google Search** - Search via Google
-- **URL Context** - Fetch and analyze web pages
-- **Code Execution** - Run code in Google's sandbox
+* **Google Search** - Search via Google
+* **URL Context** - Fetch and analyze web pages
+* **Code Execution** - Run code in Google's sandbox
 
 ```csharp
 settings.EnableGoogleSearch = true;
@@ -276,8 +280,8 @@ public class WeatherTool : IToolExecutor
 
 ## Next Steps
 
-- [Tool Overview](overview.md) - Detailed tool concepts
-- [Registering Tool Executors](registering-executors.md) - Tool registration guide
-- [Tool Calls](tool-calls/README.md) - Function, Shell, Computer Use
-- [Unhandled Tool Calls](unhandled-tool-calls.md) - Handle missing tools
-- [Submit Tool Output](submit-tool-output.md) - Manual tool execution
+* [Tool Overview](overview.md) - Detailed tool concepts
+* [Registering Tool Executors](registering-executors.md) - Tool registration guide
+* [Tool Calls](tool-calls/) - Function, Shell, Computer Use
+* [Unhandled Tool Calls](unhandled-tool-calls.md) - Handle missing tools
+* [Submit Tool Output](submit-tool-output.md) - Manual tool execution

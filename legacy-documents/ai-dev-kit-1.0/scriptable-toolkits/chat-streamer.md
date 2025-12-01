@@ -9,7 +9,7 @@ The `ChatStreamer` toolkit enables real-time chat capabilities within Unity, pow
 
 ### Step 2: Configuring Chat Streamer
 
-<figure><img src="../../../.gitbook/assets/image (34).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (33) (1).png" alt=""><figcaption></figcaption></figure>
 
 1. **Model**: Select the GPT model you wish to use for generating responses.
 2. **Instruction**: Define an initial instruction or prompt that will guide the AI's conversation style or topic.
