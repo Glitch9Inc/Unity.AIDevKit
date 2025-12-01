@@ -8,13 +8,13 @@ This page explains the internal architecture of an Agent and how all the compone
 
 ## Architecture Overview
 
-```mermaid
+{% mermaid %}
 graph TB
     subgraph Unity["Unity Scene"]
         GO[GameObject]
         AB[AgentBehaviour<br/>MonoBehaviour]
     end
-    
+
     subgraph Core["Agent Core (C# Class)"]
         A[Agent]
         AS[AgentSettings]
@@ -64,7 +64,7 @@ graph TB
     style A fill:#fff4e1
     style Controllers fill:#f0f0f0
     style Services fill:#f0f0f0
-```
+{% endmermaid %}
 
 ## Component Breakdown
 
@@ -77,7 +77,7 @@ graph TB
 - Creates and manages the core **Agent** instance
 - Bridges Unity and C# pure logic
 
-```mermaid
+{% mermaid %}
 graph LR
     AB[AgentBehaviour] -->|Start| INIT[Initialize Agent]
     AB -->|User Input| SEND[SendMessage]
@@ -85,16 +85,16 @@ graph LR
     A -->|Response| EVT[Events]
     EVT --> UE[UnityEvents]
     UE --> UI[Update UI]
-```
+{% endmermaid %}
 
 ### 2. Agent (Core C# Class)
 
 **Agent** is a pure C# class (no MonoBehaviour) that orchestrates everything:
 
-```mermaid
+{% mermaid %}
 graph TB
     A[Agent]
-    
+
     A -->|Configuration| PC[ParametersController]
     A -->|Conversations| CC[ConversationController]
     A -->|Voice I/O| AC[AudioController]
@@ -106,7 +106,7 @@ graph TB
     AC -->|AudioClip| AUDIO[Audio I/O]
     TC -->|Tool Execution| TOOLS[Tools]
     ER -->|Callbacks| EVENTS[Event Handlers]
-```
+{% endmermaid %}
 
 ### 3. Controllers
 
@@ -116,69 +116,69 @@ Each controller handles a specific domain:
 
 Manages model, voice, and configuration settings:
 
-```mermaid
+{% mermaid %}
 graph LR
     PC[ParametersController] -->|Loads| PREFS[AgentPrefs]
     PC -->|Resolves| MODEL[Model]
     PC -->|Resolves| VOICE[Voice]
     PC -->|Validates| TOOLS[Tools]
     PC -->|Creates| PARAMS[Parameters Object]
-```
+{% endmermaid %}
 
 #### ConversationController
 
 Handles message history and context:
 
-```mermaid
+{% mermaid %}
 graph LR
     CC[ConversationController] -->|Creates| CONV[Conversation]
     CC -->|Loads/Saves| STORE[ConversationStore]
     CC -->|Adds| MSG[Messages]
     CC -->|Assembles| CTX[Context for API]
-```
+{% endmermaid %}
 
 #### AudioController
 
 Manages voice input/output:
 
-```mermaid
+{% mermaid %}
 graph LR
     AC[AudioController] -->|Records| MIC[Microphone]
     AC -->|Transcribes| STT[Speech-to-Text]
     AC -->|Synthesizes| TTS[Text-to-Speech]
     AC -->|Plays| SPEAKER[AudioSource]
-```
+{% endmermaid %}
 
 #### ToolCallController
 
 Executes tool calls:
 
-```mermaid
+{% mermaid %}
 graph LR
     TC[ToolCallController] -->|Receives| CALL[ToolCall]
     TC -->|Routes| EXEC[Tool Executor]
     EXEC -->|Returns| OUTPUT[ToolOutput]
     TC -->|Submits| API[Back to API]
-```
+{% endmermaid %}
 
 #### EventRouter
 
 Distributes events to listeners:
 
-```mermaid
+{% mermaid %}
 graph LR
     ER[EventRouter] -->|Text Delta| TXT[onTextDelta]
     ER -->|Tool Status| TOOL[onToolStatus]
     ER -->|Audio| AUD[onAudio]
     ER -->|Status| STATUS[onStatusChanged]
     ER -->|Complete| DONE[onResponseComplete]
-```
+{% endmermaid %}
 
 ## Message Flow
 
 Here's what happens when you send a message:
 
-```mermaid
+{% mermaid %}
 sequenceDiagram
     participant User
     participant AgentBehaviour
@@ -187,7 +187,7 @@ sequenceDiagram
     participant ParametersController
     participant ChatApiService
     participant API as AI Provider
-    
+
     User->>AgentBehaviour: SendMessage("Hello")
     AgentBehaviour->>Agent: SendAsync("Hello")
     
@@ -221,20 +221,20 @@ sequenceDiagram
     Agent->>EventRouter: Emit onResponseComplete
     EventRouter->>AgentBehaviour: Fire UnityEvent
     AgentBehaviour->>User: Show complete message
-```
+{% endmermaid %}
 
 ## Tool Call Flow
 
 When the AI wants to use a tool:
 
-```mermaid
+{% mermaid %}
 sequenceDiagram
     participant API as AI Provider
     participant Agent
     participant ToolCallController
     participant ToolExecutor
     participant User as Your Code
-    
+
     API->>Agent: Response with tool_calls
     Agent->>ToolCallController: HandleToolCalls(calls)
     
@@ -255,18 +255,18 @@ sequenceDiagram
     ToolCallController->>Agent: All outputs ready
     Agent->>API: Submit tool outputs
     API->>Agent: Continue with results
-```
+{% endmermaid %}
 
 ## Initialization Flow
 
 What happens when you start an Agent:
 
-```mermaid
+{% mermaid %}
 graph TB
     START([GameObject.Start]) --> CHECK{Agent exists?}
     CHECK -->|No| CREATE[Create new Agent]
     CHECK -->|Yes| INIT
-    
+
     CREATE --> INIT[Agent.InitAsync]
     
     INIT --> INIT_PARAMS[ParametersController.InitAsync]
@@ -298,19 +298,19 @@ graph TB
     EMIT_READY --> START_MSG{Has starting message?}
     START_MSG -->|Yes| SEND_START[Send starting message]
     START_MSG -->|No| IDLE[Idle, waiting for input]
-```
+{% endmermaid %}
 
 ## Status Lifecycle
 
 Agent goes through different statuses:
 
-```mermaid
+{% mermaid %}
 stateDiagram-v2
     [*] --> Uninitialized
     Uninitialized --> Initializing : InitAsync()
     Initializing --> Ready : Init Complete
     Initializing --> Failed : Init Error
-    
+
     Ready --> Processing : SendMessage()
     Processing --> Ready : Response Complete
     Processing --> Failed : API Error
@@ -332,20 +332,20 @@ stateDiagram-v2
         - Can change settings
         - Can save/load
     end note
-```
+{% endmermaid %}
 
 ## Data Flow
 
 How data moves through the system:
 
-```mermaid
+{% mermaid %}
 graph TB
     subgraph Input
         TXT[Text Input]
         AUD[Audio Input]
         FILE[File Input]
     end
-    
+
     subgraph Processing
         CONV[Conversation]
         CTX[Context Assembly]
@@ -383,7 +383,7 @@ graph TB
     LOCAL -.->|Load| CONV
     REMOTE -.->|Load| CONV
     LOCAL -.->|Load| PREFS
-```
+{% endmermaid %}
 
 ## Key Takeaways
 
