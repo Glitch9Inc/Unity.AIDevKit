@@ -4,6 +4,362 @@ icon: calendar-lines-pen
 
 # Update Logs
 
+### 4.8.0 (2025-11-30)
+
+**Fixed:**
+
+* Model and Voice assets path normalization issues resolved
+
+---
+
+### 4.7.29 (2025-11-29)
+
+**Fixed:**
+
+* Unity 2022 backward compatibility restored
+
+---
+
+### 4.7.28 (2025-11-28)
+
+**Added:**
+
+* DeepSeek API support (Pro package)
+
+**Fixed:**
+
+* Runtime path normalization issues
+* Editor path normalization issues
+* Transcriber component issues
+
+---
+
+### 4.7.24-4.7.27 (2025-11-26 ~ 2025-11-28)
+
+**Added:**
+
+* GroqCloud file support in Data Manager
+* `GetCredits()` request - returns prepaid balance (used/total)
+* FileMetadata to file classes
+
+**Fixed:**
+
+* Multiple filtered popup issues (#2, #3, #4)
+* Path issues resolved
+
+**Removed:**
+
+* 'note' property from file classes
+
+---
+
+### 4.7.23 (2025-11-23 ~ 2025-11-24)
+
+**Added:**
+
+* WebSearch agent integration for Google, xAI, Perplexity
+* Hyperlink (annotation) support for DevChat
+* Advanced tool status message UI
+* Advanced reasoning text UI
+* Perplexity reasoning token parsing
+
+**Improved:**
+
+* Cleaned up Agent.cs code
+* More events added to AgentBehaviour
+
+**Fixed:**
+
+* WebSearch tool parsing issues
+* Annotation missing converter
+
+**Changed:**
+
+* Separated Voice Recorder and Transcription components
+* Merged tool settings to Tools in Agent Settings
+
+**Removed:**
+
+* Legacy AssistantsApiService
+* Legacy RealtimeApiService
+* GenAIStreamHandlers
+* TranscriptEventListeners
+
+---
+
+### 4.7.22 (2025-11-21)
+
+**Added:**
+
+* Image streaming support
+* Model Type field in model library window
+
+**Improved:**
+
+* All TreeViews ported to UIToolkit (Unity 6.2+)
+* Generator Window performance drastically improved
+* Generator Window stability enhanced
+
+**Fixed:**
+
+* Request History window loading issues
+* History duplicating issues
+* Prompt snapshot list window upgraded to UIToolkit
+
+**Changed:**
+
+* PromptHistory renamed to AIRequestHistory
+* Added History namespace
+
+**Removed:**
+
+* IPromptHistoryStore, RemotePromptHistoryStore
+* Legacy IMGUI tree view files
+
+**Example - Image Streaming:**
+
+```csharp
+// Start streaming image request
+ImageGenerationRequest request = "prompt-text".GENImage();
+IRESTStream<IImageStreamEvent> stream = await request.YieldAsync();
+
+// Consume stream as events arrive
+await foreach (var e in stream.Events.WithCancellation(stream.CancellationToken))
+{
+    Texture2D tex = e.GetAsset();
+    
+    if (e.IsFinal())
+    {
+        Debug.Log("Image generation completed.");
+    }
+}
+```
+
+---
+
+### 4.7.20 (2025-11-19)
+
+**Added:**
+
+* Register/Unregister methods to Agent
+
+**Improved:**
+
+* ToolCallExecuters and ToolCallManagers refactored
+
+**Fixed:**
+
+* DeltaEvent inspector serialization
+* All demo scenes updated and fixed
+
+---
+
+### 4.7.18-4.7.19 (2025-11-16 ~ 2025-11-18)
+
+**⚠️ Breaking Changes:**
+
+* ChatAgent, VoiceAgent, AssistantsAgent merged into single `AgentBehaviour`
+* Components need to be re-attached in existing scenes
+
+**Improved:**
+
+* Complete refactoring of agent-related API services
+* AssistantsApiService → AssistantsApiAdapter
+* RealtimeApiService → RealtimeApiAdapter
+* WebSocketClient now accepts CancellationToken
+
+**Fixed:**
+
+* DeltaEvent<> inspector serialization issues
+* Agent transcription callback issues
+* Assistants API issues
+* Realtime API fully operational
+
+**Removed:**
+
+* Parent/Subcomponent relation removed
+
+---
+
+### 4.7.16 (2025-11-11 ~ 2025-11-13)
+
+**Added:**
+
+* Unhandled tool call handling properties to Agent and AgentBehaviour
+* Custom inspector for tool call properties
+* Agent Assistants API adapter
+
+**Improved:**
+
+* Enhanced unhandled tool call handling system
+* DevChat UI improvements
+
+**Fixed:**
+
+* ConversationItem polymorphic converter
+* Claude tool input schema parsing
+* AgentBehaviour no longer requires generators as child components
+
+---
+
+### 4.7.10-4.7.11 (2025-11-09)
+
+**Added:**
+
+* Gemini model N range validation
+* Auto Generate Snippets to Model/Voice libraries
+
+**Fixed:**
+
+* ToolType public constructor converter issue
+* Model/Voice save path losing "Resources/" folder
+* JsonSchema array conversion issues
+
+---
+
+### 4.7.7-4.7.9 (2025-11-07 ~ 2025-11-08)
+
+**Added:**
+
+* `FunctionSchemaAttribute`, `FunctionPropertyAttribute`
+* Manual creation menu for catalogs
+* OAuth providers: Apple, GitHub, Slack, Reddit, Salesforce, Box
+
+**Improved:**
+
+* Enhanced FunctionProperty with AdditionalProperties support
+* Removed AdditionalProperties from regular JsonSchemaProperty
+
+**Fixed:**
+
+* SerializableNullable returning null issue
+* Gemini structured response
+* Output type checking
+* Restored SpokenLanguageField (UIElement)
+* Snippet generators
+
+---
+
+### 4.7.7 (2025-11-05)
+
+**Added:**
+
+* TextDeltaEvent with throttling
+* `mcpApprovalTimeoutSeconds` property to Agents
+* TextDeltaEvent custom drawer with throttle field
+* CancellationToken support in AssistantsApiService
+
+**Improved:**
+
+* Agent refactored into pure C# class (no MonoBehaviour dependency)
+* All UnityEvent handling moved to external MonoBehaviour wrappers
+* Better initialization flow and state management
+* CancellationToken handling in CrudHandlers
+* Enhanced ScriptableObject loading with reflection fallback
+* DevChat architecture replaced with refactored C# Agent
+
+**Changed:**
+
+* Input events removed from agents
+* Separated ToolCall / ToolCallOutput
+* Combined tool status events to `onToolStatusChanged`
+
+**Fixed:**
+
+* Unity 2022 backward compatibility
+
+---
+
+### 4.7.6 (2025-11-03)
+
+**Added:**
+
+* New polling system for stabilized video generation
+* Progress bar and detailed info in generator asset views
+
+**Improved:**
+
+* Simplified assets list view UI in generator windows
+
+---
+
+### 4.7.5 (2025-10-29)
+
+**Added:**
+
+* ResponsesAPI support for GroqCloud (beta)
+* ResponsesAPI support for OpenRouter (beta)
+* Microsoft OAuth, Dropbox OAuth
+* Loopback server for OAuth flows
+* SchemeAuthWaiter, FixedRedirectWaiter
+* Bridge for OAuth token providers to Agents
+* CountTokens API for Anthropic
+* Automatic redirect scheme build tools for mobile
+
+**Improved:**
+
+* Model custom editor
+* DevChat model selector
+* More GUI inspectors converted to UIToolkit for performance
+* GoogleOAuth refactored
+* GoogleLoginSettings custom inspector
+
+**Changed:**
+
+* Moved 'Auth' from Research Lab to Pro (required for Agents)
+
+---
+
+### 4.7.4 (2025-10-27)
+
+**Fixed:**
+
+* ImageGenerationRequest parsing issues
+* CustomEditor not editable issue
+* Many bug fixes
+
+---
+
+### 4.7.2 (2025-10-26)
+
+**Added:**
+
+* OpenAI Sora API (Video Generation)
+
+**Fixed:**
+
+* Minor bug fixes
+
+---
+
+### 4.7.1 (2025-10-24)
+
+**Added:**
+
+* EditorFilterWindow (mimics Unity's project filter dropdown)
+
+**Improved:**
+
+* ExTreeView toolbar converted to UIToolkit for performance
+
+**Fixed:**
+
+* ModelPopupField, VoicePopupField caching issues
+* Microsoft /x-wav content type issue
+* SerializeNullableAttribute drawer
+
+---
+
+### 4.7.0 (2025-10-23)
+
+**Added:**
+
+* Lyria Music Player component
+* Lyria Music Track (ScriptableObject)
+* Google tools: Google Search, Code Executor, URL Context
+* OpenAI Streaming Image API
+* TextEmbeddingTask (`.GENTextEmbedding()`)
+
 #### v.4.6.5 (Sep 21, 2025) – *Preview*
 
 * Implemented **Responses API**
