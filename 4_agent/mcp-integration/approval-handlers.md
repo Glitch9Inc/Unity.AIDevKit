@@ -1,3 +1,7 @@
+---
+icon: check-double
+---
+
 # Approval Handlers
 
 Handle approval requests for MCP tool executions.

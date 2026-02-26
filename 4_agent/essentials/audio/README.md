@@ -1,3 +1,7 @@
+---
+icon: microphone
+---
+
 # Audio
 
 Configure and manage voice input/output for your agent.

@@ -1,2 +1,6 @@
+---
+icon: cog
+---
+
 # Agent Settings
 

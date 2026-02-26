@@ -1,3 +1,7 @@
+---
+icon: key
+---
+
 # Access Token Service
 
 Manage access tokens for MCP servers and external services.

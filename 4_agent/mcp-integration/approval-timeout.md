@@ -1,3 +1,7 @@
+---
+icon: clock
+---
+
 # Approval Timeout
 
 Handle timeout scenarios for approval requests.

@@ -1,3 +1,7 @@
+---
+icon: bell
+---
+
 # Events & Hooks
 
 Subscribe to agent events and hooks for real-time updates and custom behavior.

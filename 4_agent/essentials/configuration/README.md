@@ -1,3 +1,7 @@
+---
+icon: gear
+---
+
 # Agent Configuration
 
 Configure your agent's behavior, capabilities, and features through AgentSettings.

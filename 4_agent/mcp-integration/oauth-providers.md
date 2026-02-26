@@ -1,3 +1,7 @@
+---
+icon: shield-halved
+---
+
 # OAuth Providers
 
 Configure OAuth authentication for MCP servers.

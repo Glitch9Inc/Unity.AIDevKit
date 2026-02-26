@@ -1,3 +1,7 @@
+---
+icon: reply
+---
+
 # Generating Responses
 
 Send messages to your agent and handle the responses.

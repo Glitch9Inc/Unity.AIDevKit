@@ -1,3 +1,7 @@
+---
+icon: microchip
+---
+
 # Advanced Topics
 
 Deep dive into agent architecture, services, and customization.
@@ -80,23 +84,37 @@ public class CustomChatService : IChatService
 
 ## Architecture Diagram
 
+<figure><img src="../../../.gitbook/assets/AIDevKit_Agent.jpg" alt="AI Dev Kit Agent Architecture"><figcaption></figcaption></figure>
+
+### Core Components
+
+**1. ScriptableObject Settings (Left)**
+- Configuration management through Unity ScriptableObjects
+- Stores agent settings, API credentials, and preferences
+- Reusable across scenes and projects
+
+**2. MonoBehaviour Layer (Center)**
+- **Agent (Core)** - Main orchestration logic
+- Bridges Unity lifecycle with pure C# architecture
+- Manages controllers, services, and state
+
+**3. Pure C# Layer (Top)**
+- **API Adapters** - Provider-specific implementations (OpenAI, Anthropic, etc.)
+- **Services** - Audio, Image, Tool, and Conversation processing
+- Platform-agnostic, testable architecture
+
+**4. Managers & Storage (Right)**
+- **McpManager** - Tool approval and execution
+- **ConversationManager** - Chat history and context
+- **Stores** - Persistent conversation and embedding data
+- **OAuth Providers** - Token management for third-party services
+
+### Data Flow
+
 ```
-┌─────────────────────────────────────────────┐
-│           AgentBehaviour (Unity)            │
-│  ┌───────────────────────────────────────┐  │
-│  │         Agent (Core Logic)            │  │
-│  │  ┌────────────────────────────────┐   │  │
-│  │  │      Controllers               │   │  │
-│  │  │  ┌──────────────────────────┐  │   │  │
-│  │  │  │  Services                │  │   │  │
-│  │  │  │  - Chat API              │  │   │  │
-│  │  │  │  - Speech API            │  │   │  │
-│  │  │  │  - Transcription API     │  │   │  │
-│  │  │  │  - Image API             │  │   │  │
-│  │  │  └──────────────────────────┘  │   │  │
-│  │  └────────────────────────────────┘   │  │
-│  └───────────────────────────────────────┘  │
-└─────────────────────────────────────────────┘
+Settings → MonoBehaviour → Agent Core → API Adapters → Provider APIs
+                ↓              ↓              ↓
+           Controllers → Services → Managers → Stores
 ```
 
 ## Controllers Responsibility

@@ -1,3 +1,7 @@
+---
+icon: arrows-spin
+---
+
 # Agent Lifecycle
 
 Understanding the agent's lifecycle is essential for proper initialization, usage, and cleanup.

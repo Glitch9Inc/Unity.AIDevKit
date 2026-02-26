@@ -1,3 +1,7 @@
+---
+icon: sliders
+---
+
 # Parameters
 
 Configure model parameters and runtime settings.
