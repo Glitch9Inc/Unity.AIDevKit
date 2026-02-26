@@ -1,6 +1,0 @@
----
-icon: rocket
----
-
-# Getting Started
-

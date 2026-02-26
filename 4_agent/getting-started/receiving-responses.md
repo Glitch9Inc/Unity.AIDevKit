@@ -1,6 +1,0 @@
----
-icon: inbox
----
-
-# Receiving Responses
-
