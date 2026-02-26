@@ -130,7 +130,15 @@
   * [Speech Transcriber](5_components/components/speech-transcriber.md)
   * [Voice Changer](5_components/components/voice-changer.md)
   * [Content Moderator](5_components/components/content-moderator.md)
+## Unity Editor Tools
 
+* [Dev Chat](6_editor-tools/dev-chat.md)
+* [Generative AI](6_editor-tools/generative-ai.md)
+* [Data Management](6_editor-tools/data-management/README.md)
+  * [Request History](6_editor-tools/data-management/request-history.md)
+  * [Uploaded Files](6_editor-tools/data-management/uploaded-files.md)
+  * [Assistants / Threads](6_editor-tools/data-management/assistants-threads.md)
+  * [Conversations](6_editor-tools/data-management/conversations.md)
 ## Unity Editor Tools
 
 * [Dev Chat](6_editor-tools/dev-chat.md)

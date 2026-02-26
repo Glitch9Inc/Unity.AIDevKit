@@ -91,14 +91,19 @@ For high-traffic multiplayer games, consider paid tiers to avoid rate limiting a
 
 <details>
 
-<summary>I'm a student. Do you give out vouchers?</summary>
+<summary>Can I use production-grade AI completely for free?</summary>
 
-I appreciate your interest in **AI Dev Kit**! However, I currently give out vouchers **only to YouTubers, streamers, or influencers** who can help promote the asset publicly.
+**Realistically, no.**
 
-{% hint style="info" %}
-This is because each voucher is limited and meant for marketing purposes.\
-If you have an audience and would like to showcase the asset in a video or post, feel free to reach out and share your content!
-{% endhint %}
+Running production-level AI at scale always requires compute resources — whether through a paid API provider or by hosting and maintaining your own infrastructure.
+
+Free tiers are designed for development, testing, and light usage. They are not intended for unlimited or high-traffic production deployments.
+
+If you want full control without API costs, you can host open-source models yourself (e.g., via Ollama), but this requires sufficient hardware, optimization effort, and ongoing maintenance.
+
+For most developers, a paid API tier is significantly more cost-effective than building and operating custom AI infrastructure.
+
+AI Dev Kit exists to make that integration simple, unified, and production-ready — without requiring developers to build and maintain their own AI backend stack.
 
 </details>
 
@@ -122,27 +127,6 @@ However, always check for:
 * **Prohibited use cases (e.g. misinformation, impersonation)**
 
 Refer to each provider’s Terms of Use to ensure full compliance.
-
-</details>
-<details>
-
-<summary>What are the limitations of free API tiers?</summary>
-
-Free tiers vary significantly by provider and **change frequently**. Here's what to generally expect:
-
-* **Google Gemini** – Generous free tier with daily request limits. Check [Google's pricing page](https://ai.google.dev/pricing) for current quotas.
-* **OpenRouter** – Some models are completely free with no authentication required. Free models typically have lower rate limits and may have queuing during peak hours.
-* **OpenAI** – Offers limited free trial credits for new accounts. Expires after a set period. Check [OpenAI's pricing](https://openai.com/api/pricing/) for details.
-* **Ollama (Local)** – No API limits whatsoever since it runs on your own machine. Performance depends on your hardware.
-
-**Always verify current limits directly with each provider** as they update their free tier policies regularly.
-
-Free tiers work well for:
-* Single-player experiences where you control AI usage
-* Development and testing phases
-* Low-traffic applications
-
-For high-traffic multiplayer games, consider paid tiers to avoid rate limiting and ensure reliability.
 
 </details>
 
