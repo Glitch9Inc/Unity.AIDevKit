@@ -3,7 +3,7 @@
 ## Introduction
 
 * [AI Dev Kit](README.md)
-  * [Endpoint Supports](1_introduction/provider-supports/README.md)
+* [Endpoint Supports](1_introduction/provider-supports/README.md)
 * [FAQ](1_introduction/faq.md)
 * [Troubleshooting](1_introduction/troubleshooting/README.md)
   * [AI Dev Kit does not appear in Tools menu](1_introduction/troubleshooting/ai-dev-kit-does-not-appear-in-tools-menu.md)
@@ -100,18 +100,26 @@
 ## Agent
 
 * [Overview](4_agent/overview/README.md)
-  * [How Agents Work](4_agent/overview/how-agents-work.md)
   * [Your First Agent](4_agent/overview/your-first-agent.md)
+  * [Agent Services](4_agent/overview/agent-services.md)
+  * [Controllers](4_agent/overview/controllers.md)
+  * [Custom Chat Services](4_agent/overview/custom-chat-services.md)
+  * [Event Router](4_agent/overview/event-router.md)
   * [Agent Settings](4_agent/getting-started/agent-settings.md)
 * [Conversations](4_agent/conversations/README.md)
   * [How Conversations Work](4_agent/conversations/how-conversations-work.md)
   * [Saving & Loading](4_agent/conversations/saving-and-loading.md)
   * [Multiple Conversations](4_agent/conversations/multiple-conversations.md)
+  * [Conversation Stores](4_agent/conversations/conversation-stores.md)
 * [Memory](4_agent/memory/README.md)
   * [What is Memory?](4_agent/memory/what-is-memory.md)
   * [Enabling Memory](4_agent/memory/enabling-memory.md)
   * [How Memory Works](4_agent/memory/how-memory-works.md)
   * [Memory Examples](4_agent/memory/memory-examples.md)
+* [Events](4_agent/events/README.md)
+  * [Agent Events Overview](4_agent/events/overview.md)
+  * [Registering & Unregistering Events](4_agent/events/registering-events.md)
+  * [Available Events](4_agent/events/available-events.md)
 * [Voice & Audio](4_agent/voice-and-audio/README.md)
   * [Voice Input](4_agent/voice-and-audio/voice-input.md)
   * [Voice Output](4_agent/voice-and-audio/voice-output.md)
@@ -141,9 +149,9 @@
 * [Generation History](7_editor-tools/generation-history/README.md)
 * [Data Manager](7_editor-tools/data-manager/README.md)
 
-## Platform API
+## Legacy Documents
 
-* [OpenAI](platform-api/openai/README.md)
+* [Platform-OpenAI](platform-api/openai/README.md)
   * [💬 Chat completions](platform-api/openai/chat-completions.md)
   * [🖼️ Image operations](platform-api/openai/image-operations.md)
   * [🗣️ Text to speech](platform-api/openai/text-to-speech.md)
@@ -157,7 +165,7 @@
     * [How it works](platform-api/openai/assistants-api/how-it-works.md)
     * [Creating custom functions](platform-api/openai/assistants-api/creating-custom-functions.md)
     * [Creating assistants API](platform-api/openai/assistants-api/creating-assistants-api.md)
-* [Google Gemini](platform-api/google-gemini/README.md)
+* [Platform-Google Gemini](platform-api/google-gemini/README.md)
   * [📝 System instructions](platform-api/google-gemini/system-instructions.md)
   * [💬 Text generation](platform-api/google-gemini/text-generation.md)
   * [⚙️ Fine-tuning](platform-api/google-gemini/fine-tuning.md)
@@ -165,9 +173,6 @@
   * [🔎 Embeddings](platform-api/google-gemini/embeddings.md)
   * [🛡️ Safety](platform-api/google-gemini/safety.md)
   * [💻 Code execution](platform-api/google-gemini/code-execution.md)
-
-## Legacy Documents
-
 * [AI Dev Kit 1.0](legacy-documents/ai-dev-kit-1.0/README.md)
   * [Preperation](legacy-documents/ai-dev-kit-1.0/preperation.md)
   * [Scriptable Toolkits](legacy-documents/ai-dev-kit-1.0/scriptable-toolkits/README.md)
