@@ -30,8 +30,10 @@ Monitor conversation lifecycle:
 
 ### Tool Events
 Track tool execution lifecycle:
+- `ToolCall` - Tool invocation by agent
 - `ToolStatusEvent` - Tool execution status updates
 - `ToolOutputEvent` - Tool execution results
+- `McpApprovalRequest` - MCP tool approval request
 
 ### Audio Events
 Monitor audio buffer state:
@@ -40,10 +42,10 @@ Monitor audio buffer state:
 
 ### Delta Events (Streaming)
 Real-time streaming updates:
-- `Delta<TextData>` - Streaming text updates
-- `Delta<IImagePayload>` - Streaming image data
-- `Delta<IAudioDelta>` - Streaming audio data
-- `Delta<Annotation>` - Content annotations
+- `Delta<ITextChunk>` - Streaming text updates
+- `Delta<IImageChunk>` - Streaming image data
+- `Delta<IAudioChunk>` - Streaming audio data
+- `Delta<IAnnotationChunk>` - Content annotations
 
 ### Metadata Events
 General agent metadata:
@@ -84,7 +86,7 @@ agent.RegisterEvent<ConversationLoaded>(OnConversationLoaded);
 agent.RegisterEvent<ToolOutputEvent>(OnToolOutput);
 
 // Text streaming
-agent.RegisterEvent<Delta<TextData>>(OnTextDelta);
+agent.RegisterEvent<Delta<ITextChunk>>(OnTextDelta);
 
 // Usage tracking
 agent.RegisterEvent<Usage>(OnUsage);

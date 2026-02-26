@@ -262,6 +262,43 @@ agent.RegisterEvent<ConversationEvent>(evt =>
 
 ## Tool Events
 
+### ToolCall
+
+Fired when the agent decides to call a tool (function, code interpreter, or file search).
+
+```csharp
+public abstract class ToolCall : ConversationItem
+{
+    public int? Index { get; }
+    public string CallId { get; }
+    public string Name { get; }
+    
+    public string GetName() { }
+}
+```
+
+**Properties:**
+- `Index` - Optional index of the tool call
+- `CallId` - Unique identifier for this tool call
+- `Name` - Name of the tool being called
+
+**Example:**
+```csharp
+agent.RegisterEvent<ToolCall>(toolCall => 
+{
+    Debug.Log($"Tool called: {toolCall.GetName()}");
+    Debug.Log($"Call ID: {toolCall.CallId}");
+    
+    if (toolCall is FunctionCall functionCall)
+    {
+        Debug.Log($"Function: {functionCall.Name}");
+        Debug.Log($"Arguments: {functionCall.Arguments}");
+    }
+});
+```
+
+---
+
 ### ToolStatusEvent
 
 Fired when a tool's execution status changes.
@@ -352,25 +389,69 @@ agent.RegisterEvent<ToolOutputEvent>(evt =>
 
 ---
 
+### McpApprovalRequest
+
+Fired when an MCP (Model Context Protocol) tool requires human approval before execution.
+
+```csharp
+public class McpApprovalRequest : ConversationItem
+{
+    public string Arguments { get; }
+    public string Name { get; }
+    public string ServerLabel { get; }
+}
+```
+
+**Properties:**
+- `Arguments` - JSON-encoded arguments for the tool
+- `Name` - Name of the MCP tool requiring approval
+- `ServerLabel` - Label of the MCP server
+
+**Example:**
+```csharp
+agent.RegisterEvent<McpApprovalRequest>(request => 
+{
+    Debug.Log($"MCP approval required for: {request.Name}");
+    Debug.Log($"Server: {request.ServerLabel}");
+    Debug.Log($"Arguments: {request.Arguments}");
+    
+    // Show approval UI to user
+    ShowMcpApprovalDialog(request, (approved, reason) =>
+    {
+        var response = new McpApprovalResponse
+        {
+            ApprovalRequestId = request.Id,
+            Approve = approved,
+            Reason = reason
+        };
+        
+        agent.SendAsync(response).Forget();
+    });
+});
+```
+
+---
+
 ## Streaming Events (Deltas)
 
-### Delta\<TextData\>
+### Delta\<ITextChunk\>
 
 Fired during text streaming, including chat responses, reasoning, and transcription.
 
 ```csharp
-public class Delta<TextData>
+public class Delta<ITextChunk>
 {
     public int Index { get; }
-    public TextData Value { get; }
+    public ITextChunk Value { get; }
     public string Snapshot { get; }
     public bool Done { get; }
 }
 
-public class TextData
+public interface ITextChunk
 {
-    public string Text { get; }
-    public TextType Type { get; }
+    string Text { get; }
+    TextType Type { get; }
+    ChatRole Role { get; }
 }
 ```
 
@@ -382,7 +463,7 @@ public class TextData
 
 **Example:**
 ```csharp
-agent.RegisterEvent<Delta<TextData>>(delta => 
+agent.RegisterEvent<Delta<ITextChunk>>(delta => 
 {
     if (delta.Value?.Text != null)
     {
@@ -411,12 +492,12 @@ agent.RegisterEvent<Delta<TextData>>(delta =>
 });
 ```
 
-### Delta\<IImagePayload\>
+### Delta\<IImageChunk\>
 
 Fired when image data is received (streaming or complete).
 
 ```csharp
-agent.RegisterEvent<Delta<IImagePayload>>(delta => 
+agent.RegisterEvent<Delta<IImageChunk>>(delta => 
 {
     if (delta.Value != null)
     {
@@ -442,12 +523,12 @@ agent.RegisterEvent<Delta<IImagePayload>>(delta =>
 });
 ```
 
-### Delta\<IAudioDelta\>
+### Delta\<IAudioChunk\>
 
 Fired when audio data is received (streaming or complete).
 
 ```csharp
-agent.RegisterEvent<Delta<IAudioDelta>>(delta => 
+agent.RegisterEvent<Delta<IAudioChunk>>(delta => 
 {
     if (delta.Value != null)
     {
@@ -464,12 +545,12 @@ agent.RegisterEvent<Delta<IAudioDelta>>(delta =>
 });
 ```
 
-### Delta\<Annotation\>
+### Delta\<IAnnotationChunk\>
 
 Fired when content annotations are received (citations, references, etc.).
 
 ```csharp
-agent.RegisterEvent<Delta<Annotation>>(delta => 
+agent.RegisterEvent<Delta<IAnnotationChunk>>(delta => 
 {
     if (delta.Value != null)
     {
@@ -495,14 +576,14 @@ Fired when the audio buffer state changes (for Realtime API).
 ```csharp
 public sealed class AudioBufferStateChanged : IEvent
 {
-    public AudioBufferStateEvent EventType { get; }
+    public AudioBufferState State { get; }
     public string PreviousItemId { get; }
     public long AudioStartMs { get; }
     public long AudioEndMs { get; }
 }
 ```
 
-**Event Types:**
+**State Values:**
 - `Committed` - Audio buffer committed
 - `Cleared` - Audio buffer cleared
 - `SpeechStarted` - Speech detection started
@@ -513,23 +594,23 @@ public sealed class AudioBufferStateChanged : IEvent
 ```csharp
 agent.RegisterEvent<AudioBufferStateChanged>(evt => 
 {
-    Debug.Log($"Audio buffer: {evt.EventType}");
+    Debug.Log($"Audio buffer: {evt.State}");
     
-    switch (evt.EventType)
+    switch (evt.State)
     {
-        case AudioBufferStateEvent.SpeechStarted:
+        case AudioBufferState.SpeechStarted:
             ShowListeningIndicator();
             break;
             
-        case AudioBufferStateEvent.SpeechStopped:
+        case AudioBufferState.SpeechStopped:
             HideListeningIndicator();
             break;
             
-        case AudioBufferStateEvent.Committed:
+        case AudioBufferState.Committed:
             Debug.Log($"Audio committed: {evt.AudioStartMs}ms - {evt.AudioEndMs}ms");
             break;
             
-        case AudioBufferStateEvent.TimeoutTriggered:
+        case AudioBufferState.TimeoutTriggered:
             Debug.Log("VAD timeout triggered");
             break;
     }
@@ -636,20 +717,30 @@ public class MyEventListener : IAgentEventListener
         Debug.Log($"Conversation event: {evt.GetType().Name}");
     }
     
-    public void OnTextDelta(Delta<TextData> e)
+    public void OnTextDelta(Delta<ITextChunk> e)
     {
         if (e.Value?.Text != null)
             Debug.Log(e.Value.Text);
     }
     
-    public void OnImageDelta(Delta<IImagePayload> e)
+    public void OnImageDelta(Delta<IImageChunk> e)
     {
         Debug.Log("Image data received");
     }
     
-    public void OnAnnotationDelta(Delta<Annotation> e)
+    public void OnAudioDelta(Delta<IAudioChunk> e)
+    {
+        Debug.Log("Audio data received");
+    }
+    
+    public void OnAnnotationDelta(Delta<IAnnotationChunk> e)
     {
         Debug.Log($"Annotation: {e.Value?.Type}");
+    }
+    
+    public void OnToolCall(ToolCall e)
+    {
+        Debug.Log($"Tool call: {e.GetName()}");
     }
     
     public void OnToolOutput(ToolOutputEvent e)
@@ -660,6 +751,16 @@ public class MyEventListener : IAgentEventListener
     public void OnToolStatus(ToolStatusEvent e)
     {
         Debug.Log($"Tool status: {e.Type}");
+    }
+    
+    public void OnMcpApprovalRequested(McpApprovalRequest e)
+    {
+        Debug.Log($"MCP approval requested: {e.Name}");
+    }
+    
+    public void OnAudioBufferStateChanged(AudioBufferStateChanged e)
+    {
+        Debug.Log($"Audio buffer state: {e.State}");
     }
     
     public void OnUsage(Usage usage)
@@ -698,12 +799,14 @@ var agent = new Agent(config, settings, service);
 | `ConversationSummaryUpdated` | Conversation | Conversation summary changed |
 | `ConversationItemsLoaded` | Conversation | Conversation messages loaded |
 | `ConversationListLoaded` | Conversation | List of conversations retrieved |
+| `ToolCall` | Tool | Tool invocation by agent |
 | `ToolStatusEvent` | Tool | Tool execution status update |
 | `ToolOutputEvent` | Tool | Tool execution result |
-| `Delta<TextData>` | Streaming | Text streaming updates |
-| `Delta<IImagePayload>` | Streaming | Image data updates |
-| `Delta<IAudioDelta>` | Streaming | Audio data updates |
-| `Delta<Annotation>` | Streaming | Content annotation updates |
+| `McpApprovalRequest` | Tool | MCP tool approval request |
+| `Delta<ITextChunk>` | Streaming | Text streaming updates |
+| `Delta<IImageChunk>` | Streaming | Image data updates |
+| `Delta<IAudioChunk>` | Streaming | Audio data updates |
+| `Delta<IAnnotationChunk>` | Streaming | Content annotation updates |
 | `AudioBufferStateChanged` | Audio | Audio buffer state changes |
 | `AudioRateLimitsUpdated` | Audio | Rate limit updates |
 | `Usage` | Metadata | Token usage information |

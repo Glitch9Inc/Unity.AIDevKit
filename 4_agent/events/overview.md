@@ -114,10 +114,15 @@ public class MyAgentListener : IAgentEventListener
 {
     public void OnAgentStatusChanged(AgentStatusChanged evt) { }
     public void OnConversationEvent(ConversationEvent evt) { }
-    public void OnTextDelta(Delta<TextData> e) { }
-    public void OnImageDelta(Delta<IImagePayload> e) { }
+    public void OnTextDelta(Delta<ITextChunk> e) { }
+    public void OnImageDelta(Delta<IImageChunk> e) { }
+    public void OnAudioDelta(Delta<IAudioChunk> e) { }
+    public void OnAnnotationDelta(Delta<IAnnotationChunk> e) { }
+    public void OnToolCall(ToolCall e) { }
     public void OnToolOutput(ToolOutputEvent e) { }
     public void OnToolStatus(ToolStatusEvent e) { }
+    public void OnMcpApprovalRequested(McpApprovalRequest e) { }
+    public void OnAudioBufferStateChanged(AudioBufferStateChanged e) { }
     public void OnUsage(Usage usage) { }
     public void OnError(Exception exception) { }
     // ... implement all interface methods
@@ -163,15 +168,17 @@ Events related to conversation management:
 
 ### Tool Events
 Events during tool execution:
+- `ToolCall` - Tool invocation by agent
 - `ToolStatusEvent` - Execution status updates
 - `ToolOutputEvent` - Tool results
+- `McpApprovalRequest` - MCP tool approval request
 
 ### Streaming Events (Deltas)
 Real-time content updates:
-- `Delta<TextData>` - Text streaming
-- `Delta<IImagePayload>` - Image streaming
-- `Delta<IAudioDelta>` - Audio streaming
-- `Delta<Annotation>` - Annotation streaming
+- `Delta<ITextChunk>` - Text streaming
+- `Delta<IImageChunk>` - Image streaming
+- `Delta<IAudioChunk>` - Audio streaming
+- `Delta<IAnnotationChunk>` - Annotation streaming
 
 ### Audio Events
 Audio-specific events:
@@ -235,7 +242,7 @@ public class AgentEventMonitor : IDisposable
         subscriptions.Add(agent.RegisterEvent<ToolStatusEvent>(OnToolStatus));
         
         // Streaming content
-        subscriptions.Add(agent.RegisterEvent<Delta<TextData>>(OnTextDelta));
+        subscriptions.Add(agent.RegisterEvent<Delta<ITextChunk>>(OnTextDelta));
         
         // Usage tracking
         subscriptions.Add(agent.RegisterEvent<Usage>(OnUsage));
@@ -271,7 +278,7 @@ public class AgentEventMonitor : IDisposable
         Console.WriteLine($"[TOOL STATUS] {evt.Type}: {evt.ToolStatus}");
     }
     
-    void OnTextDelta(Delta<TextData> delta)
+    void OnTextDelta(Delta<ITextChunk> delta)
     {
         if (delta.Value?.Text != null)
         {

@@ -163,7 +163,7 @@ public class AgentEventHandler : MonoBehaviour
     void RegisterEvents()
     {
         subscriptions.Add(agent.RegisterEvent<AgentStatusChanged>(OnStatusChanged));
-        subscriptions.Add(agent.RegisterEvent<Delta<TextData>>(OnTextDelta));
+        subscriptions.Add(agent.RegisterEvent<Delta<ITextChunk>>(OnTextDelta));
         subscriptions.Add(agent.RegisterEvent<Usage>(OnUsage));
     }
     
@@ -186,7 +186,7 @@ public class AgentEventHandler : MonoBehaviour
         Debug.Log($"Status: {evt.NewStatus}");
     }
     
-    void OnTextDelta(Delta<TextData> delta)
+    void OnTextDelta(Delta<ITextChunk> delta)
     {
         if (delta.Value?.Text != null)
             Debug.Log($"Text: {delta.Value.Text}");
@@ -256,7 +256,7 @@ void RegisterEvents(bool enableLogging, bool trackUsage, bool monitorTools)
     if (enableLogging)
     {
         subscriptions.Add(agent.RegisterEvent<AgentStatusChanged>(OnStatusChanged));
-        subscriptions.Add(agent.RegisterEvent<Delta<TextData>>(OnTextDelta));
+        subscriptions.Add(agent.RegisterEvent<Delta<ITextChunk>>(OnTextDelta));
     }
     
     if (trackUsage)
@@ -413,9 +413,9 @@ public class ComprehensiveEventHandler : MonoBehaviour
         subscriptions.Add(agent.RegisterEvent<ConversationDeleted>(OnConversationDeleted));
         
         // Streaming
-        subscriptions.Add(agent.RegisterEvent<Delta<TextData>>(OnTextDelta));
-        subscriptions.Add(agent.RegisterEvent<Delta<IImagePayload>>(OnImageDelta));
-        subscriptions.Add(agent.RegisterEvent<Delta<IAudioDelta>>(OnAudioDelta));
+        subscriptions.Add(agent.RegisterEvent<Delta<ITextChunk>>(OnTextDelta));
+        subscriptions.Add(agent.RegisterEvent<Delta<IImageChunk>>(OnImageDelta));
+        subscriptions.Add(agent.RegisterEvent<Delta<IAudioChunk>>(OnAudioDelta));
         
         // Tools
         subscriptions.Add(agent.RegisterEvent<ToolStatusEvent>(OnToolStatus));
@@ -458,7 +458,7 @@ public class ComprehensiveEventHandler : MonoBehaviour
                   $"(Success: {evt.Success})");
     }
     
-    void OnTextDelta(Delta<TextData> delta)
+    void OnTextDelta(Delta<ITextChunk> delta)
     {
         if (delta.Value?.Text != null)
         {
@@ -467,12 +467,12 @@ public class ComprehensiveEventHandler : MonoBehaviour
         }
     }
     
-    void OnImageDelta(Delta<IImagePayload> delta)
+    void OnImageDelta(Delta<IImageChunk> delta)
     {
         Debug.Log($"[IMAGE] Received image data");
     }
     
-    void OnAudioDelta(Delta<IAudioDelta> delta)
+    void OnAudioDelta(Delta<IAudioChunk> delta)
     {
         Debug.Log($"[AUDIO] Received audio data");
     }
