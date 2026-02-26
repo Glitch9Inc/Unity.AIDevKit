@@ -113,11 +113,11 @@
   * [Agent Events Overview](4_agent/events/overview.md)
   * [Registering & Unregistering Events](4_agent/events/registering-events.md)
   * [Available Events](4_agent/events/available-events.md)
-* [Modalities (IO)](4_agent/modalities/README.md)
+<!-- * [Modalities (IO)](4_agent/modalities/README.md)
   * [Image Input (Vision)](4_agent/modalities/image-input.md)
   * [Image Output (Generation)](4_agent/modalities/image-output.md)
   * [Voice Input (Transcription)](4_agent/modalities/voice-input.md)
-  * [Voice Output (Speech)](4_agent/modalities/voice-output.md)
+  * [Voice Output (Speech)](4_agent/modalities/voice-output.md) -->
 * [Tools & Abilities](4_agent/tools/README.md)
   * [What are Tools?](4_agent/tools/what-are-tools.md)
   * [Built-in Tools](4_agent/tools/built-in-tools.md)
