@@ -8,6 +8,8 @@ icon: square-question
 Please join [Discord](https://discord.gg/hgajxPpJYf) if you have a question that's not listed here.
 {% endhint %}
 
+## 💰 Pricing & Free Tiers
+
 <details>
 
 <summary>My OpenAI free trial has ended or is inactive</summary>
@@ -64,6 +66,45 @@ No worries — you can still use **AI Dev Kit** without spending a dime. Here ar
   [Get OpenRouter's free API key here.](../quick-start/api-key-setup/openrouter.md)
 
 </details>
+
+<details>
+
+<summary>What are the limitations of free API tiers?</summary>
+
+Free tiers vary significantly by provider and **change frequently**. Here's what to generally expect:
+
+* **Google Gemini** – Generous free tier with daily request limits. Check [Google's pricing page](https://ai.google.dev/pricing) for current quotas.
+* **OpenRouter** – Some models are completely free with no authentication required. Free models typically have lower rate limits and may have queuing during peak hours.
+* **OpenAI** – Offers limited free trial credits for new accounts. Expires after a set period. Check [OpenAI's pricing](https://openai.com/api/pricing/) for details.
+* **Ollama (Local)** – No API limits whatsoever since it runs on your own machine. Performance depends on your hardware.
+
+**Always verify current limits directly with each provider** as they update their free tier policies regularly.
+
+Free tiers work well for:
+* Single-player experiences where you control AI usage
+* Development and testing phases
+* Low-traffic applications
+
+For high-traffic multiplayer games, consider paid tiers to avoid rate limiting and ensure reliability.
+
+</details>
+
+<details>
+
+<summary>I'm a student. Do you give out vouchers?</summary>
+
+I appreciate your interest in **AI Dev Kit**! However, I currently give out vouchers **only to YouTubers, streamers, or influencers** who can help promote the asset publicly.
+
+{% hint style="info" %}
+This is because each voucher is limited and meant for marketing purposes.\
+If you have an audience and would like to showcase the asset in a video or post, feel free to reach out and share your content!
+{% endhint %}
+
+</details>
+
+***
+
+## 🎮 Production & Commercial Use
 
 <details>
 
@@ -125,6 +166,10 @@ For single-player games with optional AI features, direct API usage may work. Fo
 
 </details>
 
+***
+
+## 🔧 Technical & Integration
+
 <details>
 
 <summary>Why use AI Dev Kit with Ollama instead of building my own integration?</summary>
@@ -141,6 +186,10 @@ AI Dev Kit provides several advantages over direct Ollama integration:
 Building your own integration means maintaining HTTP clients, handling JSON serialization, managing WebSocket connections for streaming, and writing boilerplate for every provider. AI Dev Kit handles all of this so you can focus on game logic.
 
 </details>
+
+***
+
+## ⚡ Features & Capabilities
 
 <details>
 
