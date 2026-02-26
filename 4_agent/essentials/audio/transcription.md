@@ -1,3 +1,7 @@
+---
+icon: closed-captioning
+---
+
 # Speech Transcription
 
 Convert speech to text using Whisper API.

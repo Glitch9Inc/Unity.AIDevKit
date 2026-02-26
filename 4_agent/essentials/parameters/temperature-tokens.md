@@ -1,3 +1,7 @@
+---
+icon: temperature-three-quarters
+---
+
 # Temperature & Max Tokens
 
 Control response randomness and length with temperature and token limits.

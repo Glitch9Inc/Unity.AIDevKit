@@ -1,3 +1,7 @@
+---
+icon: ban
+---
+
 # Canceling Requests
 
 Cancel in-progress agent requests.

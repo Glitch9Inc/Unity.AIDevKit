@@ -1,3 +1,7 @@
+---
+icon: power-off
+---
+
 # Initialization
 
 Learn how to properly initialize your agent for use.

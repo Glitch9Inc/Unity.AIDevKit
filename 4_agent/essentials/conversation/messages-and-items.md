@@ -1,3 +1,7 @@
+---
+icon: envelope
+---
+
 # Messages & Items
 
 Access and manage conversation messages and items.

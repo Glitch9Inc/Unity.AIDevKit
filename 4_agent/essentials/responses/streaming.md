@@ -1,3 +1,7 @@
+---
+icon: stream
+---
+
 # Streaming vs Non-Streaming
 
 Choose between streaming and non-streaming response modes.

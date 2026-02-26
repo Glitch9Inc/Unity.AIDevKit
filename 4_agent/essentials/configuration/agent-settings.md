@@ -1,3 +1,7 @@
+---
+icon: sliders-up
+---
+
 # Agent Settings
 
 AgentSettings is a ScriptableObject that defines all persistent configuration for your agent.

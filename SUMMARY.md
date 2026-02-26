@@ -18,6 +18,7 @@
 * [Add-ons](1_introduction/add-ons/README.md)
   * [Spreadsheet (Localization)](1_introduction/add-ons/spreadsheet-localization.md)
 * [Update Logs](1_introduction/update-logs/README.md)
+  * [AI Dev Kit v4](1_introduction/update-logs/ai-dev-kit-v4.md)
   * [AI Dev Kit v3](1_introduction/update-logs/ai-dev-kit-v3.md)
   * [AI Dev Kit v2](1_introduction/update-logs/ai-dev-kit-v2.md)
   * [AI Dev Kit v1](1_introduction/update-logs/ai-dev-kit-v1.md)
@@ -100,12 +101,8 @@
 ## Agent
 
 * [Overview](4_agent/overview/README.md)
-  * [Your First Agent](4_agent/overview/your-first-agent.md)
-  * [Agent Services](4_agent/overview/agent-services.md)
-  * [Controllers](4_agent/overview/controllers.md)
-  * [Custom Chat Services](4_agent/overview/custom-chat-services.md)
-  * [Event Router](4_agent/overview/event-router.md)
-  * [Agent Settings](4_agent/getting-started/agent-settings.md)
+  * [How Agent Works](4_agent/overview/how-agent-works.md)
+  * [Creating Your First Agent](4_agent/overview/creating-your-first-agent.md)
 * [Conversations](4_agent/conversations/README.md)
   * [How Conversations Work](4_agent/conversations/how-conversations-work.md)
   * [Saving & Loading](4_agent/conversations/saving-and-loading.md)

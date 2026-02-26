@@ -1,3 +1,7 @@
+---
+icon: heart
+---
+
 # Preferences Store
 
 Persist user preferences for agent configuration.

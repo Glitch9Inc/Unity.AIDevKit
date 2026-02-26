@@ -1,3 +1,7 @@
+---
+icon: book-open
+---
+
 # Agent Overview
 
 Understand AI Dev Kit's agent system architecture and capabilities.

@@ -1,3 +1,7 @@
+---
+icon: circle-info
+---
+
 # Agent Status
 
 Understanding agent lifecycle states and transitions.

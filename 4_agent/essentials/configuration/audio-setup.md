@@ -1,3 +1,7 @@
+---
+icon: headphones
+---
+
 # Audio Setup
 
 Configure voice input and output for your agent.

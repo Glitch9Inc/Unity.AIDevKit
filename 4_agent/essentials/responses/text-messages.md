@@ -1,3 +1,7 @@
+---
+icon: message
+---
+
 # Text Messages
 
 Send text messages and receive text responses from your agent.

@@ -1,3 +1,7 @@
+---
+icon: list-ul
+---
+
 # Chat Service API Types
 
 AI Dev Kit supports multiple chat service APIs, each with different capabilities and use cases.

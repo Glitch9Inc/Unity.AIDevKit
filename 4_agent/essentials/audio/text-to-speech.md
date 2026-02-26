@@ -1,3 +1,7 @@
+---
+icon: comment-dots
+---
+
 # Text-to-Speech
 
 Generate natural speech from text using OpenAI TTS.

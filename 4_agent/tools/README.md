@@ -1,3 +1,7 @@
+---
+icon: screwdriver-wrench
+---
+
 # Tools & Abilities
 
 Extend your agent's capabilities with powerful function calling tools.

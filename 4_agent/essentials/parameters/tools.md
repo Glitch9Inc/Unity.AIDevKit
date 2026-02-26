@@ -1,3 +1,7 @@
+---
+icon: wrench
+---
+
 # Tools & Tool Choice
 
 Configure tools and tool execution strategies.

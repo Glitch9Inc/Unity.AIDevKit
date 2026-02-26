@@ -1,3 +1,7 @@
+---
+icon: pen-to-square
+---
+
 # Registering & Unregistering Events
 
 Learn how to subscribe to agent events and manage event subscriptions properly.

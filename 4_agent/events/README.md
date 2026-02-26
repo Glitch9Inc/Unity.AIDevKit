@@ -1,3 +1,7 @@
+---
+icon: bolt
+---
+
 # Events
 
 Subscribe to agent events for real-time updates on status changes, conversations, tools, audio, and more.

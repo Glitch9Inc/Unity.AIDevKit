@@ -1,3 +1,7 @@
+---
+icon: database
+---
+
 # Conversation Stores
 
 Learn how conversations are persisted and managed across different storage backends.

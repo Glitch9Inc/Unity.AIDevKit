@@ -1,3 +1,7 @@
+---
+icon: microphone
+---
+
 # Audio Input
 
 Send audio messages to your agent using voice input.

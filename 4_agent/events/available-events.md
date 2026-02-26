@@ -1,3 +1,7 @@
+---
+icon: list
+---
+
 # Available Events
 
 Complete reference of all available agent events.

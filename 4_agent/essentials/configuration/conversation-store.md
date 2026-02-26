@@ -1,3 +1,7 @@
+---
+icon: hard-drive
+---
+
 # Conversation Store
 
 Configure how conversations are persisted and loaded across sessions.

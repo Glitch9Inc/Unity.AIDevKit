@@ -1,3 +1,7 @@
+---
+icon: brain
+---
+
 # Memory Settings
 
 Configure how your agent manages conversation context and memory.

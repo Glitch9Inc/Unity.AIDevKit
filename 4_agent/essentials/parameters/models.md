@@ -1,3 +1,7 @@
+---
+icon: robot
+---
+
 # Models
 
 Configure AI models for your agent.

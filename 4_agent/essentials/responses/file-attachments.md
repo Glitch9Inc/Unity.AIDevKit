@@ -1,3 +1,7 @@
+---
+icon: paperclip
+---
+
 # File Attachments
 
 Send files and images along with your messages.

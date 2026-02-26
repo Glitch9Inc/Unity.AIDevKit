@@ -1,3 +1,7 @@
+---
+icon: user-voice
+---
+
 # Voice
 
 Configure text-to-speech voices for your agent.

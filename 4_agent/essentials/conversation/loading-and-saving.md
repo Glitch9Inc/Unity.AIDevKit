@@ -1,3 +1,7 @@
+---
+icon: download
+---
+
 # Loading & Saving Conversations
 
 Persist and restore conversation history across sessions.

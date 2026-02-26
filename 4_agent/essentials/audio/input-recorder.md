@@ -1,3 +1,7 @@
+---
+icon: microphone-alt
+---
+
 # Audio Input Recorder
 
 Record audio input from microphone for voice interactions.

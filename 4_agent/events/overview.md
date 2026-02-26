@@ -1,3 +1,7 @@
+---
+icon: eye
+---
+
 # Agent Events Overview
 
 Understanding the agent event system architecture and how events flow through your application.

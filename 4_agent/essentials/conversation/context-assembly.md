@@ -1,3 +1,7 @@
+---
+icon: puzzle-piece
+---
+
 # Context Assembly
 
 Understand how context is assembled for API requests.

@@ -1,3 +1,7 @@
+---
+icon: trash-can
+---
+
 # Disposal
 
 Properly clean up agent resources when done.

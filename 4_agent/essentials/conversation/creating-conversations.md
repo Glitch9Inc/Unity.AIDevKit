@@ -1,3 +1,7 @@
+---
+icon: plus-circle
+---
+
 # Creating Conversations
 
 Learn how to create new conversations for your agents.

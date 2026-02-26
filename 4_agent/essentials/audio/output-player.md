@@ -1,3 +1,7 @@
+---
+icon: play
+---
+
 # Audio Output Player
 
 Play audio responses from AI agents.
