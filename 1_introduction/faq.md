@@ -83,4 +83,106 @@ However, always check for:
 Refer to each provider’s Terms of Use to ensure full compliance.
 
 </details>
+<details>
 
+<summary>What are the limitations of free API tiers?</summary>
+
+Free tiers vary significantly by provider and **change frequently**. Here's what to generally expect:
+
+* **Google Gemini** – Generous free tier with daily request limits. Check [Google's pricing page](https://ai.google.dev/pricing) for current quotas.
+* **OpenRouter** – Some models are completely free with no authentication required. Free models typically have lower rate limits and may have queuing during peak hours.
+* **OpenAI** – Offers limited free trial credits for new accounts. Expires after a set period. Check [OpenAI's pricing](https://openai.com/api/pricing/) for details.
+* **Ollama (Local)** – No API limits whatsoever since it runs on your own machine. Performance depends on your hardware.
+
+**Always verify current limits directly with each provider** as they update their free tier policies regularly.
+
+Free tiers work well for:
+* Single-player experiences where you control AI usage
+* Development and testing phases
+* Low-traffic applications
+
+For high-traffic multiplayer games, consider paid tiers to avoid rate limiting and ensure reliability.
+
+</details>
+
+<details>
+
+<summary>Can I expose free provider APIs directly in my published game?</summary>
+
+**Technically yes, but it's not recommended for most cases.**
+
+If you embed your API key in a published game:
+* **All players share your quota** – Your free tier limits will be consumed quickly as more players use your game
+* **API costs scale with users** – Each player action that calls the API counts against your account
+* **Security risk** – API keys in client-side code can be extracted and abused
+
+**Better approaches:**
+* **Use Ollama for local inference** – Players run models on their own machines, eliminating API costs and server dependencies
+* **Build a backend proxy** – Route API calls through your own server where you can implement rate limiting, user authentication, and cost control
+* **Use paid tiers with safeguards** – Set spending limits and implement usage caps per user
+
+For single-player games with optional AI features, direct API usage may work. For multiplayer or always-online games, use a backend intermediary.
+
+</details>
+
+<details>
+
+<summary>Why use AI Dev Kit with Ollama instead of building my own integration?</summary>
+
+AI Dev Kit provides several advantages over direct Ollama integration:
+
+* **Unified API across providers** – Write code once and switch between Ollama, OpenAI, Google Gemini, or any other provider without changing your game logic
+* **Built-in Unity components** – Drop-in components like AIAgent, ImageGenerator, and SpeechGenerator work out of the box with automatic lifecycle management
+* **Streaming support** – Real-time token streaming for chat responses, with built-in UI handlers
+* **Model management** – Browse, select, and switch between Ollama models directly in Unity Editor preferences
+* **Error handling & retries** – Production-ready error handling, timeout management, and automatic retry logic
+* **Type-safe APIs** – Strongly-typed C# APIs with IntelliSense support and compile-time validation
+
+Building your own integration means maintaining HTTP clients, handling JSON serialization, managing WebSocket connections for streaming, and writing boilerplate for every provider. AI Dev Kit handles all of this so you can focus on game logic.
+
+</details>
+
+<details>
+
+<summary>What does "lightweight" mean? Can AI Dev Kit handle complex tasks?</summary>
+
+**"Lightweight" refers to the integration code and performance overhead, not the capabilities.**
+
+AI Dev Kit is lightweight in terms of:
+* **UniTask-based async operations** – Extremely efficient async/await without the overhead of C# Tasks or Unity Coroutines. Zero garbage allocation per call.
+* **Fluent API design** – One-line access to all AI features with method chaining (e.g., `"prompt".GENResponse().ExecuteAsync()`)
+* **Minimal boilerplate** – Generate images, speech, or chat responses without complex setup code
+* **Fast integration** – Add API keys and start using AI features in minutes
+
+**AI Dev Kit is NOT limited in power or complexity.** It supports:
+* **Production-ready AI infrastructure** – Text generation, image creation, voice synthesis, and speech recognition at scale
+* **High-quality asset generation** – Professional images, voices, sound effects, and music through provider APIs
+* **Complex AI agents** – Tool calling, function execution, multi-step reasoning, and conversation memory with full streaming support
+
+**Code generation is available as an experimental feature** in the Playground, but AI Dev Kit's core focus is providing a robust AI infrastructure layer for production games—not automated code scaffolding.
+
+The "power" comes from the AI models you choose (GPT-4, Claude, Gemini, etc.). AI Dev Kit simply makes accessing that power effortless. Whether you're generating a simple sprite or architecting a full dialogue system, AI Dev Kit scales to your needs.
+
+</details>
+
+<details>
+
+<summary>Can I use AI Dev Kit for code generation or UI scaffolding?</summary>
+
+**AI Dev Kit is primarily a production AI infrastructure layer, not a code generation tool.**
+
+The core features are:
+* **Runtime AI integration** – Text, image, audio, and speech APIs for live gameplay
+* **AI Agents** – Chatbots, voice agents, and assistants with tool calling
+* **Asset generation** – Images, voices, sound effects, and music
+
+**Code generation is available experimentally** through the Editor Playground feature, where you can:
+* Test AI models for generating Unity scripts
+* Experiment with code completion and refactoring
+* Prototype simple components
+
+However, this is a **side feature for experimentation**, not the main purpose. If you need robust code scaffolding or automated UI generation, consider dedicated tools like GitHub Copilot or Cursor AI.
+
+AI Dev Kit excels at bringing AI capabilities **into your game at runtime**—NPC dialogue, procedural content, dynamic voices, etc.
+
+</details>

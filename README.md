@@ -6,7 +6,7 @@ icon: cube
 
 <figure><img src=".gitbook/assets/Cover Image.png" alt=""><figcaption></figcaption></figure>
 
-## The Ultimate Lightweight AI Suite for Unity
+## The Ultimate AI Suite for Unity
 
 **AI Dev Kit** empowers beginner developers to effortlessly integrate advanced AI functionalities directly into Unity, dramatically simplifying your game development workflow.
 
@@ -44,7 +44,7 @@ Works out of the box. Fully extensible. No extra SDKs required.
 
 ### Provider Supports
 
-<table><thead><tr><th width="228.7147216796875">Provider</th><th data-type="checkbox">Studio</th><th data-type="checkbox">Pro</th><th data-type="checkbox">Research</th><th data-type="checkbox">Pixel </th></tr></thead><tbody><tr><td>OpenAI</td><td>true</td><td>true</td><td>true</td><td>false</td></tr><tr><td>ElevenLabs</td><td>true</td><td>true</td><td>true</td><td>false</td></tr><tr><td>Google Gemini</td><td>true</td><td>true</td><td>true</td><td>false</td></tr><tr><td>Ollama (Local Server)</td><td>false</td><td>true</td><td>true</td><td>false</td></tr><tr><td>OpenRouter</td><td>false</td><td>true</td><td>true</td><td>false</td></tr><tr><td>Anthropic</td><td>false</td><td>true</td><td>true</td><td>false</td></tr><tr><td>GroqCloud</td><td>false</td><td>false</td><td>true</td><td>false</td></tr><tr><td>Perplexity</td><td>false</td><td>false</td><td>true</td><td>false</td></tr><tr><td>Microsoft Azure</td><td>false</td><td>false</td><td>true</td><td>false</td></tr><tr><td>xAI (Grok)</td><td>false</td><td>false</td><td>true</td><td>false</td></tr><tr><td>PixelLab</td><td>false</td><td>false</td><td>false</td><td>true</td></tr></tbody></table>
+<table><thead><tr><th width="228.7147216796875">Provider</th><th data-type="checkbox">Studio</th><th data-type="checkbox">Pro</th><th data-type="checkbox">Research</th><th data-type="checkbox">Pixel </th></tr></thead><tbody><tr><td>OpenAI</td><td>true</td><td>true</td><td>true</td><td>false</td></tr><tr><td>ElevenLabs</td><td>true</td><td>true</td><td>true</td><td>false</td></tr><tr><td>Google Gemini</td><td>true</td><td>true</td><td>true</td><td>false</td></tr><tr><td>Ollama (Local Server)</td><td>false</td><td>true</td><td>true</td><td>false</td></tr><tr><td>OpenRouter</td><td>false</td><td>true</td><td>true</td><td>false</td></tr><tr><td>DeepSeek</td><td>false</td><td>true</td><td>true</td><td>false</td></tr><tr><td>Anthropic</td><td>false</td><td>true</td><td>true</td><td>false</td></tr><tr><td>GroqCloud</td><td>false</td><td>false</td><td>true</td><td>false</td></tr><tr><td>Perplexity</td><td>false</td><td>false</td><td>true</td><td>false</td></tr><tr><td>Microsoft Azure</td><td>false</td><td>false</td><td>true</td><td>false</td></tr><tr><td>xAI (Grok)</td><td>false</td><td>false</td><td>true</td><td>false</td></tr><tr><td>Cohere</td><td>false</td><td>false</td><td>true</td><td>false</td></tr><tr><td>Mistral</td><td>false</td><td>false</td><td>true</td><td>false</td></tr><tr><td>AI21 Labs</td><td>false</td><td>false</td><td>true</td><td>false</td></tr><tr><td>Amazon Bedrock</td><td>false</td><td>false</td><td>true</td><td>false</td></tr><tr><td>Amazon Polly</td><td>false</td><td>false</td><td>true</td><td>false</td></tr><tr><td>Amazon Transcribe</td><td>false</td><td>false</td><td>true</td><td>false</td></tr><tr><td>PixelLab</td><td>false</td><td>false</td><td>false</td><td>true</td></tr></tbody></table>
 
 ***
 
