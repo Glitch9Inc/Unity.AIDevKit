@@ -57,26 +57,6 @@ string english = await audioClip
     .ExecuteAsync();
 ```
 
-### Context Prompt
-
-Provide context for better translation:
-
-```csharp
-string english = await audioClip
-    .GENTranslation()
-    .SetPrompt("Gaming terminology: player, level, quest")
-    .ExecuteAsync();
-```
-
-### Temperature
-
-```csharp
-string english = await audioClip
-    .GENTranslation()
-    .SetTemperature(0.0f)  // More consistent
-    .ExecuteAsync();
-```
-
 ## Supported Languages
 
 OpenAI Whisper supports translation from **99+ languages** to English:
@@ -87,7 +67,7 @@ OpenAI Whisper supports translation from **99+ languages** to English:
 - Dutch, Swedish, Norwegian, Danish
 - And many more...
 
-**Note:** Translation is always **to English**. For other target languages, use `.GENTranscript()` + separate translation API.
+**Note:** Translation is always **to English**. For other target languages, use `.GENTranscription()` + separate translation API.
 
 ## Unity Integration Examples
 
@@ -160,7 +140,6 @@ public class TutorialTranslator : MonoBehaviour
         {
             string english = await foreignTutorial
                 .GENTranslation()
-                .SetPrompt("Game tutorial: jump, move, attack, defend")
                 .ExecuteAsync();
             
             translationCache[key] = english;
@@ -180,7 +159,6 @@ public class SupportTicketTranslator : MonoBehaviour
     {
         string english = await issueRecording
             .GENTranslation()
-            .SetPrompt("Customer support: bug, error, crash, issue")
             .ExecuteAsync();
         
         // Log for support team
@@ -205,7 +183,7 @@ public class LanguageLearning : MonoBehaviour
         
         // Also get original language transcript
         string original = await studentSpeech
-            .GENTranscript()
+            .GENTranscription()
             .ExecuteAsync();
         
         Debug.Log($"Original: {original}");
@@ -241,7 +219,6 @@ public class ConferenceTranslator : MonoBehaviour
     {
         string english = await segment
             .GENTranslation()
-            .SetPrompt("Business meeting terminology")
             .ExecuteAsync();
         
         translations.Add(new TranslationEntry
@@ -296,8 +273,6 @@ public class ConferenceTranslator : MonoBehaviour
 string english = await audioClip
     .GENTranslation()
     .SetModel(OpenAIModel.Whisper1)
-    .SetPrompt("Context for better accuracy")
-    .SetTemperature(0.0f)
     .ExecuteAsync();
 ```
 
@@ -305,7 +280,6 @@ string english = await audioClip
 
 - ✅ 99+ source languages
 - ✅ High accuracy
-- ✅ Context support
 - ✅ English output only
 
 **Note:** OpenAI Whisper is currently the primary provider for translation. Other providers may be added in future updates.
@@ -315,16 +289,6 @@ string english = await audioClip
 ### ✅ Good Practices
 
 ```csharp
-// ✅ Provide domain context
-await audio.GENTranslation()
-    .SetPrompt("Medical terminology: diagnosis, treatment, symptoms")
-    .ExecuteAsync();
-
-// ✅ Use deterministic mode for consistency
-await audio.GENTranslation()
-    .SetTemperature(0.0f)
-    .ExecuteAsync();
-
 // ✅ Cache translations
 Dictionary<string, string> cache = new();
 
@@ -338,7 +302,7 @@ if (string.IsNullOrEmpty(result))
 
 ```csharp
 // ❌ Don't translate already-English audio
-// Use GENTranscript() instead
+// Use GENTranscription() instead
 
 // ❌ Don't expect non-English output
 // Translation is always to English

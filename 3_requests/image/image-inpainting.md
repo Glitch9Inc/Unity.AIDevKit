@@ -4,13 +4,13 @@ icon: fill-drip
 
 # Image Inpainting
 
-Edit specific parts of an existing image using `.GENInpaint()`.
+Edit specific parts of an existing image using `.GENImageEdit(ImageEditTask.Inpainting)`.
 
 ## Basic Usage
 
 ```csharp
 Texture2D edited = await sourceTexture
-    .GENInpaint("Add a red car in the center")
+    .GENImageEdit(ImageEditTask.Inpainting, "Add a red car in the center")
     .ExecuteAsync();
 ```
 
@@ -21,7 +21,7 @@ Texture2D edited = await sourceTexture
 ```csharp
 Texture2D texture = Resources.Load<Texture2D>("Scene");
 Texture2D edited = await texture
-    .GENInpaint("Replace sky with sunset")
+    .GENImageEdit(ImageEditTask.Inpainting, "Replace sky with sunset")
     .ExecuteAsync();
 ```
 
@@ -30,7 +30,7 @@ Texture2D edited = await texture
 ```csharp
 Sprite sprite = Resources.Load<Sprite>("Character");
 Texture2D edited = await sprite
-    .GENInpaint("Add a sword in right hand")
+    .GENImageEdit(ImageEditTask.Inpainting, "Add a sword in right hand")
     .ExecuteAsync();
 ```
 
@@ -44,7 +44,7 @@ var prompt = new ImagePrompt
 };
 
 Texture2D edited = await prompt
-    .GENInpaint()
+    .GENImageEdit(ImageEditTask.Inpainting)
     .ExecuteAsync();
 ```
 
@@ -53,7 +53,7 @@ Texture2D edited = await prompt
 ```csharp
 var file = new File<Texture2D>(texture, "scene.png");
 Texture2D edited = await file
-    .GENInpaint("Add clouds")
+    .GENImageEdit(ImageEditTask.Inpainting, "Add clouds")
     .ExecuteAsync();
 ```
 
@@ -63,7 +63,7 @@ Texture2D edited = await file
 
 ```csharp
 Texture2D edited = await texture
-    .GENInpaint("Edit instruction")
+    .GENImageEdit(ImageEditTask.Inpainting, "Edit instruction")
     .SetModel(OpenAIModel.DallE2) // Only DALL-E 2 supports inpainting
     .ExecuteAsync();
 ```
@@ -82,7 +82,7 @@ var prompt = new ImagePrompt
     Instruction = "Fill masked area with grass"
 };
 
-Texture2D edited = await prompt.GENInpaint().ExecuteAsync();
+Texture2D edited = await prompt.GENImageEdit(ImageEditTask.Inpainting).ExecuteAsync();
 ```
 
 ## Common Use Cases
@@ -93,7 +93,7 @@ Texture2D edited = await prompt.GENInpaint().ExecuteAsync();
 async UniTask<Texture2D> RemoveObject(Texture2D source, string object)
 {
     return await source
-        .GENInpaint($"Remove the {object}")
+        .GENImageEdit(ImageEditTask.Inpainting, $"Remove the {object}")
         .ExecuteAsync();
 }
 
@@ -107,7 +107,7 @@ Texture2D clean = await RemoveObject(screenshot, "UI elements");
 async UniTask<Texture2D> AddObject(Texture2D source, string object, string position)
 {
     return await source
-        .GENInpaint($"Add {object} {position}")
+        .GENImageEdit(ImageEditTask.Inpainting, $"Add {object} {position}")
         .ExecuteAsync();
 }
 
@@ -121,7 +121,7 @@ Texture2D edited = await AddObject(scene, "a tree", "on the left side");
 async UniTask<Texture2D> ReplaceBackground(Texture2D source, string newBg)
 {
     return await source
-        .GENInpaint($"Replace background with {newBg}")
+        .GENImageEdit(ImageEditTask.Inpainting, $"Replace background with {newBg}")
         .ExecuteAsync();
 }
 
@@ -135,7 +135,7 @@ Texture2D studio = await ReplaceBackground(portrait, "professional studio backgr
 async UniTask<Texture2D> StyleTransferArea(Texture2D source, string area, string style)
 {
     return await source
-        .GENInpaint($"Make the {area} {style}")
+        .GENImageEdit(ImageEditTask.Inpainting, $"Make the {area} {style}")
         .ExecuteAsync();
 }
 
@@ -149,7 +149,7 @@ Texture2D edited = await StyleTransferArea(scene, "sky", "watercolor style");
 async UniTask<Texture2D> RepairImage(Texture2D damaged, string issue)
 {
     return await damaged
-        .GENInpaint($"Fix {issue}")
+        .GENImageEdit(ImageEditTask.Inpainting, $"Fix {issue}")
         .ExecuteAsync();
 }
 
@@ -169,7 +169,7 @@ public class ScreenshotEditor : MonoBehaviour
         Texture2D screenshot = ScreenCapture.CaptureScreenshotAsTexture();
         
         Texture2D edited = await screenshot
-            .GENInpaint("Remove all UI elements")
+            .GENImageEdit(ImageEditTask.Inpainting, "Remove all UI elements")
             .ExecuteAsync();
         
         // Save edited version
@@ -190,7 +190,7 @@ public class TextureTouchup : MonoBehaviour
     public async UniTask<Texture2D> ApplyEdit()
     {
         return await sourceTexture
-            .GENInpaint(editInstruction)
+            .GENImageEdit(ImageEditTask.Inpainting, editInstruction)
             .SetModel(OpenAIModel.DallE2)
             .ExecuteAsync();
     }
@@ -211,7 +211,7 @@ public class SceneEditor : MonoBehaviour
         
         // Apply edit
         Texture2D edited = await currentScene
-            .GENInpaint(instruction)
+            .GENImageEdit(ImageEditTask.Inpainting, instruction)
             .ExecuteAsync();
         
         // Apply to skybox or material
@@ -237,7 +237,7 @@ public class CharacterCustomizer : MonoBehaviour
         Texture2D current = characterPortrait.sprite.texture;
         
         Texture2D customized = await current
-            .GENInpaint(customization)
+            .GENImageEdit(ImageEditTask.Inpainting, customization)
             .ExecuteAsync();
         
         Sprite newSprite = Sprite.Create(
@@ -261,7 +261,7 @@ await customizer.CustomizeCharacter("Change hair color to blue");
 async UniTask<List<Texture2D>> BatchEdit(List<Texture2D> textures, string instruction)
 {
     var tasks = textures.Select(t =>
-        t.GENInpaint(instruction).ExecuteAsync()
+        t.GENImageEdit(ImageEditTask.Inpainting, instruction).ExecuteAsync()
     );
     
     Texture2D[] results = await UniTask.WhenAll(tasks);
@@ -316,7 +316,7 @@ var edited = await BatchEdit(
 ```csharp
 // Only DALL-E 2 supports inpainting
 Texture2D edited = await texture
-    .GENInpaint("Edit instruction")
+    .GENImageEdit(ImageEditTask.Inpainting, "Edit instruction")
     .SetModel(OpenAIModel.DallE2)
     .ExecuteAsync();
 ```
@@ -353,7 +353,7 @@ Texture2D edited = await texture
 try
 {
     Texture2D edited = await texture
-        .GENInpaint("Edit instruction")
+        .GENImageEdit(ImageEditTask.Inpainting, "Edit instruction")
         .ExecuteAsync();
     
     if (edited == null || edited.width == 0)

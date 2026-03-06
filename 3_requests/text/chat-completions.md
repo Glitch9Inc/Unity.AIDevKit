@@ -56,7 +56,6 @@ Use `Prompt` object for reusable prompts:
 var prompt = new Prompt("Explain {topic}");
 string response = await prompt
     .GENCompletion()
-    .SetVariable("topic", "machine learning")
     .ExecuteAsync();
 ```
 
@@ -91,14 +90,14 @@ string summary = await "Summarize the history of AI"
     .ExecuteAsync();
 ```
 
-### System Message
+### System Message (Instructions)
 
 Set context and behavior:
 
 ```csharp
 string response = await "How do I start?"
     .GENCompletion()
-    .SetSystemMessage("You are a helpful Unity game development tutor")
+    .SetInstructions("You are a helpful Unity game development tutor")
     .ExecuteAsync();
 ```
 
@@ -140,7 +139,7 @@ string response = await "Write about technology"
 Build conversation history:
 
 ```csharp
-var conversation = new List<Message>
+var messages = new List<Message>
 {
     new SystemMessage("You are a helpful assistant"),
     new UserMessage("Hello!"),
@@ -148,23 +147,64 @@ var conversation = new List<Message>
     new UserMessage("What's the weather?")
 };
 
-string response = await new ChatCompletionRequest(conversation)
+string response = await new ChatCompletionRequest(messages.Last())
+    .AddMessageRange(messages.SkipLast(1))
     .SetModel(OpenAIModel.GPT4o)
     .ExecuteAsync();
 ```
 
 ## Streaming
 
-Get real-time token-by-token responses:
+Get real-time token-by-token responses using `await foreach`:
 
 ```csharp
-await "Tell me a story"
+var stream = await "Tell me a story"
     .GENCompletion()
     .SetModel(OpenAIModel.GPT4o)
-    .StreamAsync(
-        onToken: token => Debug.Log(token),
-        onComplete: response => Debug.Log("Done!")
+    .StreamAsync();
+
+await foreach (var evt in stream)
+{
+    evt.Match(
+        onDelta: delta => responseText.text += delta.Value.Text,
+        onComplete: result => Debug.Log("Done!")
     );
+}
+```
+
+### Streaming with Visitor Pattern
+
+For more structured handling, implement `IStreamVisitor<Delta<ITextChunk>, Generated<ChatChoice>>`:
+
+```csharp
+public class MyChatStreamHandler : MonoBehaviour,
+    IStreamVisitor<Delta<ITextChunk>, Generated<ChatChoice>>
+{
+    public void OnDelta(Delta<ITextChunk> delta)
+    {
+        Debug.Log(delta.Value.Text); // partial token
+    }
+
+    public void OnComplete(Generated<ChatChoice> result)
+    {
+        Debug.Log("Complete: " + (string)result);
+    }
+
+    public void OnError(Exception error)
+    {
+        Debug.LogError(error.Message);
+    }
+
+    async void StartStreaming()
+    {
+        var stream = await "Tell me a story"
+            .GENCompletion()
+            .StreamAsync();
+
+        await foreach (var evt in stream)
+            evt.Accept(this);
+    }
+}
 ```
 
 ## Provider Support
@@ -189,7 +229,7 @@ await "Tell me a story"
 string response = await userInput
     .GENCompletion()
     .SetModel(OpenAIModel.GPT4o)
-    .SetSystemMessage("You are a friendly game NPC")
+    .SetInstructions("You are a friendly game NPC")
     .SetTemperature(0.8f)
     .ExecuteAsync();
 
@@ -204,7 +244,7 @@ async UniTask<string> AnswerFAQ(string question)
     return await question
         .GENCompletion()
         .SetModel(OpenAIModel.GPT4oMini)
-        .SetSystemMessage("Answer questions about our Unity plugin")
+        .SetInstructions("Answer questions about our Unity plugin")
         .SetTemperature(0.3f)
         .SetMaxTokens(200)
         .ExecuteAsync();
@@ -219,7 +259,7 @@ async UniTask<string> GetContextualHelp(string topic)
     return await $"Explain {topic} for Unity beginners"
         .GENCompletion()
         .SetModel(OpenAIModel.GPT4o)
-        .SetSystemMessage("You are a Unity tutorial assistant")
+        .SetInstructions("You are a Unity tutorial assistant")
         .SetTemperature(0.5f)
         .ExecuteAsync();
 }
@@ -273,7 +313,7 @@ catch (System.Net.Http.HttpRequestException ex)
 
 - Set temperature above 2.0 (unstable results)
 - Use very high frequency/presence penalties (degrades quality)
-- Forget to set system messages for context
+- Forget to set instructions for context
 - Ignore error handling
 - Call API in tight loops without rate limiting
 

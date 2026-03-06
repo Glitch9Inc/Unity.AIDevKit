@@ -38,11 +38,12 @@ VideoClip video = await prompt
 ```csharp
 VideoClip video = await "Wildlife documentary scene"
     .GENVideo()
-    .SetDuration(10f)
-    .SetResolution(1920, 1080)
-    .SetFrameRate(30)
+    .SetDuration(10)
+    .SetSize(1920, 1080)
     .ExecuteAsync();
 ```
+
+> **Note:** Streaming is not supported for video generation — `.StreamAsync()` will throw `NotImplementedException`. Use `.ExecuteAsync()` instead.
 
 ## Unity Integration Examples
 
@@ -55,7 +56,7 @@ public class CutsceneGenerator : MonoBehaviour
     {
         return await description
             .GENVideo()
-            .SetDuration(15f)
+            .SetDuration(15)
             .ExecuteAsync();
     }
 }
@@ -70,7 +71,7 @@ public class BackgroundVideoGenerator : MonoBehaviour
     {
         VideoClip bg = await $"Looping {environment} background"
             .GENVideo()
-            .SetDuration(30f)
+            .SetDuration(30)
             .ExecuteAsync();
         
         // Apply to video player

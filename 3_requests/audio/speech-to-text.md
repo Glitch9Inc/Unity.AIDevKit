@@ -1,10 +1,10 @@
----
+﻿---
 icon: microphone
 ---
 
 # Speech to Text
 
-Transcribe audio to text using `.GENTranscript()` or `.SpeechToText()`.
+Transcribe audio to text using `.GENTranscription()` or `.SpeechToText()`.
 
 ## Basic Usage
 
@@ -14,7 +14,7 @@ await UniTask.Delay(5000);
 Microphone.End(null);
 
 string transcript = await recording
-    .GENTranscript()
+    .GENTranscription()
     .ExecuteAsync();
 
 Debug.Log($"You said: {transcript}");
@@ -27,7 +27,7 @@ Debug.Log($"You said: {transcript}");
 ```csharp
 AudioClip audio = Resources.Load<AudioClip>("Recording");
 string text = await audio
-    .GENTranscript()
+    .GENTranscription()
     .ExecuteAsync();
 ```
 
@@ -36,14 +36,14 @@ string text = await audio
 ```csharp
 var audioFile = new File<AudioClip>(audioClip, "recording.wav");
 string text = await audioFile
-    .GENTranscript()
+    .GENTranscription()
     .ExecuteAsync();
 ```
 
 ### Alias Method
 
 ```csharp
-// SpeechToText() is an alias for GENTranscript()
+// SpeechToText() is an alias for GENTranscription()
 string text = await audioClip
     .SpeechToText()
     .ExecuteAsync();
@@ -56,13 +56,13 @@ string text = await audioClip
 ```csharp
 // OpenAI Whisper
 string text = await audioClip
-    .GENTranscript()
+    .GENTranscription()
     .SetModel(OpenAIModel.Whisper1)
     .ExecuteAsync();
 
 // Google Chirp
 string text = await audioClip
-    .GENTranscript()
+    .GENTranscription()
     .SetModel(GoogleModel.ChirpV2)
     .ExecuteAsync();
 ```
@@ -71,8 +71,8 @@ string text = await audioClip
 
 ```csharp
 string text = await audioClip
-    .GENTranscript()
-    .SetLanguage(SystemLanguage.English)
+    .GENTranscription()
+    .SetSpokenLanguage(SystemLanguage.English)
     .ExecuteAsync();
 ```
 
@@ -83,45 +83,21 @@ string text = await audioClip
 - Arabic, Russian, Turkish
 - And many more...
 
-### Context Prompt
+### Timestamp Granularities
 
-Provide context to improve accuracy:
-
-```csharp
-string text = await audioClip
-    .GENTranscript()
-    .SetPrompt("Technical terms: Unity, C#, GameObject, MonoBehaviour")
-    .ExecuteAsync();
-```
-
-### Temperature
-
-Control randomness of transcription (0.0-1.0):
+Populate timestamps in the transcription output:
 
 ```csharp
 string text = await audioClip
-    .GENTranscript()
-    .SetTemperature(0.0f)  // More deterministic
+    .GENTranscription()
+    .SetTimestampGranularities("word", "segment")
     .ExecuteAsync();
 ```
 
-### Response Format
+**Available granularities:**
 
-```csharp
-// Get detailed response with timestamps
-var response = await audioClip
-    .GENTranscript()
-    .SetResponseFormat(TranscriptFormat.VerboseJson)
-    .ExecuteAsync();
-```
-
-**Available formats:**
-
-- `TranscriptFormat.Text` - Plain text only
-- `TranscriptFormat.Json` - JSON with text
-- `TranscriptFormat.VerboseJson` - JSON with timestamps and metadata
-- `TranscriptFormat.Srt` - SubRip subtitle format
-- `TranscriptFormat.Vtt` - WebVTT subtitle format
+- `"word"` - Word-level timestamps (adds latency)
+- `"segment"` - Segment-level timestamps (no added latency)
 
 ## Unity Integration Examples
 
@@ -149,8 +125,8 @@ public class VoiceCommandSystem : MonoBehaviour
         
         // Transcribe
         string command = await recording
-            .GENTranscript()
-            .SetLanguage(Application.systemLanguage)
+            .GENTranscription()
+            .SetSpokenLanguage(Application.systemLanguage)
             .ExecuteAsync();
         
         // Process command
@@ -188,7 +164,7 @@ public class RealtimeSubtitles : MonoBehaviour
         Microphone.End(null);
         
         string text = await recording
-            .GENTranscript()
+            .GENTranscription()
             .ExecuteAsync();
         
         subtitleText.text = text;
@@ -215,8 +191,8 @@ public class DictationSystem : MonoBehaviour
         Microphone.End(null);
         
         string text = await recording
-            .GENTranscript()
-            .SetLanguage(Application.systemLanguage)
+            .GENTranscription()
+            .SetSpokenLanguage(Application.systemLanguage)
             .ExecuteAsync();
         
         transcripts.Add(text);
@@ -237,7 +213,7 @@ public class AudioFileTranscriber : MonoBehaviour
         
         // Transcribe
         string transcript = await audio
-            .GENTranscript()
+            .GENTranscription()
             .SetModel(OpenAIModel.Whisper1)
             .SetResponseFormat(TranscriptFormat.VerboseJson)
             .ExecuteAsync();
@@ -279,8 +255,7 @@ public class MeetingTranscriber : MonoBehaviour
             
             // Transcribe segment
             string text = await segment
-                .GENTranscript()
-                .SetPrompt("Meeting transcript with technical terms")
+                .GENTranscription()
                 .ExecuteAsync();
             
             transcripts.Add($"[{DateTime.Now:HH:mm:ss}] {text}");
@@ -307,7 +282,7 @@ public class MultiLanguageTranscriber : MonoBehaviour
     {
         // Try transcribing without language hint (auto-detect)
         string transcript = await audio
-            .GENTranscript()
+            .GENTranscription()
             .ExecuteAsync();
         
         return transcript;
@@ -318,8 +293,8 @@ public class MultiLanguageTranscriber : MonoBehaviour
         SystemLanguage language)
     {
         return await audio
-            .GENTranscript()
-            .SetLanguage(language)
+            .GENTranscription()
+            .SetSpokenLanguage(language)
             .ExecuteAsync();
     }
 }
@@ -331,38 +306,36 @@ public class MultiLanguageTranscriber : MonoBehaviour
 
 ```csharp
 string text = await audioClip
-    .GENTranscript()
+    .GENTranscription()
     .SetModel(OpenAIModel.Whisper1)
-    .SetLanguage(SystemLanguage.English)
-    .SetPrompt("Context for better accuracy")
-    .SetTemperature(0.0f)
-    .SetResponseFormat(TranscriptFormat.VerboseJson)
+    .SetSpokenLanguage(SystemLanguage.English)
+    .SetTimestampGranularities("word", "segment")
     .ExecuteAsync();
 ```
 
 **Features:**
 
-- ✅ 99+ languages
-- ✅ High accuracy
-- ✅ Speaker diarization (in verbose mode)
-- ✅ Timestamp support
+- ??99+ languages
+- ??High accuracy
+- ??Speaker diarization (in verbose mode)
+- ??Timestamp support
 
 ### Google Chirp
 
 ```csharp
 string text = await audioClip
-    .GENTranscript()
+    .GENTranscription()
     .SetModel(GoogleModel.ChirpV2)
-    .SetLanguage(SystemLanguage.English)
+    .SetSpokenLanguage(SystemLanguage.English)
     .ExecuteAsync();
 ```
 
 **Features:**
 
-- ✅ Multiple languages
-- ✅ Real-time streaming
-- ✅ Punctuation
-- ✅ Word-level timestamps
+- ??Multiple languages
+- ??Real-time streaming
+- ??Punctuation
+- ??Word-level timestamps
 
 ## Audio Requirements
 
@@ -397,65 +370,65 @@ string text = await audioClip
 ### Best Practices for Audio
 
 ```csharp
-// ✅ Good - Use appropriate sample rate
+// ??Good - Use appropriate sample rate
 AudioClip recording = Microphone.Start(null, false, 10, 16000);
 
-// ✅ Good - Remove silence at start/end
+// ??Good - Remove silence at start/end
 AudioClip trimmed = TrimSilence(recording);
 
-// ✅ Good - Normalize volume
+// ??Good - Normalize volume
 AudioClip normalized = NormalizeVolume(recording);
 
-// ❌ Bad - Very low sample rate
+// ??Bad - Very low sample rate
 AudioClip lowQuality = Microphone.Start(null, false, 10, 8000);
 ```
 
 ## Best Practices
 
-### ✅ Good Practices
+### ??Good Practices
 
 ```csharp
-// ✅ Provide context for technical terms
-await audio.GENTranscript()
-    .SetPrompt("Unity game development: GameObject, Transform, Rigidbody")
+// ✅ Provide a language hint to improve accuracy
+await audio.GENTranscription()
+    .SetSpokenLanguage(SystemLanguage.English)
     .ExecuteAsync();
 
 // ✅ Use appropriate language hint
-await audio.GENTranscript()
-    .SetLanguage(Application.systemLanguage)
+await audio.GENTranscription()
+    .SetSpokenLanguage(Application.systemLanguage)
     .ExecuteAsync();
 
-// ✅ Handle long audio by chunking
+// ??Handle long audio by chunking
 async UniTask<string> TranscribeLongAudio(AudioClip longAudio)
 {
     var chunks = SplitAudio(longAudio, maxSeconds: 30);
-    var tasks = chunks.Select(chunk => chunk.GENTranscript().ExecuteAsync());
+    var tasks = chunks.Select(chunk => chunk.GENTranscription().ExecuteAsync());
     string[] results = await UniTask.WhenAll(tasks);
     return string.Join(" ", results);
 }
 
-// ✅ Cache common phrases
+// ??Cache common phrases
 Dictionary<AudioClip, string> cache = new();
 ```
 
-### ❌ Bad Practices
+### ??Bad Practices
 
 ```csharp
-// ❌ Don't transcribe empty/silent audio
+// ??Don't transcribe empty/silent audio
 if (audioClip.length == 0) return;  // Check first!
 
-// ❌ Don't use very low quality audio
+// ??Don't use very low quality audio
 // Use at least 16kHz sample rate
 
-// ❌ Don't forget error handling
+// ??Don't forget error handling
 try {
-    string text = await audio.GENTranscript().ExecuteAsync();
+    string text = await audio.GENTranscription().ExecuteAsync();
 } catch (Exception ex) {
     Debug.LogError($"Transcription failed: {ex.Message}");
 }
 
-// ❌ Don't block main thread
-string text = audio.GENTranscript().ExecuteAsync().Result;  // NO!
+// ??Don't block main thread
+string text = audio.GENTranscription().ExecuteAsync().Result;  // NO!
 ```
 
 ## Error Handling
@@ -464,7 +437,7 @@ string text = audio.GENTranscript().ExecuteAsync().Result;  // NO!
 try
 {
     string transcript = await audioClip
-        .GENTranscript()
+        .GENTranscription()
         .ExecuteAsync();
     
     if (string.IsNullOrEmpty(transcript))
@@ -486,21 +459,21 @@ catch (Exception ex)
 ## Performance Tips
 
 ```csharp
-// ✅ Good - parallel processing
+// ??Good - parallel processing
 var tasks = audioClips.Select(clip => 
-    clip.GENTranscript().ExecuteAsync()
+    clip.GENTranscription().ExecuteAsync()
 );
 await UniTask.WhenAll(tasks);
 
-// ✅ Good - use lower quality for non-critical transcription
-await audio.GENTranscript()
+// ??Good - use lower quality for non-critical transcription
+await audio.GENTranscription()
     .SetModel(OpenAIModel.Whisper1)  // Faster
     .ExecuteAsync();
 
-// ❌ Bad - sequential processing
+// ??Bad - sequential processing
 foreach (var clip in audioClips)
 {
-    await clip.GENTranscript().ExecuteAsync();  // Slow!
+    await clip.GENTranscription().ExecuteAsync();  // Slow!
 }
 ```
 

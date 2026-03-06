@@ -1,4 +1,4 @@
----
+﻿---
 icon: waveform-lines
 ---
 
@@ -12,7 +12,7 @@ Convert voice characteristics in audio using `.GENVoiceChange()`.
 AudioClip original = Resources.Load<AudioClip>("VoiceRecording");
 AudioClip changed = await original
     .GENVoiceChange()
-    .SetTargetVoice(ElevenLabsVoice.Adam)
+    .SetVoice(ElevenLabsVoice.Adam)
     .ExecuteAsync();
 ```
 
@@ -24,7 +24,7 @@ AudioClip changed = await original
 AudioClip original = Resources.Load<AudioClip>("Voice");
 AudioClip changed = await original
     .GENVoiceChange()
-    .SetTargetVoice(newVoice)
+    .SetVoice(newVoice)
     .ExecuteAsync();
 ```
 
@@ -34,7 +34,7 @@ AudioClip changed = await original
 var audioFile = new File<AudioClip>(audioClip, "voice.wav");
 AudioClip changed = await audioFile
     .GENVoiceChange()
-    .SetTargetVoice(targetVoice)
+    .SetVoice(targetVoice)
     .ExecuteAsync();
 ```
 
@@ -45,19 +45,34 @@ AudioClip changed = await audioFile
 ```csharp
 AudioClip changed = await originalVoice
     .GENVoiceChange()
-    .SetTargetVoice(ElevenLabsVoice.Rachel)
+    .SetVoice(ElevenLabsVoice.Rachel)
     .ExecuteAsync();
 ```
 
-### Voice Settings
+### Background Noise Removal
 
 ```csharp
+// Background noise removal is enabled by default (true)
 AudioClip changed = await originalVoice
     .GENVoiceChange()
-    .SetTargetVoice(ElevenLabsVoice.Adam)
-    .SetStability(0.5f)
-    .SetSimilarityBoost(0.8f)
+    .SetVoice(ElevenLabsVoice.Adam)
+    .SetRemoveBackgroundNoise(true)   // default
     .ExecuteAsync();
+```
+
+### ElevenLabs Voice Settings
+
+`Stability` and `SimilarityBoost` are properties on the request object:
+
+```csharp
+var request = originalVoice
+    .GENVoiceChange()
+    .SetVoice(ElevenLabsVoice.Adam);
+
+request.Stability = 0.5;          // 0.0-1.0
+request.SimilarityBoost = 0.8;    // 0.0-1.0
+
+AudioClip changed = await request.ExecuteAsync();
 ```
 
 ## Unity Integration Examples
@@ -80,7 +95,7 @@ public class CharacterVoiceSystem : MonoBehaviour
         
         return await recording
             .GENVoiceChange()
-            .SetTargetVoice(targetVoice)
+            .SetVoice(targetVoice)
             .ExecuteAsync();
     }
 }
@@ -109,7 +124,7 @@ public class NPCVoiceCustomizer : MonoBehaviour
         
         return await baseAudio
             .GENVoiceChange()
-            .SetTargetVoice(npcVoices[npcType])
+            .SetVoice(npcVoices[npcType])
             .ExecuteAsync();
     }
 }
@@ -123,21 +138,17 @@ public class VoiceEffectsSystem : MonoBehaviour
     public async UniTask<AudioClip> ApplyRobotVoice(AudioClip humanVoice)
     {
         // Use a deep, mechanical-sounding voice
-        return await humanVoice
-            .GENVoiceChange()
-            .SetTargetVoice(ElevenLabsVoice.Adam)
-            .SetStability(0.2f)  // More robotic
-            .ExecuteAsync();
+        var req = humanVoice.GENVoiceChange().SetVoice(ElevenLabsVoice.Adam);
+        req.Stability = 0.2;  // More robotic
+        return await req.ExecuteAsync();
     }
     
     public async UniTask<AudioClip> ApplyGhostVoice(AudioClip normalVoice)
     {
         // Use ethereal, whispery voice
-        return await normalVoice
-            .GENVoiceChange()
-            .SetTargetVoice(ElevenLabsVoice.Serena)
-            .SetStability(0.8f)  // More consistent
-            .ExecuteAsync();
+        var req = normalVoice.GENVoiceChange().SetVoice(ElevenLabsVoice.Serena);
+        req.Stability = 0.8;  // More consistent
+        return await req.ExecuteAsync();
     }
 }
 ```
@@ -159,7 +170,7 @@ public class VoiceAgingSystem : MonoBehaviour
         
         return await youngVoice
             .GENVoiceChange()
-            .SetTargetVoice(targetVoice)
+            .SetVoice(targetVoice)
             .ExecuteAsync();
     }
 }
@@ -184,7 +195,7 @@ public class VoiceAnonymizer : MonoBehaviour
         
         return await originalVoice
             .GENVoiceChange()
-            .SetTargetVoice(randomVoice)
+            .SetVoice(randomVoice)
             .ExecuteAsync();
     }
 }
@@ -207,7 +218,7 @@ public class VoiceChatModifier : MonoBehaviour
     {
         AudioClip modified = await recording
             .GENVoiceChange()
-            .SetTargetVoice(desiredVoice)
+            .SetVoice(desiredVoice)
             .ExecuteAsync();
         
         // Play modified voice
@@ -221,12 +232,15 @@ public class VoiceChatModifier : MonoBehaviour
 ### ElevenLabs
 
 ```csharp
-AudioClip changed = await audioClip
+var request = audioClip
     .GENVoiceChange()
-    .SetTargetVoice(ElevenLabsVoice.Rachel)
-    .SetStability(0.5f)
-    .SetSimilarityBoost(0.8f)
-    .ExecuteAsync();
+    .SetVoice(ElevenLabsVoice.Rachel)
+    .SetRemoveBackgroundNoise(true);
+
+request.Stability = 0.5;
+request.SimilarityBoost = 0.8;
+
+AudioClip changed = await request.ExecuteAsync();
 ```
 
 **Features:**
@@ -313,7 +327,7 @@ try
 {
     AudioClip changed = await audioClip
         .GENVoiceChange()
-        .SetTargetVoice(targetVoice)
+        .SetVoice(targetVoice)
         .ExecuteAsync();
     
     if (changed == null || changed.length == 0)
@@ -345,7 +359,7 @@ async UniTask<AudioClip> GetCachedVoiceChange(AudioClip source, Voice target)
     {
         voiceCache[key] = await source
             .GENVoiceChange()
-            .SetTargetVoice(target)
+            .SetVoice(target)
             .ExecuteAsync();
     }
     return voiceCache[key];
@@ -353,7 +367,7 @@ async UniTask<AudioClip> GetCachedVoiceChange(AudioClip source, Voice target)
 
 // ✅ Good - parallel processing
 var tasks = audioClips.Select(clip =>
-    clip.GENVoiceChange().SetTargetVoice(voice).ExecuteAsync()
+    clip.GENVoiceChange().SetVoice(voice).ExecuteAsync()
 );
 await UniTask.WhenAll(tasks);
 ```

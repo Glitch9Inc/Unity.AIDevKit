@@ -4,13 +4,13 @@ icon: repeat
 
 # Image to Image
 
-Transform entire images while preserving structure using `.ImageToImage()` or `.GENInpaint()`.
+Transform entire images while preserving structure using `.GENImageEdit(ImageEditTask.Variation)`.
 
 ## Basic Usage
 
 ```csharp
 Texture2D transformed = await sourceTexture
-    .ImageToImage("Convert to watercolor painting")
+    .GENImageEdit(ImageEditTask.Variation, "Convert to watercolor painting")
     .ExecuteAsync();
 ```
 
@@ -21,7 +21,7 @@ Texture2D transformed = await sourceTexture
 ```csharp
 Texture2D texture = Resources.Load<Texture2D>("Photo");
 Texture2D artistic = await texture
-    .ImageToImage("Make it look like an oil painting")
+    .GENImageEdit(ImageEditTask.Variation, "Make it look like an oil painting")
     .ExecuteAsync();
 ```
 
@@ -30,7 +30,7 @@ Texture2D artistic = await texture
 ```csharp
 Sprite sprite = Resources.Load<Sprite>("Character");
 Texture2D pixelated = await sprite
-    .ImageToImage("Convert to pixel art style")
+    .GENImageEdit(ImageEditTask.Variation, "Convert to pixel art style")
     .ExecuteAsync();
 ```
 
@@ -44,7 +44,7 @@ var prompt = new ImagePrompt
 };
 
 Texture2D result = await prompt
-    .ImageToImage()
+    .GENImageEdit(ImageEditTask.Variation)
     .ExecuteAsync();
 ```
 
@@ -53,7 +53,7 @@ Texture2D result = await prompt
 ```csharp
 var file = new File<Texture2D>(texture, "source.png");
 Texture2D result = await file
-    .ImageToImage("Make it look hand-drawn")
+    .GENImageEdit(ImageEditTask.Variation, "Make it look hand-drawn")
     .ExecuteAsync();
 ```
 
@@ -65,7 +65,7 @@ Texture2D result = await file
 async UniTask<Texture2D> ApplyStyle(Texture2D source, string style)
 {
     return await source
-        .ImageToImage($"Convert to {style} style")
+        .GENImageEdit(ImageEditTask.Variation, $"Convert to {style} style")
         .ExecuteAsync();
 }
 
@@ -81,7 +81,7 @@ Texture2D anime = await ApplyStyle(photo, "anime");
 async UniTask<Texture2D> ChangeArtDirection(Texture2D concept, string direction)
 {
     return await concept
-        .ImageToImage($"Redesign with {direction}")
+        .GENImageEdit(ImageEditTask.Variation, $"Redesign with {direction}")
         .ExecuteAsync();
 }
 
@@ -96,7 +96,7 @@ Texture2D stylized = await ChangeArtDirection(photo, "stylized low-poly");
 async UniTask<Texture2D> EnhanceQuality(Texture2D lowRes)
 {
     return await lowRes
-        .ImageToImage("Enhance to high quality, sharpen details")
+        .GENImageEdit(ImageEditTask.Variation, "Enhance to high quality, sharpen details")
         .ExecuteAsync();
 }
 ```
@@ -107,7 +107,7 @@ async UniTask<Texture2D> EnhanceQuality(Texture2D lowRes)
 async UniTask<Texture2D> ApplyColorGrade(Texture2D source, string grade)
 {
     return await source
-        .ImageToImage($"Apply {grade} color grading")
+        .GENImageEdit(ImageEditTask.Variation, $"Apply {grade} color grading")
         .ExecuteAsync();
 }
 
@@ -123,7 +123,7 @@ Texture2D vintage = await ApplyColorGrade(image, "vintage film");
 async UniTask<Texture2D> ChangeEnvironment(Texture2D scene, string environment)
 {
     return await scene
-        .ImageToImage($"Change setting to {environment}")
+        .GENImageEdit(ImageEditTask.Variation, $"Change setting to {environment}")
         .ExecuteAsync();
 }
 
@@ -145,7 +145,7 @@ public class MaterialStyleSwitcher : MonoBehaviour
     public async UniTask ApplyStyle(string style)
     {
         Texture2D styled = await baseTexture
-            .ImageToImage($"Convert to {style} style")
+            .GENImageEdit(ImageEditTask.Variation, $"Convert to {style} style")
             .ExecuteAsync();
         
         targetMaterial.mainTexture = styled;
@@ -170,7 +170,7 @@ public class ScreenshotFilter : MonoBehaviour
         
         // Apply filter
         Texture2D filtered = await screenshot
-            .ImageToImage($"Apply {filter} effect")
+            .GENImageEdit(ImageEditTask.Variation, $"Apply {filter} effect")
             .ExecuteAsync();
         
         return filtered;
@@ -196,7 +196,7 @@ public class TextureVariationGenerator : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             Texture2D variation = await baseTexture
-                .ImageToImage($"Create artistic variation {i+1}")
+                .GENImageEdit(ImageEditTask.Variation, $"Create artistic variation {i+1}")
                 .ExecuteAsync();
             
             variations.Add(variation);
@@ -217,7 +217,7 @@ public class TimeOfDayConverter : MonoBehaviour
     public async UniTask SetTimeOfDay(string timeOfDay)
     {
         Texture2D skybox = await baseSkybox
-            .ImageToImage($"Convert to {timeOfDay} lighting")
+            .GENImageEdit(ImageEditTask.Variation, $"Convert to {timeOfDay} lighting")
             .ExecuteAsync();
         
         RenderSettings.skybox.SetTexture("_MainTex", skybox);
@@ -238,7 +238,7 @@ async UniTask<List<Texture2D>> BatchConvert(
     string transformation)
 {
     var tasks = textures.Select(tex =>
-        tex.ImageToImage(transformation).ExecuteAsync()
+        tex.GENImageEdit(ImageEditTask.Variation, transformation).ExecuteAsync()
     );
     
     Texture2D[] results = await UniTask.WhenAll(tasks);
@@ -319,7 +319,7 @@ var stylized = await BatchConvert(
 ```csharp
 // Works with both DALL-E 2 and DALL-E 3
 Texture2D result = await texture
-    .ImageToImage("transformation")
+    .GENImageEdit(ImageEditTask.Variation, "transformation")
     .SetModel(OpenAIModel.DallE2)
     .ExecuteAsync();
 ```
@@ -328,7 +328,7 @@ Texture2D result = await texture
 
 ```csharp
 Texture2D result = await texture
-    .ImageToImage("transformation")
+    .GENImageEdit(ImageEditTask.Variation, "transformation")
     .SetModel(GoogleModel.Imagen3)
     .ExecuteAsync();
 ```
@@ -339,39 +339,38 @@ Texture2D result = await texture
 
 ```csharp
 // ✅ Be specific about target style
-await texture.ImageToImage("Convert to pixel art, 8-bit style");
+await texture.GENImageEdit(ImageEditTask.Variation, "Convert to pixel art, 8-bit style");
 
 // ✅ Include quality hints
-await texture.ImageToImage("High-quality oil painting style");
+await texture.GENImageEdit(ImageEditTask.Variation, "High-quality oil painting style");
 
 // ✅ Preserve important elements
-await texture.ImageToImage("Watercolor style, preserve faces");
+await texture.GENImageEdit(ImageEditTask.Variation, "Watercolor style, preserve faces");
 
 // ✅ Test with small images first
 Texture2D small = ScaleDown(original, 512, 512);
-await small.ImageToImage("test transformation");
+await small.GENImageEdit(ImageEditTask.Variation, "test transformation");
 ```
 
 ### ❌ Don't
 
 ```csharp
 // ❌ Too vague
-await texture.ImageToImage("different");
+await texture.GENImageEdit(ImageEditTask.Variation, "different");
 
 // ❌ Multiple transformations
-await texture.ImageToImage("cartoon and realistic and painted");
+await texture.GENImageEdit(ImageEditTask.Variation, "cartoon and realistic and painted");
 
 // ❌ Unrealistic expectations
-await texture.ImageToImage("make it look exactly like a Van Gogh");
+await texture.GENImageEdit(ImageEditTask.Variation, "make it look exactly like a Van Gogh");
 ```
 
 ## Configuration
 
 ```csharp
 Texture2D result = await texture
-    .ImageToImage("transformation")
+    .GENImageEdit(ImageEditTask.Variation, "transformation")
     .SetModel(OpenAIModel.DallE3)
-    .SetQuality(ImageQuality.HD)
     .ExecuteAsync();
 ```
 
@@ -381,7 +380,7 @@ Texture2D result = await texture
 try
 {
     Texture2D result = await texture
-        .ImageToImage("transformation")
+        .GENImageEdit(ImageEditTask.Variation, "transformation")
         .ExecuteAsync();
     
     if (result == null || result.width == 0)
@@ -405,8 +404,8 @@ catch (Exception ex)
 // ✅ Good - parallel processing
 var tasks = new[]
 {
-    tex1.ImageToImage("style A").ExecuteAsync(),
-    tex2.ImageToImage("style B").ExecuteAsync()
+    tex1.GENImageEdit(ImageEditTask.Variation, "style A").ExecuteAsync(),
+    tex2.GENImageEdit(ImageEditTask.Variation, "style B").ExecuteAsync()
 };
 await UniTask.WhenAll(tasks);
 
@@ -415,13 +414,13 @@ var transformer = "placeholder"
     .GENImage()
     .SetModel(OpenAIModel.DallE3);
 
-Texture2D t1 = await texture1.ImageToImage("watercolor").ExecuteAsync();
-Texture2D t2 = await texture2.ImageToImage("anime").ExecuteAsync();
+Texture2D t1 = await texture1.GENImageEdit(ImageEditTask.Variation, "watercolor").ExecuteAsync();
+Texture2D t2 = await texture2.GENImageEdit(ImageEditTask.Variation, "anime").ExecuteAsync();
 
 // ❌ Bad - sequential when parallel is better
 foreach (var tex in textures)
 {
-    await tex.ImageToImage("style").ExecuteAsync();
+    await tex.GENImageEdit(ImageEditTask.Variation, "style").ExecuteAsync();
 }
 ```
 

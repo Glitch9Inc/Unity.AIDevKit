@@ -90,35 +90,34 @@ Texture2D portrait = await "Vertical poster"
 - `ImageSize._1792x1024` (DALL-E 3 only)
 - `ImageSize._1024x1792` (DALL-E 3 only)
 
-### Quality
+### Quality and Style (OpenAI DALL-E)
+
+Provider-specific options are set using `SetSpecificOptions()`:
 
 ```csharp
 // HD quality (DALL-E 3 only)
 Texture2D hd = await "Detailed artwork"
     .GENImage()
-    .SetQuality(ImageQuality.HD)
+    .SetModel(OpenAIModel.DallE3)
+    .SetSpecificOptions(new OpenAIDallEOptions { Quality = ImageQuality.HD })
     .ExecuteAsync();
 
-// Standard quality (faster, cheaper)
-Texture2D standard = await "Concept sketch"
-    .GENImage()
-    .SetQuality(ImageQuality.Standard)
-    .ExecuteAsync();
-```
-
-### Style
-
-```csharp
-// Vivid - hyper-real and dramatic
+// Vivid style (DALL-E 3 only)
 Texture2D vivid = await "Fantasy dragon"
     .GENImage()
-    .SetStyle(ImageStyle.Vivid)
+    .SetModel(OpenAIModel.DallE3)
+    .SetSpecificOptions(new OpenAIDallEOptions { Style = ImageStyle.Vivid })
     .ExecuteAsync();
 
-// Natural - more natural, less hyper-real
-Texture2D natural = await "Portrait photo"
+// Combined quality and style
+Texture2D styled = await "Epic battle scene"
     .GENImage()
-    .SetStyle(ImageStyle.Natural)
+    .SetModel(OpenAIModel.DallE3)
+    .SetSpecificOptions(new OpenAIDallEOptions
+    {
+        Quality = ImageQuality.HD,
+        Style = ImageStyle.Vivid
+    })
     .ExecuteAsync();
 ```
 
@@ -144,8 +143,11 @@ Texture2D image = await "A majestic phoenix rising from flames"
     .GENImage()
     .SetModel(OpenAIModel.DallE3)
     .SetSize(ImageSize._1024x1024)
-    .SetQuality(ImageQuality.HD)
-    .SetStyle(ImageStyle.Vivid)
+    .SetSpecificOptions(new OpenAIDallEOptions
+    {
+        Quality = ImageQuality.HD,
+        Style = ImageStyle.Vivid
+    })
     .ExecuteAsync();
 ```
 
@@ -298,8 +300,8 @@ async UniTask GenerateAndSave(string prompt, string filename)
 Texture2D image = await "prompt"
     .GENImage()
     .SetModel(OpenAIModel.DallE3)
-    .SetQuality(ImageQuality.HD)
     .SetSize(ImageSize._1024x1024)
+    .SetSpecificOptions(new OpenAIDallEOptions { Quality = ImageQuality.HD })
     .ExecuteAsync();
 
 // DALL-E 2
@@ -365,20 +367,11 @@ catch (Exception ex)
 ## Performance Considerations
 
 ```csharp
-// ✅ Good - reuse configuration
-var imageGen = "placeholder"
-    .GENImage()
-    .SetModel(OpenAIModel.DallE3)
-    .SetSize(ImageSize._1024x1024);
-
-Texture2D img1 = await imageGen.SetPrompt("Image 1").ExecuteAsync();
-Texture2D img2 = await imageGen.SetPrompt("Image 2").ExecuteAsync();
-
 // ✅ Good - parallel generation
 var tasks = new[]
 {
-    "Image 1".GENImage().ExecuteAsync(),
-    "Image 2".GENImage().ExecuteAsync()
+    "Image 1".GENImage().SetModel(OpenAIModel.DallE3).ExecuteAsync(),
+    "Image 2".GENImage().SetModel(OpenAIModel.DallE3).ExecuteAsync()
 };
 await UniTask.WhenAll(tasks);
 

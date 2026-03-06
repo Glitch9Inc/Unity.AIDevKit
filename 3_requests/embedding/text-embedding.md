@@ -40,6 +40,39 @@ float[] embedding = await "Search query"
     .ExecuteAsync();
 ```
 
+### Dimensionality
+
+Reduce embedding size to save storage (supported by OpenAI text-embedding-3 and Google models):
+
+```csharp
+float[] compact = await "Search query"
+    .GENEmbed()
+    .SetModel(OpenAIModel.TextEmbedding3Large)
+    .SetDimensionality(512)
+    .ExecuteAsync();
+```
+
+### Task Type (Google / Cohere)
+
+Optimize embeddings for a specific task:
+
+```csharp
+float[] embedding = await "document content"
+    .GENEmbed()
+    .SetModel(GoogleModel.TextEmbedding004)
+    .SetEmbedTaskType(EmbedTaskType.RetrievalDocument)
+    .ExecuteAsync();
+```
+
+### Max Tokens Per Input (Cohere)
+
+```csharp
+float[] embedding = await "long document..."
+    .GENEmbed()
+    .SetMaxTokensPerInput(512)
+    .ExecuteAsync();
+```
+
 ## Unity Integration Examples
 
 ### Example 1: Document Search Engine

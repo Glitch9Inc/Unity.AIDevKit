@@ -104,13 +104,15 @@ AudioClip turbo = await "Hello"
 ### Voice Settings (ElevenLabs)
 
 ```csharp
-AudioClip speech = await "Your text"
+var request = "Your text"
     .GENSpeech()
-    .SetVoice(ElevenLabsVoice.Rachel)
-    .SetStability(0.5f)                 // 0.0-1.0
-    .SetSimilarityBoost(0.8f)          // 0.0-1.0
-    .SetStyle(0.5f)                     // 0.0-1.0 (optional)
-    .ExecuteAsync();
+    .SetVoice(ElevenLabsVoice.Rachel);
+
+request.Stability = 0.5;          // 0.0-1.0
+request.SimilarityBoost = 0.8;    // 0.0-1.0
+request.Style = 0.5;              // 0.0-1.0 (optional)
+
+AudioClip speech = await request.ExecuteAsync();
 ```
 
 **Parameters:**
@@ -124,7 +126,7 @@ AudioClip speech = await "Your text"
 ```csharp
 AudioClip speech = await "Hello"
     .GENSpeech()
-    .SetFormat(AudioFormat.MP3)        // MP3, WAV, OGG
+    .SetResponseMimeType(MimeType.MPEG)    // default
     .ExecuteAsync();
 ```
 
@@ -360,13 +362,15 @@ AudioClip speech = await "Hello"
 ### ElevenLabs
 
 ```csharp
-AudioClip speech = await "Hello"
+var request = "Hello"
     .GENSpeech()
     .SetModel(ElevenLabsModel.Turbo)
-    .SetVoice(ElevenLabsVoice.Rachel)
-    .SetStability(0.5f)
-    .SetSimilarityBoost(0.8f)
-    .ExecuteAsync();
+    .SetVoice(ElevenLabsVoice.Rachel);
+
+request.Stability = 0.5;
+request.SimilarityBoost = 0.8;
+
+AudioClip speech = await request.ExecuteAsync();
 ```
 
 **Features:**

@@ -45,10 +45,11 @@ VideoClip video = await prompt
 ```csharp
 VideoClip video = await texture
     .GENVideo()
-    .SetDuration(5f)
-    .SetMotion("subtle camera pan")
+    .SetDuration(5)
     .ExecuteAsync();
 ```
+
+> **Note:** Streaming is not supported for video generation — `.StreamAsync()` will throw `NotImplementedException`. Use `.ExecuteAsync()` instead.
 
 ## Unity Integration Examples
 
@@ -63,7 +64,7 @@ public class ScreenshotAnimator : MonoBehaviour
         
         return await screenshot
             .GENVideo()
-            .SetDuration(3f)
+            .SetDuration(3)
             .ExecuteAsync();
     }
 }
@@ -78,8 +79,7 @@ public class PhotoBooth : MonoBehaviour
     {
         return await photo
             .GENVideo()
-            .SetMotion("subtle zoom in and out")
-            .SetDuration(2f)
+            .SetDuration(2)
             .ExecuteAsync();
     }
 }

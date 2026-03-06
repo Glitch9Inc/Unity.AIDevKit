@@ -49,12 +49,12 @@ AudioClip sfx = await "Thunder strike"
 
 ### Prompt Influence
 
-Control how closely the AI follows your prompt (0.0-1.0):
+Control how closely the AI follows your prompt (0.0-1.0).
+Pass prompt strength as the second argument to `.GENSoundEffect()`:
 
 ```csharp
 AudioClip sfx = await "Sci-fi laser beam"
-    .GENSoundEffect()
-    .SetPromptInfluence(0.8f)  // Higher = stricter adherence
+    .GENSoundEffect(promptStrength: 0.8f)  // Higher = stricter adherence
     .ExecuteAsync();
 ```
 
@@ -210,9 +210,8 @@ public class CombatSoundSystem : MonoBehaviour
         string description = $"{weaponType} hitting {targetMaterial}";
         
         AudioClip hitSound = await description
-            .GENSoundEffect()
+            .GENSoundEffect(promptStrength: 0.9f)  // Precise sound
             .SetDuration(0.8f)
-            .SetPromptInfluence(0.9f)  // Precise sound
             .ExecuteAsync();
         
         AudioSource.PlayClipAtPoint(hitSound, transform.position);
@@ -265,9 +264,8 @@ await combatSound.PlayHitSound("fist", "leather armor");
 
 ```csharp
 AudioClip sfx = await "Thunder strike"
-    .GENSoundEffect()
+    .GENSoundEffect(promptStrength: 0.8f)
     .SetDuration(2.0f)
-    .SetPromptInfluence(0.8f)
     .ExecuteAsync();
 ```
 
@@ -275,7 +273,7 @@ AudioClip sfx = await "Thunder strike"
 
 - ✅ High-quality sound effects
 - ✅ Duration control (0.5s - 22s)
-- ✅ Prompt influence control
+- ✅ Prompt strength control via constructor
 - ✅ Various acoustic styles
 
 **Note:** Currently, ElevenLabs is the primary provider for sound effect generation.

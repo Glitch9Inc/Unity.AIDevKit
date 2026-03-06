@@ -85,6 +85,8 @@ string advanced = await "Advanced player movement with physics and animation"
     .ExecuteAsync();
 ```
 
+> **Note:** `GENCode()` does not support streaming. Use `ExecuteAsync()` only.
+
 ## Common Use Cases
 
 ### 1. Generate New Code
@@ -234,17 +236,18 @@ Create a C# class with:
     .ExecuteAsync();
 
 // ✅ Specify coding standards
-string code = await "C# singleton using lazy initialization"
+string code2 = await "C# singleton using lazy initialization"
     .GENCode()
     .ExecuteAsync();
 
-// ✅ Include context
-string code = await $@"
+// ✅ Add instructions for context
+string code3 = await $@"
 Add error handling to this method:
 
 {existingMethod}
 "
     .GENCode()
+    .SetInstructions("Follow Unity C# coding standards")
     .ExecuteAsync();
 ```
 
@@ -326,6 +329,7 @@ public class CodeGeneratorWindow : EditorWindow
             generatedCode = await prompt
                 .GENCode()
                 .SetModel(OpenAIModel.GPT4o)
+                .SetInstructions("Generate clean, well-commented Unity C# code.")
                 .ExecuteAsync();
         }
         

@@ -9,11 +9,16 @@ The `.GENStruct<T>()` method generates JSON responses that are automatically map
 ## Basic Usage
 
 ```csharp
-[JsonSchema]
+[StrictJsonSchema("character", "A game character.")]
 public class Character
 {
+    [JsonSchemaProperty("name", "Character name.", Required = true)]
     public string Name { get; set; }
+
+    [JsonSchemaProperty("level", "Character level.", Required = true)]
     public int Level { get; set; }
+
+    [JsonSchemaProperty("class", "Character class.", Required = true)]
     public string Class { get; set; }
 }
 
@@ -24,16 +29,23 @@ Character hero = await "Generate a level 10 warrior"
 Debug.Log($"{hero.Name} - Lv.{hero.Level} {hero.Class}");
 ```
 
+> **Note:** `[StrictJsonSchema]` is required on the class. When `Strict = true`, **all** properties must have `Required = true` in their `[JsonSchemaProperty]`.
+
 ## Defining Schema Classes
 
 ### 1. Simple Class
 
 ```csharp
-[JsonSchema]
+[StrictJsonSchema("user_profile", "A user profile.")]
 public class UserProfile
 {
+    [JsonSchemaProperty("name", "Full name of the user.")]
     public string Name { get; set; }
+
+    [JsonSchemaProperty("age", "Age of the user.")]
     public int Age { get; set; }
+
+    [JsonSchemaProperty("email", "Email address.")]
     public string Email { get; set; }
 }
 
@@ -45,19 +57,29 @@ UserProfile user = await "Create profile for John, age 30"
 ### 2. Nested Objects
 
 ```csharp
-[JsonSchema]
+[StrictJsonSchema("game_character", "A game character with stats and skills.")]
 public class GameCharacter
 {
+    [JsonSchemaProperty("name", "Character name.")]
     public string Name { get; set; }
+
+    [JsonSchemaProperty("stats", "Character stats.")]
     public Stats Stats { get; set; }
+
+    [JsonSchemaProperty("skills", "List of skill names.")]
     public List<string> Skills { get; set; }
 }
 
-[JsonSchema]
+[StrictJsonSchema("stats", "Character stats.")]
 public class Stats
 {
+    [JsonSchemaProperty("health", "Max health points.")]
     public int Health { get; set; }
+
+    [JsonSchemaProperty("mana", "Max mana points.")]
     public int Mana { get; set; }
+
+    [JsonSchemaProperty("strength", "Strength attribute.")]
     public int Strength { get; set; }
 }
 
@@ -69,13 +91,14 @@ GameCharacter character = await "Create a mage character"
 ### 3. Collections
 
 ```csharp
-[JsonSchema]
+[StrictJsonSchema("item_list", "A list of items.")]
 public class ItemList
 {
+    [JsonSchemaProperty("items", "The items in the list.")]
     public List<Item> Items { get; set; }
 }
 
-[JsonSchema]
+[StrictJsonSchema("item", "A single item.")]
 public class Item
 {
     public string Name { get; set; }
@@ -98,11 +121,16 @@ foreach (var item in inventory.Items)
 ```csharp
 public enum Rarity { Common, Uncommon, Rare, Epic, Legendary }
 
-[JsonSchema]
+[StrictJsonSchema("weapon", "A weapon item.")]
 public class Weapon
 {
+    [JsonSchemaProperty("name", "Weapon name.")]
     public string Name { get; set; }
+
+    [JsonSchemaProperty("damage", "Base damage value.")]
     public int Damage { get; set; }
+
+    [JsonSchemaProperty("rarity", "Rarity tier.")]
     public Rarity Rarity { get; set; }
 }
 
@@ -162,11 +190,16 @@ Character consistent = await "Create character"
 ### 1. Data Extraction
 
 ```csharp
-[JsonSchema]
+[StrictJsonSchema("contact_info", "Contact information.")]
 public class ContactInfo
 {
+    [JsonSchemaProperty("name", "Full name.")]
     public string Name { get; set; }
+
+    [JsonSchemaProperty("email", "Email address.")]
     public string Email { get; set; }
+
+    [JsonSchemaProperty("phone", "Phone number.")]
     public string Phone { get; set; }
 }
 
@@ -179,12 +212,19 @@ ContactInfo contact = await $"Extract contact info from: {text}"
 ### 2. Form Generation
 
 ```csharp
-[JsonSchema]
+[StrictJsonSchema("quest_data", "Quest configuration data.")]
 public class QuestData
 {
+    [JsonSchemaProperty("title", "Quest title.")]
     public string Title { get; set; }
+
+    [JsonSchemaProperty("description", "Quest description.")]
     public string Description { get; set; }
+
+    [JsonSchemaProperty("reward_gold", "Gold reward amount.")]
     public int RewardGold { get; set; }
+
+    [JsonSchemaProperty("required_level", "Minimum player level.")]
     public int RequiredLevel { get; set; }
 }
 
@@ -196,12 +236,19 @@ QuestData quest = await "Generate a beginner quest"
 ### 3. Configuration Files
 
 ```csharp
-[JsonSchema]
+[StrictJsonSchema("game_settings", "Default game settings.")]
 public class GameSettings
 {
+    [JsonSchemaProperty("music_volume", "Music volume (0-1).")]
     public float MusicVolume { get; set; }
+
+    [JsonSchemaProperty("sfx_volume", "SFX volume (0-1).")]
     public float SfxVolume { get; set; }
+
+    [JsonSchemaProperty("difficulty", "Difficulty level.")]
     public string Difficulty { get; set; }
+
+    [JsonSchemaProperty("enable_tutorial", "Whether to show tutorial.")]
     public bool EnableTutorial { get; set; }
 }
 
@@ -213,11 +260,16 @@ GameSettings settings = await "Generate default game settings"
 ### 4. Content Generation
 
 ```csharp
-[JsonSchema]
+[StrictJsonSchema("story_segment", "A story chapter.")]
 public class StorySegment
 {
+    [JsonSchemaProperty("chapter", "Chapter title.")]
     public string Chapter { get; set; }
+
+    [JsonSchemaProperty("content", "Chapter content.")]
     public string Content { get; set; }
+
+    [JsonSchemaProperty("choices", "Player choices.")]
     public List<string> Choices { get; set; }
 }
 
@@ -231,11 +283,16 @@ StorySegment story = await "Generate a story chapter with 3 choices"
 ### Example 1: NPC Dialog Generator
 
 ```csharp
-[JsonSchema]
+[StrictJsonSchema("npc_dialog", "NPC dialogue lines.")]
 public class NPCDialog
 {
+    [JsonSchemaProperty("greeting", "Opening greeting line.")]
     public string Greeting { get; set; }
+
+    [JsonSchemaProperty("questions", "Possible questions from the NPC.")]
     public List<string> Questions { get; set; }
+
+    [JsonSchemaProperty("farewell", "Closing farewell line.")]
     public string Farewell { get; set; }
 }
 
@@ -257,18 +314,26 @@ public class NPCController : MonoBehaviour
 ### Example 2: Item Database Generator
 
 ```csharp
-[JsonSchema]
+[StrictJsonSchema("item_database", "Game item database.")]
 public class ItemDatabase
 {
+    [JsonSchemaProperty("weapons", "List of weapons.")]
     public List<WeaponData> Weapons { get; set; }
+
+    [JsonSchemaProperty("armors", "List of armors.")]
     public List<ArmorData> Armors { get; set; }
 }
 
-[JsonSchema]
+[StrictJsonSchema("weapon_data", "A weapon entry.")]
 public class WeaponData
 {
+    [JsonSchemaProperty("name", "Weapon name.")]
     public string Name { get; set; }
+
+    [JsonSchemaProperty("damage", "Base damage.")]
     public int Damage { get; set; }
+
+    [JsonSchemaProperty("attack_speed", "Attack speed multiplier.")]
     public float AttackSpeed { get; set; }
 }
 
@@ -280,20 +345,32 @@ ItemDatabase db = await "Generate 10 weapons and 5 armors"
 ### Example 3: Level Configuration
 
 ```csharp
-[JsonSchema]
+[StrictJsonSchema("level_config", "Level configuration.")]
 public class LevelConfig
 {
+    [JsonSchemaProperty("level_name", "Display name for the level.")]
     public string LevelName { get; set; }
+
+    [JsonSchemaProperty("enemy_count", "Number of enemies to spawn.")]
     public int EnemyCount { get; set; }
+
+    [JsonSchemaProperty("spawn_points", "List of spawn point coordinates.")]
     public List<Vector3Serializable> SpawnPoints { get; set; }
+
+    [JsonSchemaProperty("time_limit", "Level time limit in seconds.")]
     public float TimeLimit { get; set; }
 }
 
-[JsonSchema]
+[StrictJsonSchema("vector3", "3D coordinate.")]
 public class Vector3Serializable
 {
+    [JsonSchemaProperty("x", "X coordinate.")]
     public float X { get; set; }
+
+    [JsonSchemaProperty("y", "Y coordinate.")]
     public float Y { get; set; }
+
+    [JsonSchemaProperty("z", "Z coordinate.")]
     public float Z { get; set; }
     
     public Vector3 ToVector3() => new Vector3(X, Y, Z);
@@ -307,27 +384,40 @@ LevelConfig config = await "Generate level 5 configuration"
 ### Example 4: Character Sheet
 
 ```csharp
-[JsonSchema]
+[StrictJsonSchema("character_sheet", "A full character sheet.")]
 public class CharacterSheet
 {
+    [JsonSchemaProperty("name", "Character name.")]
     public string Name { get; set; }
+
+    [JsonSchemaProperty("race", "Character race.")]
     public string Race { get; set; }
+
+    [JsonSchemaProperty("class", "Character class.")]
     public string Class { get; set; }
+
+    [JsonSchemaProperty("level", "Character level.")]
     public int Level { get; set; }
+
+    [JsonSchemaProperty("attributes", "Attribute set.")]
     public AttributeSet Attributes { get; set; }
+
+    [JsonSchemaProperty("skills", "List of skills.")]
     public List<Skill> Skills { get; set; }
+
+    [JsonSchemaProperty("equipment", "Equipped items.")]
     public Equipment Equipment { get; set; }
 }
 
-[JsonSchema]
+[StrictJsonSchema("attribute_set", "D&D-style attributes.")]
 public class AttributeSet
 {
-    public int Strength { get; set; }
-    public int Dexterity { get; set; }
-    public int Constitution { get; set; }
-    public int Intelligence { get; set; }
-    public int Wisdom { get; set; }
-    public int Charisma { get; set; }
+    [JsonSchemaProperty("strength")] public int Strength { get; set; }
+    [JsonSchemaProperty("dexterity")] public int Dexterity { get; set; }
+    [JsonSchemaProperty("constitution")] public int Constitution { get; set; }
+    [JsonSchemaProperty("intelligence")] public int Intelligence { get; set; }
+    [JsonSchemaProperty("wisdom")] public int Wisdom { get; set; }
+    [JsonSchemaProperty("charisma")] public int Charisma { get; set; }
 }
 
 CharacterSheet sheet = await "Generate a level 5 elf ranger"
@@ -340,11 +430,14 @@ CharacterSheet sheet = await "Generate a level 5 elf ranger"
 ### ✅ Do
 
 ```csharp
-// ✅ Use clear property names
-[JsonSchema]
+// ✅ Use [StrictJsonSchema] with clear names and descriptions
+[StrictJsonSchema("item", "A game item.")]
 public class Item
 {
+    [JsonSchemaProperty("name", "Item name.")]
     public string Name { get; set; }
+
+    [JsonSchemaProperty("quantity", "Stack count.")]
     public int Quantity { get; set; }
 }
 
@@ -363,11 +456,11 @@ if (character?.Stats != null)
 ### ❌ Don't
 
 ```csharp
-// ❌ Unclear property names
+// ❌ Missing [StrictJsonSchema] attribute — will throw at runtime
 public class Item
 {
-    public string N { get; set; }
-    public int Q { get; set; }
+    public string Name { get; set; }
+    public int Quantity { get; set; }
 }
 
 // ❌ Vague prompts

@@ -1,4 +1,4 @@
----
+﻿---
 icon: filter
 ---
 
@@ -192,7 +192,7 @@ public class VoiceCommandPreprocessor : MonoBehaviour
         
         // Then transcribe
         string command = await clean
-            .GENTranscript()
+            .GENTranscription()
             .ExecuteAsync();
         
         return command;
@@ -212,10 +212,10 @@ AudioClip isolated = await audioClip
 
 **Features:**
 
-- ✅ Voice isolation
-- ✅ Noise reduction
-- ✅ Audio enhancement
-- ✅ Background removal
+- ??Voice isolation
+- ??Noise reduction
+- ??Audio enhancement
+- ??Background removal
 
 **Note:** Currently, ElevenLabs is the primary provider for audio isolation.
 
@@ -240,42 +240,42 @@ Audio isolation typically removes:
 
 ## Best Practices
 
-### ✅ Good Practices
+### ??Good Practices
 
 ```csharp
-// ✅ Process before transcription
+// ??Process before transcription
 AudioClip clean = await noisy.GENAudioIsolation().ExecuteAsync();
-string text = await clean.GENTranscript().ExecuteAsync();
+string text = await clean.GENTranscription().ExecuteAsync();
 
-// ✅ Cache processed audio
+// ??Cache processed audio
 Dictionary<string, AudioClip> cache = new();
 
-// ✅ Check audio quality first
+// ??Check audio quality first
 if (IsHighQuality(audio))
     return audio;  // Skip processing
 else
     return await audio.GENAudioIsolation().ExecuteAsync();
 
-// ✅ Clean up after processing
+// ??Clean up after processing
 Destroy(noisyAudio);
 ```
 
-### ❌ Bad Practices
+### ??Bad Practices
 
 ```csharp
-// ❌ Don't process already clean audio
+// ??Don't process already clean audio
 // Unnecessary API calls and cost
 
-// ❌ Don't process in Update()
+// ??Don't process in Update()
 void Update()
 {
     await audio.GENAudioIsolation().ExecuteAsync();  // NO!
 }
 
-// ❌ Don't forget cleanup
+// ??Don't forget cleanup
 // Memory leak if clips aren't destroyed
 
-// ❌ Don't block main thread
+// ??Don't block main thread
 AudioClip clip = audio.GENAudioIsolation().ExecuteAsync().Result;  // Blocks!
 ```
 
@@ -339,21 +339,21 @@ catch (Exception ex)
 ## Performance Tips
 
 ```csharp
-// ✅ Good - process once, use many times
+// ??Good - process once, use many times
 AudioClip clean = await noisy.GENAudioIsolation().ExecuteAsync();
 voiceCache["clean"] = clean;
 
-// ✅ Good - parallel processing
+// ??Good - parallel processing
 var tasks = audioClips.Select(clip =>
     clip.GENAudioIsolation().ExecuteAsync()
 );
 await UniTask.WhenAll(tasks);
 
-// ❌ Bad - reprocess every time
+// ??Bad - reprocess every time
 // Cache the result instead
 ```
 
-## Workflow: Clean → Transcribe
+## Workflow: Clean ??Transcribe
 
 Common pattern for voice recognition:
 
@@ -367,7 +367,7 @@ async UniTask<string> TranscribeNoisy(AudioClip noisyAudio)
     
     // Step 2: Transcribe
     string text = await clean
-        .GENTranscript()
+        .GENTranscription()
         .ExecuteAsync();
     
     return text;
@@ -387,3 +387,4 @@ async UniTask<string> TranscribeNoisy(AudioClip noisyAudio)
 - [Speech to Text](speech-to-text.md) - Transcribe audio
 - [Text to Speech](text-to-speech.md) - Generate speech
 - [Sound Effects](sound-effects.md) - Generate sound effects
+

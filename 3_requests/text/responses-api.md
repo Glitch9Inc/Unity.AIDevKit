@@ -43,6 +43,8 @@ string response = await prompt
     .ExecuteAsync();
 ```
 
+> **Note:** `GENResponse()` returns `Generated<ConversationItem>`, which implicitly converts to `string` for simple use cases.
+
 ## Key Features
 
 ### 1. Advanced Reasoning
@@ -68,12 +70,10 @@ public class Player {
 Built-in support for function calling:
 
 ```csharp
-var response = await "What's the weather in Tokyo?"
+string response = await "What's the weather in Tokyo?"
     .GENResponse()
     .SetTools(weatherTools)
     .ExecuteAsync();
-
-// Response may contain tool calls that need to be executed
 ```
 
 ### 3. Multi-Modal Input
@@ -87,6 +87,24 @@ message.Content.AddImage(texture);
 
 string response = await message
     .GENResponse()
+    .ExecuteAsync();
+```
+
+### 4. Conversation Continuation
+
+Resume a previous conversation by ID:
+
+```csharp
+// Continue a previous conversation
+string response = await "Tell me more"
+    .GENResponse()
+    .SetPreviousResponseId(previousResponseId)
+    .ExecuteAsync();
+
+// Or use a conversation ID to group responses
+string response2 = await "What else?"
+    .GENResponse()
+    .SetConversationId(myConversationId)
     .ExecuteAsync();
 ```
 
@@ -126,15 +144,56 @@ string summary = await "Summarize this long text..."
 
 ## Streaming
 
-Get real-time responses as they're generated:
+Get real-time responses as they're generated using `await foreach`:
 
 ```csharp
-await "Tell me a long story"
+var stream = await "Tell me a long story"
     .GENResponse()
-    .StreamAsync(
-        onToken: token => Debug.Log(token),
-        onComplete: response => Debug.Log("Complete!")
+    .StreamAsync();
+
+await foreach (var evt in stream)
+{
+    evt.Match(
+        onDelta: delta => responseText.text += delta.Text,
+        onComplete: result => Debug.Log("Complete!")
     );
+}
+```
+
+### Streaming with Visitor Pattern
+
+Implement `IStreamVisitor<ResponseEventBase, Generated<ConversationItem>>` for structured handling:
+
+```csharp
+public class MyResponseStreamHandler : MonoBehaviour,
+    IStreamVisitor<ResponseEventBase, Generated<ConversationItem>>
+{
+    public void OnDelta(ResponseEventBase delta)
+    {
+        // Handle individual stream events
+    }
+
+    public void OnComplete(Generated<ConversationItem> result)
+    {
+        string text = result; // implicit conversion to string
+        Debug.Log("Complete: " + text);
+    }
+
+    public void OnError(Exception error)
+    {
+        Debug.LogError(error.Message);
+    }
+
+    async void StartStreaming()
+    {
+        var stream = await "Tell me a long story"
+            .GENResponse()
+            .StreamAsync();
+
+        await foreach (var evt in stream)
+            evt.Accept(this);
+    }
+}
 ```
 
 ## Provider Support
@@ -218,17 +277,16 @@ Show your reasoning at each step.
 ### Example 3: With Context
 
 ```csharp
-var conversation = new ConversationItem[]
+// Build context as a sequence of ConversationItems
+var request = new ResponseRequest(new UserMessage("Tell me more about object pooling"));
+request.AddInputRange(new ConversationItem[]
 {
     new SystemMessage("You are a Unity expert"),
     new UserMessage("How do I optimize my game?"),
     new AssistantMessage("Here are some tips..."),
-    new UserMessage("Tell me more about object pooling")
-};
+});
 
-string response = await conversation.Last()
-    .GENResponse()
-    .ExecuteAsync();
+string response = await request.ExecuteAsync();
 ```
 
 ## Best Practices
